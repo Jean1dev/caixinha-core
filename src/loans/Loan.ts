@@ -61,7 +61,7 @@ export class Loan {
             notificationMessages.push('box cannot be null')
         }
 
-        if (this.box && !this.validadeIfBoxHasFunds) {
+        if (this.box && this.validadeIfBoxHasFunds()) {
             notificationMessages.push('box does not have enough funds')
         }
 
