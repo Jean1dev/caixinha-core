@@ -1,0 +1,25 @@
+{
+  "name": "caixinha-core",
+  "version": "0.0.1",
+  "description": "core busnisess rules of caixinha app",
+  "main": "index.ts",
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jean1dev/caixinha-core.git"
+  },
+  "author": "@jeanlucafp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jean1dev/caixinha-core/issues"
+  },
+  "homepage": "https://github.com/Jean1dev/caixinha-core#readme",
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
