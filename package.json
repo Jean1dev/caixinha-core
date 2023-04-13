@@ -4,7 +4,10 @@
   "description": "core busnisess rules of caixinha app",
   "main": "index.ts",
   "scripts": {
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "debug-test-script": "npx jest test/boxes/Box.test.ts"
   },
   "repository": {
     "type": "git",
@@ -17,6 +20,7 @@
   },
   "homepage": "https://github.com/Jean1dev/caixinha-core#readme",
   "devDependencies": {
+    "@types/jest": "^29.5.0",
     "jest": "^29.5.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
