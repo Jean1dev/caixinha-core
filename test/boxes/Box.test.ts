@@ -28,4 +28,19 @@ describe('Box class test', () => {
 
         expect(50.89).toBe(box.balance)
     })
+
+    it('should be able to create box from another box', () => {
+        const box = new Box()
+        const deposit = new Deposit({
+            member: new Member('juca'),
+            value: 25
+        })
+
+        box.deposit(deposit)
+
+
+        const anotherBox = Box.from(box)
+        expect(25).toBe(anotherBox.balance)
+        expect(1).toBe(anotherBox.totalMembers)
+    })
 })

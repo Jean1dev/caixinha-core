@@ -17,6 +17,16 @@ export class Box {
         this.validate(true)
     }
 
+    public static from(anotherBox: Box): Box {
+        const box = new Box()
+        box.members = anotherBox.members
+        box.currentBalance = anotherBox.currentBalance
+        box.deposit = anotherBox.deposit
+        box.loans = anotherBox.loans
+        box.validate(true)
+        return box
+    }
+
     public validate(throwIFException = false): String[] {
         const notificationMessages = []
 
