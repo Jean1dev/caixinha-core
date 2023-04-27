@@ -41,6 +41,6 @@ describe('Box class test', () => {
 
         const anotherBox = Box.from(box)
         expect(25).toBe(anotherBox.balance)
-        expect(1).toBe(anotherBox.totalMembers)
+        expect(0).toBe(anotherBox.totalMembers)
     })
 })

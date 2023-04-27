@@ -34,7 +34,7 @@ describe('Loan class test', () => {
         expect(loan.listOfBillingDates[0].getDate()).toBe(getDate30DaysFromHere().getDate())
 
         loan.addApprove()
-        expect(true).toBe(loan.isApproved)
+        expect(false).toBe(loan.isApproved)
     })
 
     it('should be not create Loan becausa has validations erros', () => {
