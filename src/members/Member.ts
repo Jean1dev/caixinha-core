@@ -1,10 +1,22 @@
+export interface CreatMemberInput {
+    name: string
+    email?: string
+}
+
 export class Member {
 
     private name: string
+    private email: string
 
     constructor(name: string) {
         this.name = name
         this.validate(true)
+    }
+
+    public static build(input: CreatMemberInput): Member {
+        const m = new Member(input.name)
+        m.email = input.email
+        return m
     }
 
     public validate(throwIFException = false): String[] {

@@ -43,4 +43,24 @@ describe('Box class test', () => {
         expect(25).toBe(anotherBox.balance)
         expect(0).toBe(anotherBox.totalMembers)
     })
+
+    it('should be apply all join member rules', () => {
+        const box = new Box()
+        const member = new Member('juca')
+
+        box.joinMember(member)
+
+        expect(1).toBe(box.totalMembers)
+
+        try {
+            box.joinMember(member)
+        } catch (e) {
+            expect(e.message).toBe('This member already join in that box')
+        }
+
+        expect(1).toBe(box.totalMembers)
+
+        box.joinMember(new Member('jean'))
+        expect(2).toBe(box.totalMembers)
+    })
 })

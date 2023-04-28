@@ -27,6 +27,14 @@ export class Box {
         return box
     }
 
+    public joinMember(member: Member) {
+        const alreadyExists = this.members.map(m => m.memberName).includes(member.memberName)
+        if (alreadyExists)
+            throw new Error('This member already join in that box')
+        
+        this.members.push(member)
+    }
+
     public validate(throwIFException = false): String[] {
         const notificationMessages = []
 
