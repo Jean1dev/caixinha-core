@@ -1,6 +1,6 @@
 {
   "name": "caixinha-core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "core busnisess rules of caixinha app",
   "main": "index.ts",
   "scripts": {

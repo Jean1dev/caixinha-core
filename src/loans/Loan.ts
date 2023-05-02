@@ -9,6 +9,7 @@ export interface CreateLoanInput {
     fees?: number
     interest?: number
     box: Box
+    description?: string
 }
 
 export class Loan {
@@ -23,6 +24,7 @@ export class Loan {
     private requiredNumberOfApprovals: number
     private approvals: number
     private approved: boolean
+    private description: string
 
     constructor(input: CreateLoanInput) {
         this.approved = false
@@ -33,12 +35,20 @@ export class Loan {
         this.interest = new DecimalValue(input.interest || 0)
         this.box = input.box
         this.approvals = 0
+        this.description = input.description
 
         this.validate(true)
         this.memberName = this.member.memberName
         this.requiredNumberOfApprovals = this.box.totalMembers
 
         this.generateBillingDates()
+    }
+
+    public addApprove() {
+        this.approvals++
+        if (this.requiredNumberOfApprovals == this.approvals) {
+            this.approved = true
+        }
     }
 
     private generateBillingDates() {
@@ -83,5 +93,9 @@ export class Loan {
 
     public get listOfBillingDates() {
         return this.billingDates
+    }
+
+    public get isApproved() {
+        return this.approved
     }
 }

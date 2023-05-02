@@ -25,12 +25,16 @@ describe('Loan class test', () => {
             member,
             valueRequested: 1000,
             interest: 5,
-            box
+            box,
+            description: 'teste'
         }
 
         const loan = new Loan(input)
         expect(loan).not.toBe(null)
         expect(loan.listOfBillingDates[0].getDate()).toBe(getDate30DaysFromHere().getDate())
+
+        loan.addApprove()
+        expect(false).toBe(loan.isApproved)
     })
 
     it('should be not create Loan becausa has validations erros', () => {

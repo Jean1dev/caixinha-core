@@ -8,6 +8,16 @@ describe('Member class test', () => {
         expect(member.memberName).toBe(name)
     })
 
+    it('should be create Member by static method', () => {
+        const name = 'jean'
+        const member = Member.build({
+            name,
+            email: 'jean@jean'
+        })
+        expect(member).not.toBe(null)
+        expect(member.memberName).toBe(name)
+    })
+
     it('shoud be throw exception because name is empty', () => {
         try {
             new Member('')

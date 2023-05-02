@@ -17,6 +17,24 @@ export class Box {
         this.validate(true)
     }
 
+    public static from(anotherBox: Box): Box {
+        const box = new Box()
+        box.members = anotherBox.members
+        box.currentBalance = anotherBox.currentBalance
+        box.deposit = anotherBox.deposit
+        box.loans = anotherBox.loans
+        box.validate(true)
+        return box
+    }
+
+    public joinMember(member: Member) {
+        const alreadyExists = this.members.map(m => m.memberName).includes(member.memberName)
+        if (alreadyExists)
+            throw new Error('This member already join in that box')
+        
+        this.members.push(member)
+    }
+
     public validate(throwIFException = false): String[] {
         const notificationMessages = []
 
