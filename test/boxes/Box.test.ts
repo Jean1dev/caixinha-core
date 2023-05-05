@@ -10,11 +10,13 @@ describe('Box class test', () => {
 
     it('should be possible make a deposit', () => {
         const box = new Box()
+        const member = new Member('juca')
         const deposit = new Deposit({
-            member: new Member('juca'),
+            member,
             value: 25
         })
 
+        box.joinMember(member)
         box.deposit(deposit)
 
         expect(deposit._value).toBe(box.balance)
@@ -31,17 +33,18 @@ describe('Box class test', () => {
 
     it('should be able to create box from another box', () => {
         const box = new Box()
+        const member = new Member('juca')
         const deposit = new Deposit({
-            member: new Member('juca'),
+            member,
             value: 25
         })
 
+        box.joinMember(member)
         box.deposit(deposit)
-
 
         const anotherBox = Box.from(box)
         expect(25).toBe(anotherBox.balance)
-        expect(0).toBe(anotherBox.totalMembers)
+        expect(1).toBe(anotherBox.totalMembers)
     })
 
     it('should be apply all join member rules', () => {

@@ -1,6 +1,7 @@
 import { Deposit } from "../deposits/Deposit"
 import { Loan } from "../loans/Loan"
 import { Member } from "../members/Member"
+import { BankAccount } from "../valueObjects/BankAccount"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 
 export class Box {
@@ -8,6 +9,7 @@ export class Box {
     private currentBalance: DecimalValue
     private deposits: Deposit[]
     private loans: Loan[]
+    private bankAccount: BankAccount
 
     constructor() {
         this.members = []
@@ -19,10 +21,11 @@ export class Box {
 
     public static from(anotherBox: Box): Box {
         const box = new Box()
-        box.members = anotherBox.members
-        box.currentBalance = anotherBox.currentBalance
-        box.deposit = anotherBox.deposit
-        box.loans = anotherBox.loans
+        box.members = [...anotherBox.members]
+        box.currentBalance = new DecimalValue(anotherBox.currentBalance.val)
+        box.deposits = [...anotherBox.deposits]
+        box.loans = [...anotherBox.loans]
+        box.bankAccount = anotherBox.bankAccount
         box.validate(true)
         return box
     }
@@ -50,13 +53,26 @@ export class Box {
         return notificationMessages
     }
 
-    private sumInCurrentBalance(value: number) {
+    public sumInCurrentBalance(value: number) {
         this.currentBalance = new DecimalValue(this.currentBalance.val + value)
     }
 
     public deposit(deposit: Deposit) {
+        this.verifyIfMemberIsOnThisBox(deposit._member)
         this.deposits.push(deposit)
         this.sumInCurrentBalance(deposit._value)
+    }
+
+    public makeLoan(loan: Loan) {
+        this.verifyIfMemberIsOnThisBox(loan._member)
+        this.loans.push(loan)
+        this.currentBalance = new DecimalValue(this.currentBalance.val - loan.value)
+    }
+
+    private verifyIfMemberIsOnThisBox(member: Member) {
+        const exists = this.members.map(m => m.memberName).includes(member.memberName)
+        if (!exists)
+            throw new Error('This member is not a member of thisbox')
     }
 
     public get balance(): number {
