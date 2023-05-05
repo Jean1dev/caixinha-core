@@ -44,4 +44,8 @@ export class Deposit {
     public get _value() {
         return this.value.val
     }
+
+    public get _member() {
+        return this.member
+    }
 }

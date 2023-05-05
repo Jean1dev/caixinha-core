@@ -1,5 +1,6 @@
 import { Box } from "../boxes/Box"
 import { Member } from "../members/Member"
+import { Payment } from "../payment/Payment"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 
 export interface CreateLoanInput {
@@ -17,6 +18,7 @@ export class Loan {
     private memberName: string
     private date: Date
     private billingDates: Date[]
+    private payments: Payment[]
     private valueRequested: DecimalValue
     private box: Box
     private interest: DecimalValue
@@ -36,6 +38,7 @@ export class Loan {
         this.box = input.box
         this.approvals = 0
         this.description = input.description
+        this.payments = []
 
         this.validate(true)
         this.memberName = this.member.memberName
@@ -44,11 +47,28 @@ export class Loan {
         this.generateBillingDates()
     }
 
+    public addPayment(payment: Payment) {
+        const paymentMember = payment._member.memberName
+        if (this.memberName != paymentMember)
+            throw new Error('Payment member not apply for this Loan')
+        
+        if (!this.approved)
+            throw new Error('This loan is not approved yet')
+        
+        this.payments.push(payment)
+        this.box.sumInCurrentBalance(payment._value)
+    }
+
     public addApprove() {
         this.approvals++
         if (this.requiredNumberOfApprovals == this.approvals) {
             this.approved = true
+            this.completeLoan()
         }
+    }
+
+    private completeLoan() {
+        this.box.makeLoan(this)
     }
 
     private generateBillingDates() {
@@ -97,5 +117,13 @@ export class Loan {
 
     public get isApproved() {
         return this.approved
+    }
+
+    public get value() {
+        return this.valueRequested.val
+    }
+
+    public get _member() {
+        return this.member
     }
 }

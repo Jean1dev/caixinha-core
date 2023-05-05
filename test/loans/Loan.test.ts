@@ -1,3 +1,4 @@
+import { Payment } from '../../src'
 import { Box } from '../../src/boxes/Box'
 import { Deposit } from '../../src/deposits/Deposit'
 import { CreateLoanInput, Loan } from '../../src/loans/Loan'
@@ -19,6 +20,8 @@ describe('Loan class test', () => {
             value: 1000
         })
 
+        box.joinMember(member)
+        box.joinMember(new Member('carlos'))
         box.deposit(deposit)
 
         const input: CreateLoanInput = {
@@ -63,6 +66,7 @@ describe('Loan class test', () => {
             value: 10
         })
 
+        box.joinMember(member)
         box.deposit(deposit)
 
         const input: CreateLoanInput = {
@@ -73,9 +77,90 @@ describe('Loan class test', () => {
         }
 
         try {
-            new Loan(input)   
+            new Loan(input)
         } catch (error) {
             expect('box does not have enough funds').toBe(error.message)
+        }
+    })
+
+    it('should be complete a loan', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        const deposit = new Deposit({
+            member,
+            value: 1000
+        })
+
+        box.joinMember(member)
+        box.deposit(deposit)
+
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste'
+        }
+
+        const loan = new Loan(input)
+        loan.addApprove()
+
+        expect(50).toBe(box.balance)
+    })
+
+    it('should be able to make a payment', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        const deposit = new Deposit({
+            member,
+            value: 1000
+        })
+        box.joinMember(member)
+        box.deposit(deposit)
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste'
+        }
+
+        const loan = new Loan(input)
+        loan.addApprove()
+        loan.addPayment(new Payment(member, 950))
+        expect(1000).toBe(box.balance)
+    })
+
+    it('shoud be apply all rules for add payment', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        const deposit = new Deposit({
+            member,
+            value: 1000
+        })
+        box.joinMember(member)
+        box.deposit(deposit)
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste'
+        }
+
+        const loan = new Loan(input)
+
+        try {
+            loan.addPayment(new Payment(new Member('carlos'), 950))
+        } catch (error) {
+            expect('Payment member not apply for this Loan').toBe(error.message)
+        }
+
+        box.joinMember(new Member('jean'))
+        try {
+            loan.addPayment(new Payment(member, 950))
+        } catch (error) {
+            expect('This loan is not approved yet').toBe(error.message)
         }
     })
 })
