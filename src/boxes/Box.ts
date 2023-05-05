@@ -22,7 +22,7 @@ export class Box {
     public static from(anotherBox: Box): Box {
         const box = new Box()
         box.members = [...anotherBox.members]
-        box.currentBalance = new DecimalValue(anotherBox.currentBalance.val)
+        box.currentBalance = DecimalValue.from(anotherBox.currentBalance)
         box.deposits = [...anotherBox.deposits]
         box.loans = [...anotherBox.loans]
         box.bankAccount = anotherBox.bankAccount
