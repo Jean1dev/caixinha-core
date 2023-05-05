@@ -1,6 +1,7 @@
 import { Deposit } from "../deposits/Deposit"
 import { Loan } from "../loans/Loan"
 import { Member } from "../members/Member"
+import { BankAccount } from "../valueObjects/BankAccount"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 
 export class Box {
@@ -8,6 +9,7 @@ export class Box {
     private currentBalance: DecimalValue
     private deposits: Deposit[]
     private loans: Loan[]
+    private bankAccount: BankAccount
 
     constructor() {
         this.members = []
@@ -23,6 +25,7 @@ export class Box {
         box.currentBalance = new DecimalValue(anotherBox.currentBalance.val)
         box.deposits = [...anotherBox.deposits]
         box.loans = [...anotherBox.loans]
+        box.bankAccount = anotherBox.bankAccount
         box.validate(true)
         return box
     }

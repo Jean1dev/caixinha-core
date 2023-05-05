@@ -163,4 +163,32 @@ describe('Loan class test', () => {
             expect('This loan is not approved yet').toBe(error.message)
         }
     })
+
+    it('should be verify if loan is paid off', () => {
+        const member = new Member('juca')
+        const box = new Box()
+
+        box.joinMember(member)
+        box.deposit(new Deposit({
+            member,
+            value: 1000
+        }))
+
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste'
+        }
+
+        const loan = new Loan(input)
+        loan.addApprove()
+        loan.addPayment(new Payment(member, 950))
+
+        expect(false).toBe(loan.isPaidOff)
+
+        loan.addPayment(new Payment(member, 47.50))
+        expect(true).toBe(loan.isPaidOff)
+    })
 })
