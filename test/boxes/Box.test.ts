@@ -66,4 +66,11 @@ describe('Box class test', () => {
         box.joinMember(new Member('jean'))
         expect(2).toBe(box.totalMembers)
     })
+
+    it('shoud be create a box from json', () => {
+        const json = require('./box.json')
+        const box = Box.fromJson(json)
+        expect(json['currentBalance']['value']).toBe(box.balance)
+        expect(json['members'].length).toBe(box.totalMembers)
+    })
 })

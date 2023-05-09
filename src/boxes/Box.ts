@@ -3,6 +3,7 @@ import { Loan } from "../loans/Loan"
 import { Member } from "../members/Member"
 import { BankAccount } from "../valueObjects/BankAccount"
 import { DecimalValue } from "../valueObjects/DecimalValue"
+import { BoxJsonType } from "./box.types"
 
 export class Box {
     private members: Member[]
@@ -21,7 +22,7 @@ export class Box {
 
     public static from(anotherBox: Box): Box {
         const box = new Box()
-        box.members = [...anotherBox.members]
+        box.members = anotherBox.members.map(member => Member.build({ name: member['name'], email: member['email'] }))
         box.currentBalance = DecimalValue.from(anotherBox.currentBalance)
         box.deposits = [...anotherBox.deposits]
         box.loans = [...anotherBox.loans]
@@ -30,11 +31,40 @@ export class Box {
         return box
     }
 
+    public static fromJson(jsonBox: BoxJsonType): Box {
+        const box = new Box()
+        box.members = jsonBox.members.map(member => Member.build({ name: member.name, email: member.email }))
+        box.currentBalance = DecimalValue.from(jsonBox.currentBalance)
+        //TODO: Buildar objeto no futuro
+        box.deposits = [...jsonBox.deposits]
+        box.loans = jsonBox.loans.map(loan => {
+            return Loan.fromBox({
+                approved: loan.approved,
+                member: Member.build({ name: loan.memberName, email: loan.member.email }),
+                date: loan.date,
+                valueRequested: loan.valueRequested,
+                fees: loan.fees,
+                interest: loan.interest,
+                box: box,
+                approvals: loan.approvals,
+                description: loan.description,
+                payments: [],
+                memberName: loan.memberName,
+                requiredNumberOfApprovals: loan.requiredNumberOfApprovals,
+                billingDates: loan.billingDates,
+                uid: loan.uid
+            })
+        })
+        box.bankAccount = jsonBox.bankAccount
+        box.validate(true)
+        return box
+    }
+
     public joinMember(member: Member) {
         const alreadyExists = this.members.map(m => m.memberName).includes(member.memberName)
         if (alreadyExists)
             throw new Error('This member already join in that box')
-        
+
         this.members.push(member)
     }
 
@@ -69,10 +99,18 @@ export class Box {
         this.currentBalance = new DecimalValue(this.currentBalance.val - loan.value)
     }
 
+    public memberIsOnThisBox(member: Member): boolean {
+        const exists = this.members.map(m => m.memberName).includes(member.memberName)
+        if (!exists)
+            return false
+
+        return true
+    }
+
     private verifyIfMemberIsOnThisBox(member: Member) {
         const exists = this.members.map(m => m.memberName).includes(member.memberName)
         if (!exists)
-            throw new Error('This member is not a member of thisbox')
+            throw new Error('This member is not a member of this box')
     }
 
     public get balance(): number {
