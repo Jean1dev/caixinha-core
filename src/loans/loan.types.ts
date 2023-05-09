@@ -23,7 +23,7 @@ export interface CreateLoanInput {
   valueRequested: number
   interest: number
   box: Box
-  description: string
+  description?: string
   date?: Date
   fees?: number
 }
