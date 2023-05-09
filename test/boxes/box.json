@@ -1,0 +1,57 @@
+{
+    "_id": {
+        "$oid": "645a419dab627bd0bd68270b"
+    },
+    "members": [
+        {
+            "name": "augusto",
+            "email": "jean@jean"
+        },
+        {
+            "name": "jean",
+            "email": "jean@jean"
+        }
+    ],
+    "currentBalance": {
+        "value": 85
+    },
+    "deposits": [],
+    "loans": [
+        {
+            "approved": false,
+            "member": {
+                "name": "augusto",
+                "email": "jean@jean"
+            },
+            "date": {
+                "$date": {
+                    "$numberLong": "1683636668639"
+                }
+            },
+            "valueRequested": {
+                "value": 1
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 3
+            },
+            "box": null,
+            "approvals": 0,
+            "description": "sera que foi mesmo?",
+            "payments": [],
+            "memberName": "augusto",
+            "requiredNumberOfApprovals": 1,
+            "billingDates": [
+                {
+                    "$date": {
+                        "$numberLong": "1686228668639"
+                    }
+                }
+            ],
+            "uid": "3ed04596-98a3-466e-8c27-a1013bcab0ca"
+        }
+    ],
+    "bankAccount": null
+}

@@ -1,7 +1,8 @@
 import { Payment } from '../../src'
 import { Box } from '../../src/boxes/Box'
 import { Deposit } from '../../src/deposits/Deposit'
-import { CreateLoanInput, Loan } from '../../src/loans/Loan'
+import { Loan } from '../../src/loans/Loan'
+import { CreateLoanInput } from '../../src/loans/loan.types'
 import { Member } from '../../src/members/Member'
 
 describe('Loan class test', () => {

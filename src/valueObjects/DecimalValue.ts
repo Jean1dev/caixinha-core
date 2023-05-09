@@ -14,7 +14,15 @@ export class DecimalValue {
             return new DecimalValue(value.val)
         }
 
-        return new DecimalValue(value)
+        if (typeof value == 'number') {
+            return new DecimalValue(value)
+        }
+
+        if ('value' in value) {
+            return new DecimalValue(value.value)
+        }
+
+        return new DecimalValue(null)
     }
 
     public get val() {

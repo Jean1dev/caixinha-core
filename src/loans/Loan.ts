@@ -2,15 +2,14 @@ import { Box } from "../boxes/Box"
 import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
 import { DecimalValue } from "../valueObjects/DecimalValue"
+import { CreateLoanInput, FromBoxInput } from "./loan.types"
+import crypto from 'crypto'
 
-export interface CreateLoanInput {
-    date?: Date
-    member: Member
-    valueRequested: number
-    fees?: number
-    interest?: number
-    box: Box
-    description?: string
+function generateUUID() {
+    const uuid = crypto.randomBytes(16);
+    uuid[6] = (uuid[6] & 0x0f) | 0x40;  // versão 4
+    uuid[8] = (uuid[8] & 0x3f) | 0x80;  // variant RFC 4122
+    return uuid.toString('hex').match(/(.{8})(.{4})(.{4})(.{4})(.{12})/).slice(1).join('-');
 }
 
 export class Loan {
@@ -29,6 +28,7 @@ export class Loan {
     private approvals: number
     private approved: boolean
     private description: string
+    private uid: string
 
     constructor(input: CreateLoanInput) {
         this.approved = false
@@ -41,12 +41,30 @@ export class Loan {
         this.approvals = 0
         this.description = input.description
         this.payments = []
+        this.uid = generateUUID()
 
         this.validate(true)
         this.memberName = this.member.memberName
         this.requiredNumberOfApprovals = this.box.totalMembers
 
         this.generateBillingDates()
+    }
+
+    public static fromBox(input: FromBoxInput): Loan {
+        const l = new Loan({
+            member: input.member,
+            valueRequested: input.valueRequested.value,
+            fees: input.fees.value,
+            interest: input.interest.value,
+            box: input.box,
+            description: input.description
+        })
+
+        l.uid = input.uid
+        l.approvals = input.approvals
+        l.approved = input.approved
+        l.billingDates = input.billingDates.map(billDate => (new Date(billDate)))
+        return l
     }
 
     public addPayment(payment: Payment) {
@@ -110,6 +128,10 @@ export class Loan {
 
         if (this.box && this.validadeIfBoxHasFunds()) {
             notificationMessages.push('box does not have enough funds')
+        }
+
+        if (this.box && !this.box.memberIsOnThisBox(this.member)) {
+            notificationMessages.push('This member is not a member of this box')
         }
 
         if (throwIFException && notificationMessages.length > 0) {
