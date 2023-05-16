@@ -15,7 +15,23 @@
     "currentBalance": {
         "value": 85
     },
-    "deposits": [],
+    "deposits": [
+        {
+            "date": {
+                "$date": {
+                    "$numberLong": "1684155132618"
+                }
+            },
+            "member": {
+                "name": "jean",
+                "email": "jean@jean"
+            },
+            "value": {
+                "value": 25
+            },
+            "memberName": "jean"
+        }
+    ],
     "loans": [
         {
             "approved": false,

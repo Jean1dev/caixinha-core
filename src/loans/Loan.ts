@@ -1,6 +1,7 @@
 import { Box } from "../boxes/Box"
 import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
+import { BankReceipt } from "../valueObjects/BankReceipt"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 import { CreateLoanInput, FromBoxInput } from "./loan.types"
 import crypto from 'crypto'
@@ -29,6 +30,7 @@ export class Loan {
     private approved: boolean
     private description: string
     private uid: string
+    private bankReceipt: BankReceipt
 
     constructor(input: CreateLoanInput) {
         this.approved = false
