@@ -6,6 +6,7 @@ import { DecimalValue } from "../valueObjects/DecimalValue"
 import { BoxJsonType } from "./box.types"
 
 export class Box {
+    private name: string
     private members: Member[]
     private currentBalance: DecimalValue
     private deposits: Deposit[]
@@ -22,6 +23,7 @@ export class Box {
 
     public static from(anotherBox: Box): Box {
         const box = new Box()
+        box.name = anotherBox.name
         box.members = anotherBox.members.map(member => Member.build({ name: member['name'], email: member['email'] }))
         box.currentBalance = DecimalValue.from(anotherBox.currentBalance)
         box.deposits = [...anotherBox.deposits]
@@ -33,10 +35,18 @@ export class Box {
 
     public static fromJson(jsonBox: BoxJsonType): Box {
         const box = new Box()
+        box.name = jsonBox.name
         box.members = jsonBox.members.map(member => Member.build({ name: member.name, email: member.email }))
         box.currentBalance = DecimalValue.from(jsonBox.currentBalance)
-        //TODO: Buildar objeto no futuro
-        box.deposits = [...jsonBox.deposits]
+
+        box.deposits = jsonBox.deposits.map(deposit => {
+            return new Deposit({
+                date: new Date(deposit.date),
+                member: Member.build({ name: deposit.memberName, email: deposit.member.email }),
+                value: deposit.value
+            })
+        })
+
         box.loans = jsonBox.loans.map(loan => {
             return Loan.fromBox({
                 approved: loan.approved,
@@ -55,9 +65,21 @@ export class Box {
                 uid: loan.uid
             })
         })
-        box.bankAccount = jsonBox.bankAccount
+
+        if (jsonBox.bankAccount) {
+            box.bankAccount = new BankAccount(jsonBox.bankAccount.keysPix, jsonBox.bankAccount.urlsQrCodePix)
+        }
+
         box.validate(true)
         return box
+    }
+
+    public addBankAccount(keyPix: string | null, qrCode: string | null) {
+        if (!this.bankAccount) {
+            this.bankAccount = new BankAccount([], [])
+        }
+
+        this.bankAccount.add(keyPix, qrCode)
     }
 
     public joinMember(member: Member) {

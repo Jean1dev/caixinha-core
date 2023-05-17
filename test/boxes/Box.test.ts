@@ -73,4 +73,11 @@ describe('Box class test', () => {
         expect(json['currentBalance']['value']).toBe(box.balance)
         expect(json['members'].length).toBe(box.totalMembers)
     })
+
+    it('shoud be add many bank accounts', () => {
+        const box = new Box()
+        box.addBankAccount('pix', 'qrcode')
+        box.addBankAccount('pix', 'qrcode')
+        box.addBankAccount('pix', null)
+    })
 })

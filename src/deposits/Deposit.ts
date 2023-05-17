@@ -1,8 +1,15 @@
 import { Member } from "../members/Member"
+import { BankReceipt } from "../valueObjects/BankReceipt"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 
 export interface CreateDepositInput {
     date?: Date
+    member: Member
+    value: number
+}
+
+export interface FromBoxInput {
+    date: Date
     member: Member
     value: number
 }
@@ -12,6 +19,7 @@ export class Deposit {
     private member: Member
     private memberName: String
     private value: DecimalValue
+    private bankReceipt: BankReceipt
 
     constructor(input: CreateDepositInput) {
         this.date = input.date || new Date()
@@ -20,6 +28,11 @@ export class Deposit {
         this.validate(true)
 
         this.memberName = this.member.memberName
+    }
+
+    public addProofReceipt(url: string) {
+        if (!this.bankReceipt)
+            this.bankReceipt = new BankReceipt(url)
     }
 
     public validate(throwIFException = false): String[] {
