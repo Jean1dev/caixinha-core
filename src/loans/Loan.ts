@@ -17,6 +17,7 @@ export class Loan {
     private member: Member
     private memberName: string
     private date: Date
+    private listOfMembersWhoHaveAlreadyApproved: Member[]
     private billingDates: Date[]
     private payments: Payment[]
     private valueRequested: DecimalValue
@@ -48,6 +49,7 @@ export class Loan {
         this.validate(true)
         this.memberName = this.member.memberName
         this.requiredNumberOfApprovals = this.box.totalMembers
+        this.listOfMembersWhoHaveAlreadyApproved = []
 
         this.generateBillingDates()
     }
@@ -65,7 +67,10 @@ export class Loan {
         l.uid = input.uid
         l.approvals = input.approvals
         l.approved = input.approved
+        l.listOfMembersWhoHaveAlreadyApproved = input.listOfMembersWhoHaveAlreadyApproved
         l.billingDates = input.billingDates.map(billDate => (new Date(billDate)))
+        l.totalValue = new DecimalValue(input?.totalValue?.value || 0)
+        l.remainingAmount = new DecimalValue(input?.remainingAmount?.value || 0)
         return l
     }
 
@@ -77,17 +82,33 @@ export class Loan {
         if (!this.approved)
             throw new Error('This loan is not approved yet')
 
+        if (payment._value <= 0)
+            throw new Error('Payment cannot be 0 or lower')
+
         this.payments.push(payment)
         this.box.sumInCurrentBalance(payment._value)
         this.calculateRemainingAmount()
     }
 
-    public addApprove() {
+    public addApprove(hosApprove: Member) {
+        if (!this.box.memberIsOnThisBox(hosApprove)) {
+            throw new Error('This member cannot approve this loan because he is no member of this box')
+        }
+
+        this.addMemberWhoApproved(hosApprove)
         this.approvals++
-        if (this.requiredNumberOfApprovals == this.approvals) {
+        if (this.approvals >= this.requiredNumberOfApprovals) {
             this.approved = true
             this.completeLoan()
         }
+    }
+
+    private addMemberWhoApproved(memberApproved: Member) {
+        const exists = this.listOfMembersWhoHaveAlreadyApproved.map(m => m.memberName).includes(memberApproved.memberName)
+        if (exists)
+            throw new Error('This member have already approve this loan')
+
+        this.listOfMembersWhoHaveAlreadyApproved.push(memberApproved)
     }
 
     private calculateRemainingAmount() {

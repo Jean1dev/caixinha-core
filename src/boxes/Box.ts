@@ -62,7 +62,12 @@ export class Box {
                 memberName: loan.memberName,
                 requiredNumberOfApprovals: loan.requiredNumberOfApprovals,
                 billingDates: loan.billingDates,
-                uid: loan.uid
+                uid: loan.uid,
+                totalValue: loan.totalValue,
+                remainingAmount: loan.remainingAmount,
+                listOfMembersWhoHaveAlreadyApproved: loan.listOfMembersWhoHaveAlreadyApproved
+                    ? loan.listOfMembersWhoHaveAlreadyApproved.map(m => (Member.build({ name: m.name, email: m.email })))
+                    : []
             })
         })
 

@@ -38,8 +38,8 @@ export class Deposit {
     public validate(throwIFException = false): String[] {
         const notificationMessages = []
 
-        if (this.value.val < 0) {
-            notificationMessages.push('value cannot be lower than 0')
+        if (this.value.val <= 0) {
+            notificationMessages.push('value cannot be 0 or lower')
         }
 
         if (!this.member) {

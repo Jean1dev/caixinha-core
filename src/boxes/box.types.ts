@@ -31,8 +31,11 @@ export interface CurrentBalance {
 export interface LoanBoxJson {
   approved: boolean
   member: MemberJson
+  listOfMembersWhoHaveAlreadyApproved: MemberJson[]
   date: string
   valueRequested: ValueRequested
+  totalValue: { value: number }
+  remainingAmount: { value: number }
   fees: Fees
   interest: Interest
   box: any
