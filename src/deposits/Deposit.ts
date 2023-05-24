@@ -24,7 +24,7 @@ export class Deposit {
     constructor(input: CreateDepositInput) {
         this.date = input.date || new Date()
         this.member = input.member
-        this.value = new DecimalValue(input.value)
+        this.value = DecimalValue.from(input.value)
         this.validate(true)
 
         this.memberName = this.member.memberName

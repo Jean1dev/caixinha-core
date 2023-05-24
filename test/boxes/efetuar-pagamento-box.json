@@ -21,9 +21,7 @@
                 "email": "teste@teste.com.br"
             },
             "value": {
-                "value": {
-                    "value": 5
-                }
+                "value": 5
             },
             "memberName": "teste"
         }

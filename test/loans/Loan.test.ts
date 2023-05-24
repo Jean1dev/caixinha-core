@@ -130,7 +130,7 @@ describe('Loan class test', () => {
 
         const loan = new Loan(input)
         loan.addApprove(member)
-        loan.addPayment(new Payment(member, 950))
+        loan.addPayment(new Payment({ member, value: 950 }))
         expect(1000).toBe(box.balance)
     })
 
@@ -154,14 +154,14 @@ describe('Loan class test', () => {
         const loan = new Loan(input)
 
         try {
-            loan.addPayment(new Payment(new Member('carlos'), 950))
+            loan.addPayment(new Payment({ member: new Member('carlos'), value: 950 }))
         } catch (error) {
             expect('Payment member not apply for this Loan').toBe(error.message)
         }
 
         box.joinMember(new Member('jean'))
         try {
-            loan.addPayment(new Payment(member, 950))
+            loan.addPayment(new Payment({ member, value: 950 }))
         } catch (error) {
             expect('This loan is not approved yet').toBe(error.message)
         }
@@ -187,11 +187,11 @@ describe('Loan class test', () => {
 
         const loan = new Loan(input)
         loan.addApprove(member)
-        loan.addPayment(new Payment(member, 950))
+        loan.addPayment(new Payment({ member, value: 950 }))
 
         expect(false).toBe(loan._isPaidOff)
 
-        loan.addPayment(new Payment(member, 47.50))
+        loan.addPayment(new Payment({ member, value: 47.50 }))
         expect(true).toBe(loan._isPaidOff)
     })
 

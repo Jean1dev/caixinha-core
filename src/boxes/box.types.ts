@@ -1,5 +1,3 @@
-import { BankAccount } from "../valueObjects/BankAccount"
-
 export interface BoxJsonType {
   _id: Id
   members: MemberJson[]

@@ -38,9 +38,9 @@ export class Loan {
         this.approved = false
         this.member = input.member
         this.date = input.date || new Date()
-        this.valueRequested = new DecimalValue(input.valueRequested)
-        this.fees = new DecimalValue(input.fees || 0)
-        this.interest = new DecimalValue(input.interest || 0)
+        this.valueRequested = DecimalValue.from(input.valueRequested)
+        this.fees = DecimalValue.from(input.fees || 0)
+        this.interest = DecimalValue.from(input.interest || 0)
         this.box = input.box
         this.approvals = 0
         this.description = input.description
@@ -49,7 +49,7 @@ export class Loan {
 
         if (!input.skipValidate)
             this.validate(true)
-        
+
         this.memberName = this.member.memberName
         this.requiredNumberOfApprovals = this.box.totalMembers
         this.listOfMembersWhoHaveAlreadyApproved = []
@@ -74,8 +74,8 @@ export class Loan {
         l.approved = input.approved
         l.listOfMembersWhoHaveAlreadyApproved = input.listOfMembersWhoHaveAlreadyApproved
         l.billingDates = input.billingDates.map(billDate => (new Date(billDate)))
-        l.totalValue = new DecimalValue(input?.totalValue?.value || 0)
-        l.remainingAmount = new DecimalValue(input?.remainingAmount?.value || 0)
+        l.totalValue = DecimalValue.from(input?.totalValue?.value || 0)
+        l.remainingAmount = DecimalValue.from(input?.remainingAmount?.value || 0)
         return l
     }
 
@@ -125,7 +125,7 @@ export class Loan {
             this.isPaidOff = true
         }
 
-        this.remainingAmount = new DecimalValue(this.totalValue.val - totalPayments)
+        this.remainingAmount = DecimalValue.from(this.totalValue.val - totalPayments)
     }
 
     private completeLoan() {
@@ -135,7 +135,7 @@ export class Loan {
 
     private calculateTotalValue() {
         const valueWithFee = this.valueRequested.val * (this.interest.val / 100)
-        this.totalValue = new DecimalValue(this.valueRequested.val + valueWithFee + this.fees.val)
+        this.totalValue = DecimalValue.from(this.valueRequested.val + valueWithFee + this.fees.val)
     }
 
     private generateBillingDates() {
@@ -209,7 +209,7 @@ export class Loan {
     public get _isPaidOff() {
         if (!this.isPaidOff)
             return false
-        
+
         return this.isPaidOff
     }
 }

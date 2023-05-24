@@ -93,7 +93,7 @@ describe('Box class test', () => {
 
         const valuePayed = 4
         const member = Member.build({ name: 'jeanluca jeanlucajea', email: 'jeanlucafp@gmail.com' })
-        const payment = new Payment(member, valuePayed, 'Pago via Caixinha web')
+        const payment = new Payment({ member, value: valuePayed, description: 'Pago via Caixinha web' })
         loan.addPayment(payment)
 
         expect(currentBalance + valuePayed).toBe(box.balance)

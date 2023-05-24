@@ -1,17 +1,24 @@
 import { Member } from "../members/Member";
 import { DecimalValue } from "../valueObjects/DecimalValue";
 
+interface PaymentCreateInput {
+    member: Member
+    value: number
+    description?: string
+    date?: Date
+}
+
 export class Payment {
     private member: Member
     private date: Date
     private value: DecimalValue
     private description: string
 
-    constructor(member: Member, value: number, description?: string) {
-        this.member = member
-        this.date = new Date()
-        this.value = new DecimalValue(value)
-        this.description = description
+    constructor(input: PaymentCreateInput) {
+        this.member = input.member
+        this.date = input.date || new Date()
+        this.value = DecimalValue.from(input.value)
+        this.description = input.description
     }
 
     public get _member() {
