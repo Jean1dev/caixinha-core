@@ -32,6 +32,7 @@ export class Loan {
     private description: string
     private uid: string
     private bankReceipt: BankReceipt
+    private isPaidOff: boolean
 
     constructor(input: CreateLoanInput) {
         this.approved = false
@@ -46,7 +47,9 @@ export class Loan {
         this.payments = []
         this.uid = generateUUID()
 
-        this.validate(true)
+        if (!input.skipValidate)
+            this.validate(true)
+        
         this.memberName = this.member.memberName
         this.requiredNumberOfApprovals = this.box.totalMembers
         this.listOfMembersWhoHaveAlreadyApproved = []
@@ -61,9 +64,11 @@ export class Loan {
             fees: input.fees.value,
             interest: input.interest.value,
             box: input.box,
-            description: input.description
+            description: input.description,
+            skipValidate: true
         })
 
+        l.isPaidOff = input.isPaidOff
         l.uid = input.uid
         l.approvals = input.approvals
         l.approved = input.approved
@@ -115,6 +120,10 @@ export class Loan {
         const totalPayments = this.payments.reduce(
             (acumulator, payment) => acumulator + payment._value, 0
         )
+
+        if (totalPayments >= this.totalValue.val) {
+            this.isPaidOff = true
+        }
 
         this.remainingAmount = new DecimalValue(this.totalValue.val - totalPayments)
     }
@@ -181,18 +190,26 @@ export class Loan {
         return this.approved
     }
 
-    public get isPaidOff() {
-        if (this.remainingAmount.val <= 0)
-            return true
-
-        return false
-    }
-
     public get value() {
         return this.valueRequested.val
     }
 
     public get _member() {
         return this.member
+    }
+
+    public get UUID() {
+        return this.uid
+    }
+
+    public get _remainingAmount() {
+        return this.remainingAmount.val
+    }
+
+    public get _isPaidOff() {
+        if (!this.isPaidOff)
+            return false
+        
+        return this.isPaidOff
     }
 }

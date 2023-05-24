@@ -19,6 +19,7 @@ export interface FromBoxInput {
   billingDates: string[]
   uid: string
   listOfMembersWhoHaveAlreadyApproved: Member[]
+  isPaidOff?: boolean
 }
 
 export interface CreateLoanInput {
@@ -29,4 +30,5 @@ export interface CreateLoanInput {
   description?: string
   date?: Date
   fees?: number
+  skipValidate?: boolean
 }

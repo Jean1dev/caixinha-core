@@ -46,6 +46,7 @@ export interface LoanBoxJson {
   requiredNumberOfApprovals: number
   billingDates: string[]
   uid: string
+  isPaidOff?: boolean
 }
 
 export interface ValueRequested {

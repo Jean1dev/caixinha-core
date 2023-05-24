@@ -189,10 +189,10 @@ describe('Loan class test', () => {
         loan.addApprove(member)
         loan.addPayment(new Payment(member, 950))
 
-        expect(false).toBe(loan.isPaidOff)
+        expect(false).toBe(loan._isPaidOff)
 
         loan.addPayment(new Payment(member, 47.50))
-        expect(true).toBe(loan.isPaidOff)
+        expect(true).toBe(loan._isPaidOff)
     })
 
     it('shoud be not approve this loan becausa member has no party of loan`s box', () => {

@@ -67,7 +67,8 @@ export class Box {
                 remainingAmount: loan.remainingAmount,
                 listOfMembersWhoHaveAlreadyApproved: loan.listOfMembersWhoHaveAlreadyApproved
                     ? loan.listOfMembersWhoHaveAlreadyApproved.map(m => (Member.build({ name: m.name, email: m.email })))
-                    : []
+                    : [],
+                isPaidOff: loan.isPaidOff
             })
         })
 
@@ -77,6 +78,14 @@ export class Box {
 
         box.validate(true)
         return box
+    }
+
+    public getLoanByUUID(loanUUID: string): Loan {
+        const loan = this.loans.find(l => l.UUID === loanUUID)
+        if (!loan)
+            throw new Error('Loan not found')
+
+        return loan
     }
 
     public addBankAccount(keyPix: string | null, qrCode: string | null) {
