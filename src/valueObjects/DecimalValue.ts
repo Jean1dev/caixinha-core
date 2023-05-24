@@ -1,7 +1,7 @@
 export class DecimalValue {
     private value: number
 
-    constructor(value: number) {
+    private constructor(value: number) {
         if (value === null || value === undefined) {
             throw new Error('Value cannot be null or undefined')
         }
@@ -10,6 +10,10 @@ export class DecimalValue {
     }
 
     public static from(value: any) {
+        if (value == null || value == undefined) {
+            return new DecimalValue(null)
+        }
+
         if (value instanceof DecimalValue) {
             return new DecimalValue(value.val)
         }
@@ -21,8 +25,6 @@ export class DecimalValue {
         if ('value' in value) {
             return new DecimalValue(value.value)
         }
-
-        return new DecimalValue(null)
     }
 
     public get val() {

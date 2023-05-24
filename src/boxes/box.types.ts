@@ -1,5 +1,3 @@
-import { BankAccount } from "../valueObjects/BankAccount"
-
 export interface BoxJsonType {
   _id: Id
   members: MemberJson[]
@@ -31,8 +29,11 @@ export interface CurrentBalance {
 export interface LoanBoxJson {
   approved: boolean
   member: MemberJson
+  listOfMembersWhoHaveAlreadyApproved: MemberJson[]
   date: string
   valueRequested: ValueRequested
+  totalValue: { value: number }
+  remainingAmount: { value: number }
   fees: Fees
   interest: Interest
   box: any
@@ -43,6 +44,7 @@ export interface LoanBoxJson {
   requiredNumberOfApprovals: number
   billingDates: string[]
   uid: string
+  isPaidOff?: boolean
 }
 
 export interface ValueRequested {

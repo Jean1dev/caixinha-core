@@ -6,7 +6,7 @@ import { CreateLoanInput } from '../../src/loans/loan.types'
 import { Member } from '../../src/members/Member'
 
 describe('Loan class test', () => {
-    it('shoul be create succesfuly', () => {
+    it('should be create succesfuly', () => {
         function getDate30DaysFromHere() {
             const hoje = new Date()
             const dataDaqui30Dias = new Date(hoje.getTime() + 30 * 24 * 60 * 60 * 1000)
@@ -22,7 +22,9 @@ describe('Loan class test', () => {
         })
 
         box.joinMember(member)
-        box.joinMember(new Member('carlos'))
+
+        const carlos = new Member('carlos')
+        box.joinMember(carlos)
         box.deposit(deposit)
 
         const input: CreateLoanInput = {
@@ -37,7 +39,7 @@ describe('Loan class test', () => {
         expect(loan).not.toBe(null)
         expect(loan.listOfBillingDates[0].getDate()).toBe(getDate30DaysFromHere().getDate())
 
-        loan.addApprove()
+        loan.addApprove(carlos)
         expect(false).toBe(loan.isApproved)
     })
 
@@ -104,7 +106,7 @@ describe('Loan class test', () => {
         }
 
         const loan = new Loan(input)
-        loan.addApprove()
+        loan.addApprove(member)
 
         expect(50).toBe(box.balance)
     })
@@ -127,8 +129,8 @@ describe('Loan class test', () => {
         }
 
         const loan = new Loan(input)
-        loan.addApprove()
-        loan.addPayment(new Payment(member, 950))
+        loan.addApprove(member)
+        loan.addPayment(new Payment({ member, value: 950 }))
         expect(1000).toBe(box.balance)
     })
 
@@ -152,14 +154,14 @@ describe('Loan class test', () => {
         const loan = new Loan(input)
 
         try {
-            loan.addPayment(new Payment(new Member('carlos'), 950))
+            loan.addPayment(new Payment({ member: new Member('carlos'), value: 950 }))
         } catch (error) {
             expect('Payment member not apply for this Loan').toBe(error.message)
         }
 
         box.joinMember(new Member('jean'))
         try {
-            loan.addPayment(new Payment(member, 950))
+            loan.addPayment(new Payment({ member, value: 950 }))
         } catch (error) {
             expect('This loan is not approved yet').toBe(error.message)
         }
@@ -184,12 +186,60 @@ describe('Loan class test', () => {
         }
 
         const loan = new Loan(input)
-        loan.addApprove()
-        loan.addPayment(new Payment(member, 950))
+        loan.addApprove(member)
+        loan.addPayment(new Payment({ member, value: 950 }))
 
-        expect(false).toBe(loan.isPaidOff)
+        expect(false).toBe(loan._isPaidOff)
 
-        loan.addPayment(new Payment(member, 47.50))
-        expect(true).toBe(loan.isPaidOff)
+        loan.addPayment(new Payment({ member, value: 47.50 }))
+        expect(true).toBe(loan._isPaidOff)
     })
+
+    it('shoud be not approve this loan becausa member has no party of loan`s box', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        box.joinMember(member)
+        box.deposit(new Deposit({
+            member,
+            value: 1000
+        }))
+
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste'
+        }
+
+        const loan = new Loan(input)
+
+        expect(() => loan.addApprove(new Member('carlos'))).toThrow('This member cannot approve this loan because he is no member of this box')
+    })
+
+    it('member cannot be approve loan more than once time', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        box.joinMember(member)
+        box.deposit(new Deposit({
+            member,
+            value: 1000
+        }))
+
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste'
+        }
+
+        const joaoJilberto = new Member('joaoJilberto')
+        box.joinMember(joaoJilberto)
+        const loan = new Loan(input)
+
+        loan.addApprove(joaoJilberto)
+        expect(() => loan.addApprove(joaoJilberto)).toThrow('This member have already approve this loan')
+    })
+
 })

@@ -31,7 +31,7 @@ describe('Deposit class test', () => {
         try {
             new Deposit(input)
         } catch (ex) {
-            expect('value cannot be lower than 0, member cannot be null').toEqual(ex.message)
+            expect('value cannot be 0 or lower, member cannot be null').toEqual(ex.message)
         }
     
     })

@@ -1,0 +1,74 @@
+{
+    "_id": {},
+    "members": [
+        {
+            "name": "teste",
+            "email": "teste@teste.com.br"
+        },
+        {
+            "name": "jeanluca jeanlucajea",
+            "email": "jeanlucafp@gmail.com"
+        }
+    ],
+    "currentBalance": {
+        "value": 1
+    },
+    "deposits": [
+        {
+            "date": "2023-05-24T12:32:33.258Z",
+            "member": {
+                "name": "teste",
+                "email": "teste@teste.com.br"
+            },
+            "value": {
+                "value": 5
+            },
+            "memberName": "teste"
+        }
+    ],
+    "loans": [
+        {
+            "approved": true,
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "date": "2023-05-24T12:33:31.460Z",
+            "valueRequested": {
+                "value": 4
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 2,
+            "description": "primeiro emprestimo",
+            "payments": [],
+            "uid": "930367ef-1363-44b3-99bb-1da0d8a0ca4b",
+            "memberName": "jeanluca jeanlucajea",
+            "requiredNumberOfApprovals": 2,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "jeanluca jeanlucajea",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "teste"
+                }
+            ],
+            "billingDates": [
+                "2023-06-23T12:33:05.143Z"
+            ],
+            "totalValue": {
+                "value": 4.08
+            },
+            "remainingAmount": {
+                "value": 0
+            }
+        }
+    ],
+    "name": "azul"
+}

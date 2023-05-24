@@ -1,6 +1,7 @@
 import { Box } from '../../src/boxes/Box'
 import { Deposit } from '../../src/deposits/Deposit'
 import { Member } from '../../src/members/Member'
+import { Payment } from '../../src/payment/Payment'
 
 describe('Box class test', () => {
     it('should be create a Box', () => {
@@ -79,5 +80,23 @@ describe('Box class test', () => {
         box.addBankAccount('pix', 'qrcode')
         box.addBankAccount('pix', 'qrcode')
         box.addBankAccount('pix', null)
+    })
+
+    it('should be abble to make payment from box json', () => {
+        const json = require('./efetuar-pagamento-box.json')
+        const box = Box.fromJson(json)
+
+        const loanUid = '930367ef-1363-44b3-99bb-1da0d8a0ca4b'
+        const currentBalance = box.balance
+
+        const loan = box.getLoanByUUID(loanUid)
+
+        const valuePayed = 4
+        const member = Member.build({ name: 'jeanluca jeanlucajea', email: 'jeanlucafp@gmail.com' })
+        const payment = new Payment({ member, value: valuePayed, description: 'Pago via Caixinha web' })
+        loan.addPayment(payment)
+
+        expect(currentBalance + valuePayed).toBe(box.balance)
+        expect(0.08000000000000007).toBe(loan._remainingAmount)
     })
 })

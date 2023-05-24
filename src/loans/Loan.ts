@@ -17,6 +17,7 @@ export class Loan {
     private member: Member
     private memberName: string
     private date: Date
+    private listOfMembersWhoHaveAlreadyApproved: Member[]
     private billingDates: Date[]
     private payments: Payment[]
     private valueRequested: DecimalValue
@@ -31,23 +32,27 @@ export class Loan {
     private description: string
     private uid: string
     private bankReceipt: BankReceipt
+    private isPaidOff: boolean
 
     constructor(input: CreateLoanInput) {
         this.approved = false
         this.member = input.member
         this.date = input.date || new Date()
-        this.valueRequested = new DecimalValue(input.valueRequested)
-        this.fees = new DecimalValue(input.fees || 0)
-        this.interest = new DecimalValue(input.interest || 0)
+        this.valueRequested = DecimalValue.from(input.valueRequested)
+        this.fees = DecimalValue.from(input.fees || 0)
+        this.interest = DecimalValue.from(input.interest || 0)
         this.box = input.box
         this.approvals = 0
         this.description = input.description
         this.payments = []
         this.uid = generateUUID()
 
-        this.validate(true)
+        if (!input.skipValidate)
+            this.validate(true)
+
         this.memberName = this.member.memberName
         this.requiredNumberOfApprovals = this.box.totalMembers
+        this.listOfMembersWhoHaveAlreadyApproved = []
 
         this.generateBillingDates()
     }
@@ -59,13 +64,18 @@ export class Loan {
             fees: input.fees.value,
             interest: input.interest.value,
             box: input.box,
-            description: input.description
+            description: input.description,
+            skipValidate: true
         })
 
+        l.isPaidOff = input.isPaidOff
         l.uid = input.uid
         l.approvals = input.approvals
         l.approved = input.approved
+        l.listOfMembersWhoHaveAlreadyApproved = input.listOfMembersWhoHaveAlreadyApproved
         l.billingDates = input.billingDates.map(billDate => (new Date(billDate)))
+        l.totalValue = DecimalValue.from(input?.totalValue?.value || 0)
+        l.remainingAmount = DecimalValue.from(input?.remainingAmount?.value || 0)
         return l
     }
 
@@ -77,17 +87,33 @@ export class Loan {
         if (!this.approved)
             throw new Error('This loan is not approved yet')
 
+        if (payment._value <= 0)
+            throw new Error('Payment cannot be 0 or lower')
+
         this.payments.push(payment)
         this.box.sumInCurrentBalance(payment._value)
         this.calculateRemainingAmount()
     }
 
-    public addApprove() {
+    public addApprove(hosApprove: Member) {
+        if (!this.box.memberIsOnThisBox(hosApprove)) {
+            throw new Error('This member cannot approve this loan because he is no member of this box')
+        }
+
+        this.addMemberWhoApproved(hosApprove)
         this.approvals++
-        if (this.requiredNumberOfApprovals == this.approvals) {
+        if (this.approvals >= this.requiredNumberOfApprovals) {
             this.approved = true
             this.completeLoan()
         }
+    }
+
+    private addMemberWhoApproved(memberApproved: Member) {
+        const exists = this.listOfMembersWhoHaveAlreadyApproved.map(m => m.memberName).includes(memberApproved.memberName)
+        if (exists)
+            throw new Error('This member have already approve this loan')
+
+        this.listOfMembersWhoHaveAlreadyApproved.push(memberApproved)
     }
 
     private calculateRemainingAmount() {
@@ -95,7 +121,11 @@ export class Loan {
             (acumulator, payment) => acumulator + payment._value, 0
         )
 
-        this.remainingAmount = new DecimalValue(this.totalValue.val - totalPayments)
+        if (totalPayments >= this.totalValue.val) {
+            this.isPaidOff = true
+        }
+
+        this.remainingAmount = DecimalValue.from(this.totalValue.val - totalPayments)
     }
 
     private completeLoan() {
@@ -105,7 +135,7 @@ export class Loan {
 
     private calculateTotalValue() {
         const valueWithFee = this.valueRequested.val * (this.interest.val / 100)
-        this.totalValue = new DecimalValue(this.valueRequested.val + valueWithFee + this.fees.val)
+        this.totalValue = DecimalValue.from(this.valueRequested.val + valueWithFee + this.fees.val)
     }
 
     private generateBillingDates() {
@@ -160,18 +190,26 @@ export class Loan {
         return this.approved
     }
 
-    public get isPaidOff() {
-        if (this.remainingAmount.val <= 0)
-            return true
-
-        return false
-    }
-
     public get value() {
         return this.valueRequested.val
     }
 
     public get _member() {
         return this.member
+    }
+
+    public get UUID() {
+        return this.uid
+    }
+
+    public get _remainingAmount() {
+        return this.remainingAmount.val
+    }
+
+    public get _isPaidOff() {
+        if (!this.isPaidOff)
+            return false
+
+        return this.isPaidOff
     }
 }

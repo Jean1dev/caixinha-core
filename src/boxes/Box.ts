@@ -1,6 +1,7 @@
 import { Deposit } from "../deposits/Deposit"
 import { Loan } from "../loans/Loan"
 import { Member } from "../members/Member"
+import { Payment } from "../payment/Payment"
 import { BankAccount } from "../valueObjects/BankAccount"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 import { BoxJsonType } from "./box.types"
@@ -15,7 +16,7 @@ export class Box {
 
     constructor() {
         this.members = []
-        this.currentBalance = new DecimalValue(0.0)
+        this.currentBalance = DecimalValue.from(0.0)
         this.deposits = []
         this.loans = []
         this.validate(true)
@@ -58,11 +59,24 @@ export class Box {
                 box: box,
                 approvals: loan.approvals,
                 description: loan.description,
-                payments: [],
+                payments: loan.payments.map(p => {
+                    return new Payment({
+                        member: Member.build({ name: loan.memberName, email: loan.member.email }),
+                        value: p.value,
+                        description: p.description,
+                        date: p.date
+                    })
+                }),
                 memberName: loan.memberName,
                 requiredNumberOfApprovals: loan.requiredNumberOfApprovals,
                 billingDates: loan.billingDates,
-                uid: loan.uid
+                uid: loan.uid,
+                totalValue: loan.totalValue,
+                remainingAmount: loan.remainingAmount,
+                listOfMembersWhoHaveAlreadyApproved: loan.listOfMembersWhoHaveAlreadyApproved
+                    ? loan.listOfMembersWhoHaveAlreadyApproved.map(m => (Member.build({ name: m.name, email: m.email })))
+                    : [],
+                isPaidOff: loan.isPaidOff
             })
         })
 
@@ -72,6 +86,14 @@ export class Box {
 
         box.validate(true)
         return box
+    }
+
+    public getLoanByUUID(loanUUID: string): Loan {
+        const loan = this.loans.find(l => l.UUID === loanUUID)
+        if (!loan)
+            throw new Error('Loan not found')
+
+        return loan
     }
 
     public addBankAccount(keyPix: string | null, qrCode: string | null) {
@@ -106,7 +128,7 @@ export class Box {
     }
 
     public sumInCurrentBalance(value: number) {
-        this.currentBalance = new DecimalValue(this.currentBalance.val + value)
+        this.currentBalance = DecimalValue.from(this.currentBalance.val + value)
     }
 
     public deposit(deposit: Deposit) {
@@ -118,7 +140,7 @@ export class Box {
     public makeLoan(loan: Loan) {
         this.verifyIfMemberIsOnThisBox(loan._member)
         this.loans.push(loan)
-        this.currentBalance = new DecimalValue(this.currentBalance.val - loan.value)
+        this.currentBalance = DecimalValue.from(this.currentBalance.val - loan.value)
     }
 
     public memberIsOnThisBox(member: Member): boolean {

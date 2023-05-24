@@ -6,6 +6,8 @@ export interface FromBoxInput {
   member: Member
   date: string
   valueRequested: { value: number }
+  remainingAmount: { value: number }
+  totalValue: { value: number }
   fees: { value: number }
   interest: { value: number }
   box: Box
@@ -16,6 +18,8 @@ export interface FromBoxInput {
   requiredNumberOfApprovals: number
   billingDates: string[]
   uid: string
+  listOfMembersWhoHaveAlreadyApproved: Member[]
+  isPaidOff?: boolean
 }
 
 export interface CreateLoanInput {
@@ -26,4 +30,5 @@ export interface CreateLoanInput {
   description?: string
   date?: Date
   fees?: number
+  skipValidate?: boolean
 }
