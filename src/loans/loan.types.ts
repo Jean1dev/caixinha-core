@@ -20,6 +20,7 @@ export interface FromBoxInput {
   uid: string
   listOfMembersWhoHaveAlreadyApproved: Member[]
   isPaidOff?: boolean
+  installments?: number
 }
 
 export interface CreateLoanInput {
@@ -31,4 +32,5 @@ export interface CreateLoanInput {
   date?: Date
   fees?: number
   skipValidate?: boolean
+  installments?: number
 }

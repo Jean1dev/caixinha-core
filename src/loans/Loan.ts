@@ -33,6 +33,7 @@ export class Loan {
     private uid: string
     private bankReceipt: BankReceipt
     private isPaidOff: boolean
+    private installments: number
 
     constructor(input: CreateLoanInput) {
         this.approved = false
@@ -46,6 +47,7 @@ export class Loan {
         this.description = input.description
         this.payments = []
         this.uid = generateUUID()
+        this.installments = input.installments
 
         if (!input.skipValidate)
             this.validate(true)
@@ -68,6 +70,7 @@ export class Loan {
             skipValidate: true
         })
 
+        l.installments = input.installments
         l.isPaidOff = input.isPaidOff
         l.uid = input.uid
         l.approvals = input.approvals
@@ -139,6 +142,22 @@ export class Loan {
     }
 
     private generateBillingDates() {
+        if (this.installments) {
+            const paydays = []
+            const firstPayDay = new Date(this.date.getTime() + 30 * 24 * 60 * 60 * 1000)
+            for (let index = 0; index < this.installments; index++) {
+                if (index == 0) {
+                    paydays.push(firstPayDay)
+                } else {
+                    const nextPayDay = new Date(paydays[index - 1].getTime() + 30 * 24 * 60 * 60 * 1000)
+                    paydays.push(nextPayDay)
+                }
+            }
+
+            this.billingDates = paydays
+            return
+        }
+
         const dateIn30Days = new Date(this.date.getTime() + 30 * 24 * 60 * 60 * 1000)
         this.billingDates = [dateIn30Days]
     }
@@ -148,6 +167,10 @@ export class Loan {
 
         if (this.valueRequested.val < 0) {
             notificationMessages.push('value cannot be lower than 0')
+        }
+
+        if (this.installments && this.installments < 0) {
+            notificationMessages.push('intallments cannot be lower than 0')
         }
 
         if (!this.member) {

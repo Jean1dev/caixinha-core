@@ -22,18 +22,6 @@ export class Box {
         this.validate(true)
     }
 
-    public static from(anotherBox: Box): Box {
-        const box = new Box()
-        box.name = anotherBox.name
-        box.members = anotherBox.members.map(member => Member.build({ name: member['name'], email: member['email'] }))
-        box.currentBalance = DecimalValue.from(anotherBox.currentBalance)
-        box.deposits = [...anotherBox.deposits]
-        box.loans = [...anotherBox.loans]
-        box.bankAccount = anotherBox.bankAccount
-        box.validate(true)
-        return box
-    }
-
     public static fromJson(jsonBox: BoxJsonType): Box {
         const box = new Box()
         box.name = jsonBox.name
@@ -76,7 +64,8 @@ export class Box {
                 listOfMembersWhoHaveAlreadyApproved: loan.listOfMembersWhoHaveAlreadyApproved
                     ? loan.listOfMembersWhoHaveAlreadyApproved.map(m => (Member.build({ name: m.name, email: m.email })))
                     : [],
-                isPaidOff: loan.isPaidOff
+                isPaidOff: loan.isPaidOff,
+                installments: loan.installments
             })
         })
 
