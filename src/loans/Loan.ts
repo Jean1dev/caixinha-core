@@ -235,4 +235,8 @@ export class Loan {
 
         return this.isPaidOff
     }
+
+    public get _date() {
+        return this.date
+    }
 }

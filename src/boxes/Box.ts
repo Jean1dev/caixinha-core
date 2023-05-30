@@ -153,4 +153,12 @@ export class Box {
     public get totalMembers() {
         return this.members.length
     }
+
+    public get _deposits() {
+        return this.deposits
+    }
+
+    public get _loans() {
+        return this.loans
+    }
 }

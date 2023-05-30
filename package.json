@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "test": "jest",
     "coverage": "jest --coverage",
-    "debug-box-script": "npx jest test/boxes/Box.test.ts",
+    "debug-box-script": "npx jest test/boxes/useCase/CalculateAssetDevlopment.test.ts",
     "debug-loan-script": "npx jest test/loans/Loan.test.ts"
   },
   "repository": {

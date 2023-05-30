@@ -61,4 +61,8 @@ export class Deposit {
     public get _member() {
         return this.member
     }
+
+    public get _date() {
+        return this.date
+    }
 }
