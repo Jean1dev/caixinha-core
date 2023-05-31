@@ -1,0 +1,236 @@
+[
+    {
+        "_id": {
+            "$oid": "64748edfb5f7a0041f134002"
+        },
+        "members": [
+            {
+                "name": "r",
+                "email": "jean@jean"
+            }
+        ],
+        "currentBalance": {
+            "value": 20
+        },
+        "deposits": [
+            {
+                "date": "2023-03-30T19:33:46.791Z",
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "value": {
+                    "value": 25
+                },
+                "memberName": "r"
+            }
+        ],
+        "loans": [
+            {
+                "approved": true,
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "date": "2023-07-30T19:33:46.791Z",
+                "valueRequested": {
+                    "value": 5
+                },
+                "fees": {
+                    "value": 0
+                },
+                "interest": {
+                    "value": 3
+                },
+                "box": null,
+                "approvals": 1,
+                "description": "sera que foi mesmo?",
+                "payments": [],
+                "uid": "a63ae5b8-a1f9-4507-b738-c4ffe0f132fc",
+                "installments": 2,
+                "memberName": "r",
+                "requiredNumberOfApprovals": 1,
+                "listOfMembersWhoHaveAlreadyApproved": [
+                    {
+                        "name": "r",
+                        "email": "jean@jean"
+                    }
+                ],
+                "billingDates": [
+                    "01/09/2022",
+                    "01/10/2022"
+                ],
+                "totalValue": {
+                    "value": 5.15
+                }
+            },
+            {
+                "approved": true,
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "date": "2023-07-30T19:33:46.791Z",
+                "valueRequested": {
+                    "value": 5
+                },
+                "fees": {
+                    "value": 0
+                },
+                "interest": {
+                    "value": 3
+                },
+                "box": null,
+                "approvals": 1,
+                "description": "sera que foi mesmo?",
+                "payments": [],
+                "uid": "a63ae5b8-a1f9-4507-b738-c4ffe0f132fc",
+                "installments": 2,
+                "memberName": "r",
+                "requiredNumberOfApprovals": 1,
+                "listOfMembersWhoHaveAlreadyApproved": [
+                    {
+                        "name": "r",
+                        "email": "jean@jean"
+                    }
+                ],
+                "billingDates": [
+                    "01/09/2022",
+                    "01/10/2022"
+                ],
+                "totalValue": {
+                    "value": 5.15
+                }
+            }
+        ],
+        "name": "insonia-test"
+    },
+    {
+        "_id": {
+            "$oid": "64748edfb5f7a0041f134002"
+        },
+        "members": [
+            {
+                "name": "r",
+                "email": "jean@jean"
+            }
+        ],
+        "currentBalance": {
+            "value": 20
+        },
+        "deposits": [
+            {
+                "date": "2023-03-30T19:33:46.791Z",
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "value": {
+                    "value": 25
+                },
+                "memberName": "r"
+            },
+            {
+                "date": "2023-03-30T19:33:46.791Z",
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "value": {
+                    "value": 25
+                },
+                "memberName": "r"
+            },
+            {
+                "date": "2023-04-30T19:33:46.791Z",
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "value": {
+                    "value": 50
+                },
+                "memberName": "r"
+            }
+        ],
+        "loans": [
+            {
+                "approved": true,
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "date": "2023-07-30T19:33:46.791Z",
+                "valueRequested": {
+                    "value": 5
+                },
+                "fees": {
+                    "value": 0
+                },
+                "interest": {
+                    "value": 3
+                },
+                "box": null,
+                "approvals": 1,
+                "description": "sera que foi mesmo?",
+                "payments": [],
+                "uid": "a63ae5b8-a1f9-4507-b738-c4ffe0f132fc",
+                "installments": 2,
+                "memberName": "r",
+                "requiredNumberOfApprovals": 1,
+                "listOfMembersWhoHaveAlreadyApproved": [
+                    {
+                        "name": "r",
+                        "email": "jean@jean"
+                    }
+                ],
+                "billingDates": [
+                    "01/09/2022",
+                    "01/10/2022"
+                ],
+                "totalValue": {
+                    "value": 5.15
+                }
+            },
+            {
+                "approved": true,
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "date": "2023-07-30T19:33:46.791Z",
+                "valueRequested": {
+                    "value": 5
+                },
+                "fees": {
+                    "value": 0
+                },
+                "interest": {
+                    "value": 3
+                },
+                "box": null,
+                "approvals": 1,
+                "description": "sera que foi mesmo?",
+                "payments": [],
+                "uid": "a63ae5b8-a1f9-4507-b738-c4ffe0f132fc",
+                "installments": 2,
+                "memberName": "r",
+                "requiredNumberOfApprovals": 1,
+                "listOfMembersWhoHaveAlreadyApproved": [
+                    {
+                        "name": "r",
+                        "email": "jean@jean"
+                    }
+                ],
+                "billingDates": [
+                    "01/09/2022",
+                    "01/10/2022"
+                ],
+                "totalValue": {
+                    "value": 5.15
+                }
+            }
+        ],
+        "name": "insonia-test"
+    }
+]

@@ -5,14 +5,13 @@ import { Loan } from '../../src/loans/Loan'
 import { CreateLoanInput } from '../../src/loans/loan.types'
 import { Member } from '../../src/members/Member'
 
+function getDate30Days(today = new Date()) {
+    const dataDaqui30Dias = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
+    return dataDaqui30Dias
+}
+
 describe('Loan class test', () => {
     it('should be create succesfuly', () => {
-        function getDate30DaysFromHere() {
-            const hoje = new Date()
-            const dataDaqui30Dias = new Date(hoje.getTime() + 30 * 24 * 60 * 60 * 1000)
-            return dataDaqui30Dias
-        }
-
         const member = new Member('juca')
 
         const box = new Box()
@@ -37,7 +36,7 @@ describe('Loan class test', () => {
 
         const loan = new Loan(input)
         expect(loan).not.toBe(null)
-        expect(loan.listOfBillingDates[0].getDate()).toBe(getDate30DaysFromHere().getDate())
+        expect(loan.listOfBillingDates[0].getDate()).toBe(getDate30Days().getDate())
 
         loan.addApprove(carlos)
         expect(false).toBe(loan.isApproved)
@@ -48,16 +47,13 @@ describe('Loan class test', () => {
             member: null as unknown as Member,
             valueRequested: -1,
             interest: 5,
-            box: null as unknown as Box
+            box: null as unknown as Box,
+            installments: -2
         }
 
-        try {
-            new Loan(input)
-        } catch (ex) {
-            expect(
-                'value cannot be lower than 0, member cannot be null, box cannot be null'
-            ).toBe(ex.message)
-        }
+
+        expect(() => new Loan(input))
+            .toThrow('value cannot be lower than 0, intallments cannot be lower than 0, member cannot be null, box cannot be null')
     })
 
     it('shoud not be abble to apply loan because box does not have funds', () => {
@@ -240,6 +236,38 @@ describe('Loan class test', () => {
 
         loan.addApprove(joaoJilberto)
         expect(() => loan.addApprove(joaoJilberto)).toThrow('This member have already approve this loan')
+    })
+
+    it('shoud be abble to make a loan with installments', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        box.joinMember(member)
+        box.deposit(new Deposit({
+            member,
+            value: 1000
+        }))
+
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste',
+            installments: 4
+        }
+
+        const firstInstallment = getDate30Days()
+        const secondInstallment = getDate30Days(firstInstallment)
+        const thirdInstallment = getDate30Days(secondInstallment)
+        const fourthInstalment = getDate30Days(thirdInstallment)
+
+        const loan = new Loan(input)
+
+        expect(loan.listOfBillingDates).toHaveLength(4)
+        expect(loan.listOfBillingDates[0]).toStrictEqual(firstInstallment)
+        expect(loan.listOfBillingDates[1]).toStrictEqual(secondInstallment)
+        expect(loan.listOfBillingDates[2]).toStrictEqual(thirdInstallment)
+        expect(loan.listOfBillingDates[3]).toStrictEqual(fourthInstalment)
     })
 
 })

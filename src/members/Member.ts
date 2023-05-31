@@ -5,8 +5,8 @@ export interface CreatMemberInput {
 
 export class Member {
 
-    private name: string
-    private email: string
+    protected name: string
+    protected email: string
 
     constructor(name: string) {
         this.name = name
@@ -35,5 +35,9 @@ export class Member {
 
     public get memberName(): string {
         return this.name
+    }
+
+    public get _email() {
+        return this.email
     }
 }

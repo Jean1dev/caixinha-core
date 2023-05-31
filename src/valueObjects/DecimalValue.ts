@@ -9,7 +9,7 @@ export class DecimalValue {
         this.value = value
     }
 
-    public static from(value: any) {
+    public static from(value: any): DecimalValue {
         if (value == null || value == undefined) {
             return new DecimalValue(null)
         }
