@@ -47,11 +47,29 @@ describe('CalculateAssetDevlopment test', () => {
         expect(result.availableBalance.data[_.April]).toBe(100)
         expect(result.portfolioBalance.data[_.April]).toBe(100)
 
-        expect(result.availableBalance.data[_.May]).toBe(90)
+        expect(result.availableBalance.data[_.May]).toBe(100)
         expect(result.portfolioBalance.data[_.May]).toBe(100)
 
         expect(result.availableBalance.data[_.June]).toBe(0)
         expect(result.portfolioBalance.data[_.June]).toBe(0)
+        
+        box = Box.fromJson(json[2])
+        result = CalculateAssetDevlopment(box, _.May)
+
+        expect(result.availableBalance.data[_.January]).toBe(0)
+        expect(result.portfolioBalance.data[_.January]).toBe(0)
+
+        expect(result.availableBalance.data[_.February]).toBe(0)
+        expect(result.portfolioBalance.data[_.February]).toBe(0)
+
+        expect(result.availableBalance.data[_.March]).toBe(50)
+        expect(result.portfolioBalance.data[_.March]).toBe(50)
+
+        expect(result.availableBalance.data[_.April]).toBe(125.5)
+        expect(result.portfolioBalance.data[_.April]).toBe(125.5)
+
+        expect(result.availableBalance.data[_.May]).toBe(0)
+        expect(result.portfolioBalance.data[_.May]).toBe(0)
     })
 })
 

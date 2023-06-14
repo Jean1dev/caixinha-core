@@ -1,3 +1,4 @@
+import { PerformanceValue } from "../../valueObjects/PerformanceValue";
 import { Box } from "../Box";
 
 export interface OutputAssetDevelopment {
@@ -48,6 +49,15 @@ function getSumOfValueWithMonth(arr: ValueWithMonth[][], index: number): number 
         .reduce((sum, value) => sum + value, 0)
 }
 
+function ifFindPerformanceInThisMonthSum(performanceList: PerformanceValue[], total: number, month: number): number {
+    const totalPerformance = performanceList
+        .filter(it => it.month === month)
+        .map(it => it._value.val)
+        .reduce((sum, value) => sum + value, 0)
+
+    return total + totalPerformance
+}
+
 export default function CalculateAssetDevlopment(box: Box, monthForCalculate = new Date().getMonth() + 1): OutputAssetDevelopment {
     const output: OutputAssetDevelopment = {
         availableBalance: {
@@ -85,6 +95,10 @@ export default function CalculateAssetDevlopment(box: Box, monthForCalculate = n
 
             if (verifyIfHadPositionInThatIndex(loansGrouped, index)) {
                 valueLoan = getSumOfValueWithMonth(loansGrouped, index)
+            }
+
+            if (box._performance) {
+                totalAsset = ifFindPerformanceInThisMonthSum(box._performance, totalAsset, index)
             }
 
             output.portfolioBalance.data.push(totalAsset)

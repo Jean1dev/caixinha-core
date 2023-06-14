@@ -6,6 +6,7 @@ export interface BoxJsonType {
   loans: LoanBoxJson[]
   bankAccount?: IBankAccount
   name?: string
+  performance?: PerforanceJson[]
 }
 
 export interface IBankAccount {
@@ -24,6 +25,12 @@ export interface MemberJson {
 
 export interface CurrentBalance {
   value: number
+}
+
+export interface PerforanceJson {
+  value: { value: number }
+  monthNumber: number
+  yearNumber: number
 }
 
 export interface LoanBoxJson {

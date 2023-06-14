@@ -232,5 +232,65 @@
             }
         ],
         "name": "insonia-test"
+    },
+    {
+        "_id": {
+            "$oid": "64748edfb5f7a0041f134002"
+        },
+        "members": [
+            {
+                "name": "r",
+                "email": "jean@jean"
+            }
+        ],
+        "currentBalance": {
+            "value": 20
+        },
+        "performance": [
+            {
+                "value": {
+                    "value": 25.5
+                },
+                "monthNumber": 4,
+                "yearNumber": 2023
+            }
+        ],
+        "deposits": [
+            {
+                "date": "2023-03-30T19:33:46.791Z",
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "value": {
+                    "value": 25
+                },
+                "memberName": "r"
+            },
+            {
+                "date": "2023-03-30T19:33:46.791Z",
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "value": {
+                    "value": 25
+                },
+                "memberName": "r"
+            },
+            {
+                "date": "2023-04-30T19:33:46.791Z",
+                "member": {
+                    "name": "r",
+                    "email": "jean@jean"
+                },
+                "value": {
+                    "value": 50
+                },
+                "memberName": "r"
+            }
+        ],
+        "loans": [],
+        "name": "insonia-test"
     }
 ]
