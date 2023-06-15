@@ -4,6 +4,7 @@ import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
 import { BankAccount } from "../valueObjects/BankAccount"
 import { DecimalValue } from "../valueObjects/DecimalValue"
+import { PerformanceValue } from "../valueObjects/PerformanceValue"
 import { BoxJsonType } from "./box.types"
 
 export class Box {
@@ -11,6 +12,7 @@ export class Box {
     private members: Member[]
     private currentBalance: DecimalValue
     private deposits: Deposit[]
+    private performance: PerformanceValue[]
     private loans: Loan[]
     private bankAccount: BankAccount
 
@@ -69,12 +71,26 @@ export class Box {
             })
         })
 
+        if (jsonBox.performance) {
+            box.performance = jsonBox.performance.map(it => PerformanceValue.fromJson(it))
+        }
+
         if (jsonBox.bankAccount) {
             box.bankAccount = new BankAccount(jsonBox.bankAccount.keysPix, jsonBox.bankAccount.urlsQrCodePix)
         }
 
         box.validate(true)
         return box
+    }
+
+    public addPerformance(value: number) {
+        const result = PerformanceValue.build(DecimalValue.from(value), new Date())
+        if (!this.performance) {
+            this.performance = []
+        }
+
+        this.performance.push(result)
+        this.sumInCurrentBalance(value)
     }
 
     public getLoanByUUID(loanUUID: string): Loan {
@@ -160,5 +176,9 @@ export class Box {
 
     public get _loans() {
         return this.loans
+    }
+
+    public get _performance() {
+        return this.performance
     }
 }

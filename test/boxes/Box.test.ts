@@ -83,4 +83,10 @@ describe('Box class test', () => {
         expect(currentBalance + valuePayed).toBe(box.balance)
         expect(0.08000000000000007).toBe(loan._remainingAmount)
     })
+
+    it('should be abble to add performance on box', () => {
+        const box = new Box()
+        box.addPerformance(7.5)
+        expect(box.balance).toBe(7.5)
+    })
 })
