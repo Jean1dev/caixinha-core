@@ -57,6 +57,7 @@ export class Loan {
         this.listOfMembersWhoHaveAlreadyApproved = []
 
         this.generateBillingDates()
+        this.calculateTotalValue()
     }
 
     public static fromBox(input: FromBoxInput): Loan {
