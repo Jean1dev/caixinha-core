@@ -1,4 +1,5 @@
 import { Deposit } from "../deposits/Deposit"
+import DomainError from "../error/DomainError"
 import { Loan } from "../loans/Loan"
 import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
@@ -96,7 +97,7 @@ export class Box {
     public getLoanByUUID(loanUUID: string): Loan {
         const loan = this.loans.find(l => l.UUID === loanUUID)
         if (!loan)
-            throw new Error('Loan not found')
+            throw new DomainError('Loan not found')
 
         return loan
     }
@@ -112,7 +113,7 @@ export class Box {
     public joinMember(member: Member) {
         const alreadyExists = this.members.map(m => m.memberName).includes(member.memberName)
         if (alreadyExists)
-            throw new Error('This member already join in that box')
+            throw new DomainError('This member already join in that box')
 
         this.members.push(member)
     }
@@ -126,7 +127,7 @@ export class Box {
 
         if (throwIFException && notificationMessages.length > 0) {
             const errorMessage = notificationMessages.join(', ')
-            throw new Error(errorMessage)
+            throw new DomainError(errorMessage)
         }
 
         return notificationMessages
@@ -159,7 +160,7 @@ export class Box {
     private verifyIfMemberIsOnThisBox(member: Member) {
         const exists = this.members.map(m => m.memberName).includes(member.memberName)
         if (!exists)
-            throw new Error('This member is not a member of this box')
+            throw new DomainError('This member is not a member of this box')
     }
 
     public get balance(): number {

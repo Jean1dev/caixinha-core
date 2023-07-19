@@ -1,9 +1,11 @@
+import DomainError from "../error/DomainError"
+
 export class DecimalValue {
     private value: number
 
     private constructor(value: number) {
         if (value === null || value === undefined) {
-            throw new Error('Value cannot be null or undefined')
+            throw new DomainError('Value cannot be null or undefined')
         }
 
         this.value = value

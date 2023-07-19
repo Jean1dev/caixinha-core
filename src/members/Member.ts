@@ -1,3 +1,5 @@
+import DomainError from "../error/DomainError"
+
 export interface CreatMemberInput {
     name: string
     email?: string
@@ -27,7 +29,7 @@ export class Member {
 
         if (throwIFException && notificationMessages.length > 0) {
             const errorMessage = notificationMessages.join(', ')
-            throw new Error(errorMessage)
+            throw new DomainError(errorMessage)
         }
 
         return notificationMessages

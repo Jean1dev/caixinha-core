@@ -1,4 +1,5 @@
 import { PerforanceJson } from "../boxes/box.types";
+import DomainError from "../error/DomainError";
 import { DecimalValue } from "./DecimalValue";
 
 export class PerformanceValue {
@@ -39,7 +40,7 @@ export class PerformanceValue {
 
         if (throwIFException && notificationMessages.length > 0) {
             const errorMessage = notificationMessages.join(', ')
-            throw new Error(errorMessage)
+            throw new DomainError(errorMessage)
         }
 
         return notificationMessages

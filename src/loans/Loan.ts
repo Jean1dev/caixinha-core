@@ -1,4 +1,5 @@
 import { Box } from "../boxes/Box"
+import DomainError from "../error/DomainError"
 import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
 import { BankReceipt } from "../valueObjects/BankReceipt"
@@ -86,13 +87,13 @@ export class Loan {
     public addPayment(payment: Payment) {
         const paymentMember = payment._member.memberName
         if (this.memberName != paymentMember)
-            throw new Error('Payment member not apply for this Loan')
+            throw new DomainError('Payment member not apply for this Loan')
 
         if (!this.approved)
-            throw new Error('This loan is not approved yet')
+            throw new DomainError('This loan is not approved yet')
 
         if (payment._value <= 0)
-            throw new Error('Payment cannot be 0 or lower')
+            throw new DomainError('Payment cannot be 0 or lower')
 
         this.payments.push(payment)
         this.box.sumInCurrentBalance(payment._value)
@@ -101,7 +102,7 @@ export class Loan {
 
     public addApprove(hosApprove: Member) {
         if (!this.box.memberIsOnThisBox(hosApprove)) {
-            throw new Error('This member cannot approve this loan because he is no member of this box')
+            throw new DomainError('This member cannot approve this loan because he is no member of this box')
         }
 
         this.addMemberWhoApproved(hosApprove)
@@ -115,7 +116,7 @@ export class Loan {
     private addMemberWhoApproved(memberApproved: Member) {
         const exists = this.listOfMembersWhoHaveAlreadyApproved.map(m => m.memberName).includes(memberApproved.memberName)
         if (exists)
-            throw new Error('This member have already approve this loan')
+            throw new DomainError('This member have already approve this loan')
 
         this.listOfMembersWhoHaveAlreadyApproved.push(memberApproved)
     }
@@ -192,7 +193,7 @@ export class Loan {
 
         if (throwIFException && notificationMessages.length > 0) {
             const errorMessage = notificationMessages.join(', ')
-            throw new Error(errorMessage)
+            throw new DomainError(errorMessage)
         }
 
         return notificationMessages

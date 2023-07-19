@@ -1,3 +1,4 @@
+import DomainError from "../error/DomainError"
 import { Member } from "../members/Member"
 import { BankReceipt } from "../valueObjects/BankReceipt"
 import { DecimalValue } from "../valueObjects/DecimalValue"
@@ -48,7 +49,7 @@ export class Deposit {
 
         if (throwIFException && notificationMessages.length > 0) {
             const errorMessage = notificationMessages.join(', ')
-            throw new Error(errorMessage)
+            throw new DomainError(errorMessage)
         }
 
         return notificationMessages
