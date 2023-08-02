@@ -69,7 +69,8 @@ export class Loan {
             interest: input.interest.value,
             box: input.box,
             description: input.description,
-            skipValidate: true
+            skipValidate: true,
+            date: new Date(input.date)
         })
 
         l.installments = input.installments
