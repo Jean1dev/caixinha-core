@@ -1,5 +1,7 @@
 import { Box } from '../../src/boxes/Box'
 import { Deposit } from '../../src/deposits/Deposit'
+import { Loan } from '../../src/loans/Loan'
+import { CreateLoanInput } from '../../src/loans/loan.types'
 import { Member } from '../../src/members/Member'
 import { Payment } from '../../src/payment/Payment'
 
@@ -88,5 +90,42 @@ describe('Box class test', () => {
         const box = new Box()
         box.addPerformance(7.5)
         expect(box.balance).toBe(7.5)
+    })
+
+    it('should be abble remove member', () => {
+        const box = new Box()
+        const member = new Member('juca')
+
+        box.joinMember(member)
+        box.removeMember(member)
+        expect(box.totalMembers).toBe(0)
+    })
+
+    it('cannot be abble to remove member because member has pending loan', () => {
+        const box = new Box()
+        const member = new Member('juca')
+        box.joinMember(member)
+        box.deposit(new Deposit({
+            member,
+            value: 25
+        }))
+
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 25,
+            interest: 5,
+            box,
+            description: 'teste',
+            installments: 4
+        }
+
+        const loan = new Loan(input)
+        loan.addApprove(member)
+        box.makeLoan(loan)
+        
+        expect(() => box.removeMember(member))
+            .toThrow('Cannot continue because this member has pending loans')
+
+        expect(box.totalMembers).toBe(1)
     })
 })

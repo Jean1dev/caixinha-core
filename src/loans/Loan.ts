@@ -85,6 +85,13 @@ export class Loan {
         return l
     }
 
+    public thisMemberCanCanceledThisLoan(): boolean {
+        if (this._isPaidOff || this.approved == false)
+            return true
+
+        return false
+    }
+
     public addPayment(payment: Payment) {
         const paymentMember = payment._member.memberName
         if (this.memberName != paymentMember)
