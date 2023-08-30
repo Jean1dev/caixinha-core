@@ -94,6 +94,20 @@ export class Box {
         this.sumInCurrentBalance(value)
     }
 
+    public removeMember(member: Member) {
+        const loansThatMember = this.loans.filter(loan => loan._member._email === member._email)
+        if (loansThatMember.length == 0) {
+            this.members = this.members.filter(m => m._email !== member._email)
+            return
+        }
+
+        const pendingLoans = loansThatMember.filter(loan => !loan.thisMemberCanCanceledThisLoan())
+        if (pendingLoans.length > 0) {
+            throw new DomainError('Cannot continue because this member has pending loans')
+        }
+        this.members = this.members.filter(m => m._email !== member._email)
+    }
+
     public getLoanByUUID(loanUUID: string): Loan {
         const loan = this.loans.find(l => l.UUID === loanUUID)
         if (!loan)

@@ -1,13 +1,13 @@
 {
   "name": "caixinha-core",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "core busnisess rules of caixinha app",
   "main": "index.ts",
   "scripts": {
     "build": "npx tsc",
     "test": "jest",
     "coverage": "jest --coverage",
-    "debug-box-script": "npx jest test/boxes/useCase/CalculateAssetDevlopment.test.ts",
+    "debug-box-script": "npx jest test/boxes/Box.test.ts",
     "debug-loan-script": "npx jest test/loans/Loan.test.ts"
   },
   "repository": {
