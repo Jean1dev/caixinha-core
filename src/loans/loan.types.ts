@@ -1,5 +1,6 @@
 import { Box } from "../boxes/Box"
 import { Member } from "../members/Member"
+import { Payment } from "../payment/Payment"
 
 export interface FromBoxInput {
   approved: boolean
@@ -13,7 +14,7 @@ export interface FromBoxInput {
   box: Box
   approvals: number
   description: string
-  payments: any[]
+  payments: Payment[]
   memberName: string
   requiredNumberOfApprovals: number
   billingDates: string[]

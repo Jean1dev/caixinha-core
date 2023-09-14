@@ -2,7 +2,7 @@ import { Payment } from '../../src'
 import { Box } from '../../src/boxes/Box'
 import { Deposit } from '../../src/deposits/Deposit'
 import { Loan } from '../../src/loans/Loan'
-import { CreateLoanInput } from '../../src/loans/loan.types'
+import { CreateLoanInput, FromBoxInput } from '../../src/loans/loan.types'
 import { Member } from '../../src/members/Member'
 
 function getDate30Days(today = new Date()) {
@@ -268,6 +268,42 @@ describe('Loan class test', () => {
         expect(loan.listOfBillingDates[1]).toStrictEqual(secondInstallment)
         expect(loan.listOfBillingDates[2]).toStrictEqual(thirdInstallment)
         expect(loan.listOfBillingDates[3]).toStrictEqual(fourthInstalment)
+    })
+
+    it('shoud be create Loan correcty fromBoxJson', () => {
+        const member = new Member('jean')
+        const box = new Box()
+        box.joinMember(member)
+        const payments = [new Payment({
+            member,
+            value: 2
+        })]
+
+        const boxJson: FromBoxInput = {
+            approved: true,
+            member,
+            date: new Date().toISOString(),
+            valueRequested: { value: 25 },
+            remainingAmount: { value: 25 },
+            totalValue: { value: 27 },
+            fees: { value: 2 },
+            interest: { value: 0 },
+            box,
+            approvals: 1,
+            description: `string`,
+            payments,
+            memberName: 'jean',
+            requiredNumberOfApprovals: 1,
+            billingDates: [],
+            uid: 'string',
+            listOfMembersWhoHaveAlreadyApproved: [member],
+            isPaidOff: false,
+            installments: 2
+        }
+
+        const loan = Loan.fromBox(boxJson)
+        expect(loan['payments'].length).toBe(1)
+        expect(loan._remainingAmount).toBe(25)
     })
 
 })

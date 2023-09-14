@@ -73,6 +73,7 @@ export class Loan {
             date: new Date(input.date)
         })
 
+        l.payments = input.payments
         l.installments = input.installments
         l.isPaidOff = input.isPaidOff
         l.uid = input.uid
