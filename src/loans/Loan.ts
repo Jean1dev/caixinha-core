@@ -237,6 +237,9 @@ export class Loan {
     }
 
     public get _remainingAmount() {
+        if (!this.remainingAmount) {
+            this.calculateRemainingAmount()
+        }
         return this.remainingAmount.val
     }
 
