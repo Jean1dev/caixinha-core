@@ -253,4 +253,8 @@ export class Loan {
     public get _date() {
         return this.date
     }
+
+    public get _payments() {
+        return this.payments
+    }
 }
