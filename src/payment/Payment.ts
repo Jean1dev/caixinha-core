@@ -28,4 +28,8 @@ export class Payment {
     public get _value() {
         return this.value.val
     }
+
+    public get _date() {
+        return this.date
+    }
 }
