@@ -8,8 +8,16 @@ export interface IResultPercentDevlopment {
     totalInterestPercent: number
 }
 
+function getPastMonth() {
+    let pastMonth = new Date().getMonth() - 1
+    if (pastMonth < 0)
+        return 11
+
+    return pastMonth
+}
+
 function calculateTotalDepositsOnPastMonth(deposits: Deposit[]): number {
-    const pastMonth = new Date().getMonth() - 1
+    const pastMonth = getPastMonth()
     return deposits
         .filter(depo => {
             return depo._date.getMonth() == pastMonth
@@ -29,7 +37,7 @@ function calculateTotalDepositsOnThisMonth(deposits: Deposit[]): number {
 }
 
 function calculateTotalLoanOnPastMonth(loans: Loan[]): number {
-    const pastMonth = new Date().getMonth() - 1
+    const pastMonth = getPastMonth()
     return loans
         .filter(loa => loa._date.getMonth() == pastMonth)
         .map(loa => loa.value)
