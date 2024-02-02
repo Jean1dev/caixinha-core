@@ -1,4 +1,5 @@
 import { Member } from "../../members/Member";
+import { Payment } from "../../payment/Payment";
 import { getDifferenceBetweenDates } from "../../utils";
 import { Loan } from "../Loan";
 
@@ -8,10 +9,24 @@ interface CreditRiskOutput {
     member: Member
 }
 
+function getLastDayofPayment(loan: Loan): Date {
+    const lastPayment = loan._payments[loan._payments.length - 1]
+    return lastPayment._date
+}
+
 function getLateLoans(loans: Loan[]): Loan[] {
     return loans.filter(loan => {
         const today = new Date()
         const lastDateForPay = loan.lastDayForPay
+
+        if (loan._payments.length > 0) {
+            const dateLastPayment = getLastDayofPayment(loan)
+            if (dateLastPayment > lastDateForPay) {
+                return true
+            }
+
+            return false
+        }
 
         if (today > lastDateForPay) {
             return true
@@ -45,19 +60,9 @@ export default function GenerateCreditRisk(collection: Loan[], members: Member[]
             const memberLoans = collection.filter(loan => loan._member.memberName === memberName)
             return { memberName, memberLoans }
         }).filter(memberWithLoan => {
-            const havePendingLoan = memberWithLoan.memberLoans.filter(loan => {
-                if (loan._isPaidOff) return false
-
-                return true
-            })
-
-            if (havePendingLoan.length > 0) {
-                return false
-            }
-
             const howManyLateLoans = getLateLoans(memberWithLoan.memberLoans)
 
-            if (howManyLateLoans.length > 0) {
+            if (howManyLateLoans.length == 0) {
                 return false
             }
 
@@ -68,10 +73,15 @@ export default function GenerateCreditRisk(collection: Loan[], members: Member[]
         let messages = []
         const lateLoans = getLateLoans(memberWithLoan.memberLoans)
         lateLoans.forEach(loan => {
-            const today = new Date()
             const lastDateForPay = loan.lastDayForPay
-            const diff = getDifferenceBetweenDates(today, lastDateForPay)
-            messages.push(`Loan ${loan.UUID} is late by ${diff} days`)
+            
+            if (loan._isPaidOff) {
+                const diff = getDifferenceBetweenDates(getLastDayofPayment(loan), lastDateForPay)    
+                messages.push(`Loan ${loan['description']} was payed outside a due date - ${diff} days`)
+            } else {
+                const diff = getDifferenceBetweenDates(new Date(), lastDateForPay)
+                messages.push(`Loan ${loan.UUID} is late by ${diff} days`)
+            }
         })
 
         const diff = getDiffOfDueLoansAndCompletedLoans(collection, memberWithLoan.memberName)
