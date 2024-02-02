@@ -73,4 +73,15 @@ describe('ReportPendingLoan', () => {
         expect(member2Case?.loanUid).toStrictEqual([loan2.UUID])
         expect(member2Case?.valuePending.val).toBe(21)
     })
+
+    it('Should be return a correctly report based on caixinha backup', async () => {
+        const json = require('./input2.json')
+        const box = Box.fromJson(json)
+        const report = ReportPendingLoan(box)
+        expect(report).not.toBe(null)
+        expect(report.length).toBe(3)
+        expect(report[0].valuePending.val).toBe(805.8)
+        expect(report[1].valuePending.val).toBe(357)
+        expect(report[2].valuePending.val).toBe(663)
+    })
 })

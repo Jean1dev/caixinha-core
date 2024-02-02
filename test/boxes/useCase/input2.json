@@ -1,0 +1,1374 @@
+{
+    "_id": "646f538de5cd54cc6344ec69",
+    "members": [
+        {
+            "name": "Jeanluca FP",
+            "email": "jeanlucafp@gmail.com"
+        },
+        {
+            "name": "Augusto Savi",
+            "email": "guto_savi@outlook.com"
+        },
+        {
+            "name": "Arnaldo Pagani Junior",
+            "email": "dinhupagani@gmail.com"
+        },
+        {
+            "name": "Arthur Hassan Souki",
+            "email": "souki.arthur@gmail.com"
+        },
+        {
+            "name": "Gabriel P. Gava",
+            "email": "gabrielpasinigava@gmail.com"
+        }
+    ],
+    "currentBalance": {
+        "value": 700.47
+    },
+    "deposits": [
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 85
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 10
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 70
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 62
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 100
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:25:29.013Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 39
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-06-01T17:26:19.197Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 54
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 30
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 100
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.206Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:30:06.207Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-06-01T17:32:40.220Z",
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Arnaldo Pagani Junior"
+        },
+        {
+            "date": "2023-06-01T17:32:40.220Z",
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "value": {
+                "value": 10
+            },
+            "memberName": "Arnaldo Pagani Junior"
+        },
+        {
+            "date": "2023-06-01T17:32:40.220Z",
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Arnaldo Pagani Junior"
+        },
+        {
+            "date": "2023-06-01T17:32:40.220Z",
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Arnaldo Pagani Junior"
+        },
+        {
+            "date": "2023-06-01T17:32:40.220Z",
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Arnaldo Pagani Junior"
+        },
+        {
+            "date": "2023-06-01T17:32:40.221Z",
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "value": {
+                "value": 25
+            },
+            "memberName": "Arnaldo Pagani Junior"
+        },
+        {
+            "date": "2023-06-01T17:32:40.221Z",
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "value": {
+                "value": 40
+            },
+            "memberName": "Arnaldo Pagani Junior"
+        },
+        {
+            "date": "2023-06-01T17:32:40.221Z",
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "value": {
+                "value": 100
+            },
+            "memberName": "Arnaldo Pagani Junior"
+        },
+        {
+            "date": "2023-07-11T12:45:28.669Z",
+            "member": {
+                "name": "jeanluca jeanlucajea",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 10
+            },
+            "memberName": "jeanluca jeanlucajea"
+        },
+        {
+            "date": "2023-07-14T13:19:21.297Z",
+            "member": {
+                "name": "Arthur Hassan Souki",
+                "email": "souki.arthur@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Arthur Hassan Souki"
+        },
+        {
+            "date": "2023-07-14T13:19:21.297Z",
+            "member": {
+                "name": "Arthur Hassan Souki",
+                "email": "souki.arthur@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Arthur Hassan Souki"
+        },
+        {
+            "date": "2023-07-14T13:20:43.551Z",
+            "member": {
+                "name": "Gean Homem Marzarotto",
+                "email": "geanhmarza@gmail.com"
+            },
+            "value": {
+                "value": 18
+            },
+            "memberName": "Gean Homem Marzarotto"
+        },
+        {
+            "date": "2023-07-14T13:20:43.551Z",
+            "member": {
+                "name": "Gean Homem Marzarotto",
+                "email": "geanhmarza@gmail.com"
+            },
+            "value": {
+                "value": 100
+            },
+            "memberName": "Gean Homem Marzarotto"
+        },
+        {
+            "date": "2023-07-17T11:34:35.771Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 40
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.771Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 25
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.771Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.771Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.771Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 25
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.772Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 26
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.772Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.772Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.772Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-07-17T11:34:35.772Z",
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Gabriel P. Gava"
+        },
+        {
+            "date": "2023-08-01T18:33:09.921Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-08-21T14:46:36.700Z",
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 21
+            },
+            "memberName": "Jeanluca FP"
+        },
+        {
+            "date": "2023-09-01T16:35:10.371Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Augusto Savi"
+        },
+        {
+            "date": "2023-09-04T23:44:00.417Z",
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 41.61
+            },
+            "memberName": "Jeanluca FP"
+        },
+        {
+            "date": "2023-10-09T13:59:23.923Z",
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Jeanluca FP"
+        },
+        {
+            "date": "2023-11-16T18:21:24.080Z",
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 20
+            },
+            "memberName": "Jeanluca FP"
+        },
+        {
+            "date": "2023-12-14T14:24:05.925Z",
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 50
+            },
+            "memberName": "Jeanluca FP"
+        },
+        {
+            "date": "2024-01-15T11:40:32.360Z",
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "value": {
+                "value": 35
+            },
+            "memberName": "Jeanluca FP"
+        },
+        {
+            "date": "2024-02-01T18:49:54.742Z",
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "value": {
+                "value": 10
+            },
+            "memberName": "Augusto Savi"
+        }
+    ],
+    "loans": [
+        {
+            "approved": true,
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "date": "2023-08-01T18:33:09.920Z",
+            "valueRequested": {
+                "value": 100
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 6,
+            "description": "gastei todo o dinheiro e faltou pagar uma conta",
+            "payments": [],
+            "uid": "1a744ebd-9abf-4970-bf40-2c413657d752",
+            "installments": 0,
+            "memberName": "Jeanluca FP",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "jeanluca jeanlucajea",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": null
+                },
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": null
+                },
+                {
+                    "name": "Gean Homem Marzarotto",
+                    "email": null
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": null
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": null
+                }
+            ],
+            "billingDates": [
+                "2023-08-13T11:09:59.887Z"
+            ],
+            "totalValue": {
+                "value": 102
+            },
+            "isPaidOff": true,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Gabriel P. Gava",
+                "email": "gabrielpasinigava@gmail.com"
+            },
+            "date": "2023-08-01T18:33:09.921Z",
+            "valueRequested": {
+                "value": 500
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 1.5
+            },
+            "box": null,
+            "approvals": 6,
+            "description": "Levei calote nas agiotagem e tenho que pagar o cartão",
+            "payments": [
+                {
+                    "member": {
+                        "name": "Gabriel P. Gava",
+                        "email": "gabrielpasinigava@gmail.com"
+                    },
+                    "date": "2023-09-14T12:25:29.936Z",
+                    "value": {
+                        "value": 253.75
+                    },
+                    "description": "Pago via caixinha web"
+                },
+                {
+                    "member": {
+                        "name": "Gabriel P. Gava",
+                        "email": "gabrielpasinigava@gmail.com"
+                    },
+                    "date": "2023-09-25T11:30:39.005Z",
+                    "value": {
+                        "value": 253.75
+                    },
+                    "description": "correcao de dados"
+                }
+            ],
+            "uid": "49aaffd0-bd52-4b7a-802c-03f456ed1adc",
+            "installments": "2",
+            "memberName": "Gabriel P. Gava",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                },
+                {
+                    "name": "Jeanluca FP",
+                    "email": null
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "dinhupagani@gmail.com"
+                },
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Gean Homem Marzarotto",
+                    "email": "geanhmarza@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2023-08-15T16:28:33.066Z",
+                "2023-09-14T16:28:33.066Z"
+            ],
+            "totalValue": {
+                "value": 507.5
+            },
+            "isPaidOff": true,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "date": "2023-10-10T21:55:32.544Z",
+            "valueRequested": {
+                "value": 50
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 1
+            },
+            "box": null,
+            "approvals": 6,
+            "description": "Preciso para pagar o Arnaldo",
+            "payments": [
+                {
+                    "member": {
+                        "name": "Jeanluca FP",
+                        "email": "jeanlucafp@gmail.com"
+                    },
+                    "date": "2023-11-07T12:07:08.709Z",
+                    "value": {
+                        "value": 50.5
+                    },
+                    "description": "Pago via caixinha web"
+                }
+            ],
+            "uid": "068c8030-4f1a-4568-a8f0-38497dbd9da2",
+            "installments": 0,
+            "memberName": "Jeanluca FP",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Jeanluca FP",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "dinhupagani@gmail.com"
+                },
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Gean Homem Marzarotto",
+                    "email": "geanhmarza@gmail.com"
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2023-11-09T21:55:32.544Z"
+            ],
+            "totalValue": {
+                "value": 50.5
+            },
+            "isPaidOff": true,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "arnaldopaganijr@gmail.com"
+            },
+            "date": "2023-10-13T19:47:58.717Z",
+            "valueRequested": {
+                "value": 700
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 6,
+            "description": "Sem dinheiro para as contas,\nVou pagar quando cair o décimo \n",
+            "payments": [
+                {
+                    "member": {
+                        "name": "Arnaldo Pagani Junior",
+                        "email": "arnaldopaganijr@gmail.com"
+                    },
+                    "date": "2023-12-08T12:10:45.243Z",
+                    "value": {
+                        "value": 700
+                    },
+                    "description": "Pago via caixinha web"
+                },
+                {
+                    "member": {
+                        "name": "Arnaldo Pagani Junior",
+                        "email": "arnaldopaganijr@gmail.com"
+                    },
+                    "date": "2023-12-08T12:12:45.017Z",
+                    "value": {
+                        "value": 14
+                    },
+                    "description": "Pago via caixinha web"
+                }
+            ],
+            "uid": "ca30aa39-1ad6-49fe-9c9e-2e8f48bc4184",
+            "installments": "01",
+            "memberName": "Arnaldo Pagani Junior",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "arnaldopaganijr@gmail.com"
+                },
+                {
+                    "name": "Jeanluca FP",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Gean Homem Marzarotto",
+                    "email": "geanhmarza@gmail.com"
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2023-11-12T19:47:58.717Z"
+            ],
+            "totalValue": {
+                "value": 714
+            },
+            "isPaidOff": true,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Arthur Hassan Souki",
+                "email": "souki.arthur@gmail.com"
+            },
+            "date": "2023-10-16T11:38:23.935Z",
+            "valueRequested": {
+                "value": 400
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 6,
+            "description": "Pagar a minha velha e a porra da TIM, quitar a divida até o começo do mês de novembro ou antes casa receba dinheiro de aniversário.",
+            "payments": [
+                {
+                    "member": {
+                        "name": "Arthur Hassan Souki",
+                        "email": "souki.arthur@gmail.com"
+                    },
+                    "date": "2023-10-31T16:26:42.363Z",
+                    "value": {
+                        "value": 400
+                    },
+                    "description": "Pago via caixinha web"
+                },
+                {
+                    "member": {
+                        "name": "Arthur Hassan Souki",
+                        "email": "souki.arthur@gmail.com"
+                    },
+                    "date": "2023-10-31T16:29:50.282Z",
+                    "value": {
+                        "value": 8
+                    },
+                    "description": "Pago via caixinha web"
+                }
+            ],
+            "uid": "e614e4b9-18e7-424b-a4a7-b26aba274381",
+            "installments": "1",
+            "memberName": "Arthur Hassan Souki",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Jeanluca FP",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "dinhupagani@gmail.com"
+                },
+                {
+                    "name": "Gean Homem Marzarotto",
+                    "email": "geanhmarza@gmail.com"
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2023-11-15T11:38:23.935Z"
+            ],
+            "totalValue": {
+                "value": 408
+            },
+            "isPaidOff": true,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Arthur Hassan Souki",
+                "email": "souki.arthur@gmail.com"
+            },
+            "date": "2023-11-14T17:54:10.509Z",
+            "valueRequested": {
+                "value": 200
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 6,
+            "description": "Deu ruim nas contas esse mês",
+            "payments": [
+                {
+                    "member": {
+                        "name": "Arthur Hassan Souki",
+                        "email": "souki.arthur@gmail.com"
+                    },
+                    "date": "2023-12-12T18:17:06.040Z",
+                    "value": {
+                        "value": 200
+                    },
+                    "description": "Pago via caixinha web"
+                },
+                {
+                    "member": {
+                        "name": "Arthur Hassan Souki",
+                        "email": "souki.arthur@gmail.com"
+                    },
+                    "date": "2023-12-12T18:17:48.016Z",
+                    "value": {
+                        "value": 4
+                    },
+                    "description": "Pago via caixinha web"
+                }
+            ],
+            "uid": "2e3a5115-ec82-46bf-8c99-786bf63d2010",
+            "installments": "1",
+            "memberName": "Arthur Hassan Souki",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Jeanluca FP",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "dinhupagani@gmail.com"
+                },
+                {
+                    "name": "Gean Homem Marzarotto",
+                    "email": "geanhmarza@gmail.com"
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2023-12-14T17:54:10.509Z"
+            ],
+            "totalValue": {
+                "value": 204
+            },
+            "isPaidOff": true,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Augusto Savi",
+                "email": "guto_savi@outlook.com"
+            },
+            "date": "2023-12-20T12:15:38.984Z",
+            "valueRequested": {
+                "value": 500
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 6,
+            "description": "Errei fui muleke",
+            "payments": [
+                {
+                    "member": {
+                        "name": "Augusto Savi",
+                        "email": "guto_savi@outlook.com"
+                    },
+                    "date": "2024-02-01T18:41:48.964Z",
+                    "value": {
+                        "value": 510
+                    },
+                    "description": "Pago via caixinha web"
+                }
+            ],
+            "uid": "89735928-7dae-41e2-9857-c7cfbce883a2",
+            "installments": "1",
+            "memberName": "Augusto Savi",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Jeanluca FP",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "dinhupagani@gmail.com"
+                },
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Gean Homem Marzarotto",
+                    "email": "geanhmarza@gmail.com"
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2024-01-19T12:15:38.984Z"
+            ],
+            "totalValue": {
+                "value": 510
+            },
+            "isPaidOff": true,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Arnaldo Pagani Junior",
+                "email": "dinhupagani@gmail.com"
+            },
+            "date": "2024-01-10T23:35:36.830Z",
+            "valueRequested": {
+                "value": 350
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 5,
+            "description": "Fim do ano me fudeo",
+            "payments": [],
+            "uid": "d54a7b3b-33be-4520-a42a-6e99ce2ef4cc",
+            "installments": "2",
+            "memberName": "Arnaldo Pagani Junior",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "dinhupagani@gmail.com"
+                },
+                {
+                    "name": "Jeanluca FP",
+                    "email": null
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2024-02-09T23:35:36.830Z",
+                "2024-03-10T23:35:36.830Z"
+            ],
+            "totalValue": {
+                "value": 357
+            },
+            "isPaidOff": null,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Jeanluca FP",
+                "email": "jeanlucafp@gmail.com"
+            },
+            "date": "2024-01-16T17:09:20.648Z",
+            "valueRequested": {
+                "value": 790
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 5,
+            "description": "subscricao inesperado do XPML11",
+            "payments": [],
+            "uid": "bd77a4a0-393d-467c-9f28-c939c478b880",
+            "installments": 0,
+            "memberName": "Jeanluca FP",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Jeanluca FP",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "dinhupagani@gmail.com"
+                },
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2024-02-15T17:09:20.648Z"
+            ],
+            "totalValue": {
+                "value": 805.8
+            },
+            "isPaidOff": null,
+            "remainingAmount": {
+                "value": 0
+            }
+        },
+        {
+            "approved": true,
+            "member": {
+                "name": "Arthur Hassan Souki",
+                "email": "souki.arthur@gmail.com"
+            },
+            "date": "2024-01-18T16:27:31.080Z",
+            "valueRequested": {
+                "value": 650
+            },
+            "fees": {
+                "value": 0
+            },
+            "interest": {
+                "value": 2
+            },
+            "box": null,
+            "approvals": 5,
+            "description": "Pagar meu cartão de credito",
+            "payments": [],
+            "uid": "f62ff315-a0f9-432e-94ee-7cbe20b5656b",
+            "installments": "2",
+            "memberName": "Arthur Hassan Souki",
+            "requiredNumberOfApprovals": 5,
+            "listOfMembersWhoHaveAlreadyApproved": [
+                {
+                    "name": "Arthur Hassan Souki",
+                    "email": "souki.arthur@gmail.com"
+                },
+                {
+                    "name": "Jeanluca FP",
+                    "email": "jeanlucafp@gmail.com"
+                },
+                {
+                    "name": "Augusto Savi",
+                    "email": "guto_savi@outlook.com"
+                },
+                {
+                    "name": "Arnaldo Pagani Junior",
+                    "email": "dinhupagani@gmail.com"
+                },
+                {
+                    "name": "Gabriel P. Gava",
+                    "email": "gabrielpasinigava@gmail.com"
+                }
+            ],
+            "billingDates": [
+                "2024-02-17T16:27:31.080Z",
+                "2024-03-18T16:27:31.080Z"
+            ],
+            "totalValue": {
+                "value": 663
+            },
+            "isPaidOff": null,
+            "remainingAmount": {
+                "value": 0
+            }
+        }
+    ],
+    "name": "Discord do zap",
+    "performance": [
+        {
+            "value": {
+                "value": 2.42
+            },
+            "monthNumber": 7,
+            "yearNumber": 2023
+        },
+        {
+            "value": {
+                "value": 36.46
+            },
+            "monthNumber": 9,
+            "yearNumber": 2023
+        },
+        {
+            "value": {
+                "value": 22.48
+            },
+            "monthNumber": 10,
+            "yearNumber": 2023
+        },
+        {
+            "value": {
+                "value": 26.68
+            },
+            "monthNumber": 11,
+            "yearNumber": 2023
+        },
+        {
+            "value": {
+                "value": 21.64
+            },
+            "monthNumber": 12,
+            "yearNumber": 2023
+        },
+        {
+            "value": {
+                "value": 1.96
+            },
+            "monthNumber": 1,
+            "yearNumber": 2024
+        }
+    ],
+    "bankAccount": {
+        "keysPix": [
+            "fe52da16-71c9-47f6-9daa-2e89034f97b0"
+        ],
+        "urlsQrCodePix": [
+            "https://cdn.discordapp.com/attachments/900858076826050590/1113788218802970705/image.png"
+        ]
+    }
+}

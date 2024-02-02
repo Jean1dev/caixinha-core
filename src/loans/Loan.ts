@@ -2,6 +2,7 @@ import { Box } from "../boxes/Box"
 import DomainError from "../error/DomainError"
 import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
+import { stringToDate } from "../utils"
 import { BankReceipt } from "../valueObjects/BankReceipt"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 import { CreateLoanInput, FromBoxInput } from "./loan.types"
@@ -70,7 +71,7 @@ export class Loan {
             box: input.box,
             description: input.description,
             skipValidate: true,
-            date: new Date(input.date)
+            date: stringToDate(input.date)
         })
 
         l.payments = input.payments
@@ -256,5 +257,13 @@ export class Loan {
 
     public get _payments() {
         return this.payments
+    }
+
+    public get _totalValue() {
+        return this.totalValue.val
+    }
+
+    public get lastDayForPay(): Date {
+        return this.billingDates[this.billingDates.length - 1]
     }
 }

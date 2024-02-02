@@ -71,5 +71,12 @@ describe('CalculateAssetDevlopment test', () => {
         expect(result.availableBalance.data[_.May]).toBe(125.50)
         expect(result.portfolioBalance.data[_.May]).toBe(125.50)
     })
+
+    it('Shoud be calculate correctly based on caixinha backup', () => {
+        const json = require('./input2.json')
+
+        let box = Box.fromJson(json)
+        let result = CalculateAssetDevlopment(box)
+    })
 })
 

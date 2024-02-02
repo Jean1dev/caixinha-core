@@ -1,4 +1,5 @@
 import { Member } from "../members/Member";
+import { stringToDate } from "../utils";
 import { DecimalValue } from "../valueObjects/DecimalValue";
 
 interface PaymentCreateInput {
@@ -16,7 +17,7 @@ export class Payment {
 
     constructor(input: PaymentCreateInput) {
         this.member = input.member
-        this.date = input.date || new Date()
+        this.date = stringToDate(input.date)
         this.value = DecimalValue.from(input.value)
         this.description = input.description
     }
