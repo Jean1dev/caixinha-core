@@ -1,5 +1,4 @@
 import { Member } from "../../members/Member";
-import { Payment } from "../../payment/Payment";
 import { getDifferenceBetweenDates } from "../../utils";
 import { Loan } from "../Loan";
 
@@ -7,10 +6,15 @@ interface CreditRiskOutput {
     message: string
     risk: number
     member: Member
+    quantity: number
 }
 
 function getLastDayofPayment(loan: Loan): Date {
     const lastPayment = loan._payments[loan._payments.length - 1]
+    if (!lastPayment) {
+        return loan.listOfBillingDates[loan.listOfBillingDates.length - 1]
+    }
+
     return lastPayment._date
 }
 
@@ -52,9 +56,8 @@ function getDiffOfDueLoansAndCompletedLoans(loans: Loan[], member: string): numb
     return diff
 }
 
-export default function GenerateCreditRisk(collection: Loan[], members: Member[]): CreditRiskOutput[] {
-    const output = []
-    const memberRisksLoan = members
+function filterLateLoans(collection: Loan[], members: Member[]): { memberName: string, memberLoans: Loan[] }[] {
+    return members
         .map(member => member.memberName)
         .map(memberName => {
             const memberLoans = collection.filter(loan => loan._member.memberName === memberName)
@@ -68,15 +71,20 @@ export default function GenerateCreditRisk(collection: Loan[], members: Member[]
 
             return true
         })
+}
+
+export default function GenerateCreditRisk(collection: Loan[], members: Member[]): CreditRiskOutput[] {
+    const output = []
+    const memberRisksLoan = filterLateLoans(collection, members)
 
     memberRisksLoan.forEach(memberWithLoan => {
         let messages = []
         const lateLoans = getLateLoans(memberWithLoan.memberLoans)
         lateLoans.forEach(loan => {
             const lastDateForPay = loan.lastDayForPay
-            
+
             if (loan._isPaidOff) {
-                const diff = getDifferenceBetweenDates(getLastDayofPayment(loan), lastDateForPay)    
+                const diff = getDifferenceBetweenDates(getLastDayofPayment(loan), lastDateForPay)
                 messages.push(`Loan ${loan['description']} was payed outside a due date - ${diff} days`)
             } else {
                 const diff = getDifferenceBetweenDates(new Date(), lastDateForPay)
@@ -87,6 +95,7 @@ export default function GenerateCreditRisk(collection: Loan[], members: Member[]
         const diff = getDiffOfDueLoansAndCompletedLoans(collection, memberWithLoan.memberName)
 
         output.push({
+            quantity: lateLoans.length,
             message: messages.join('\n'),
             risk: (diff * 10) / 100,
             member: new Member(memberWithLoan.memberName)
