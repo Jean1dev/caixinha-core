@@ -15,7 +15,14 @@ export default function ReportPendingLoan(box: Box): IReportPendingLoan[] {
     box['members'].forEach(member => {
         const membersLoan = pending.filter(loa => loa._member.memberName === member.memberName)
         if (membersLoan.length > 0) {
-            const total = membersLoan.map(lo => lo._remainingAmount).reduce((sum, value) => sum + value, 0)
+            const total = membersLoan.map(lo => {
+                if (lo._remainingAmount == 0) {
+                    return lo._totalValue
+                }
+
+                return lo._remainingAmount
+            }).reduce((sum, value) => sum + value, 0)
+
             result.push({
                 member,
                 valuePending: DecimalValue.from(total),
