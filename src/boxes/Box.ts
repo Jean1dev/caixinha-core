@@ -68,7 +68,8 @@ export class Box {
                     ? loan.listOfMembersWhoHaveAlreadyApproved.map(m => (Member.build({ name: m.name, email: m.email })))
                     : [],
                 isPaidOff: loan.isPaidOff,
-                installments: loan.installments
+                installments: loan.installments,
+                refusedReason: loan.refusedReason
             })
         })
 

@@ -1,3 +1,5 @@
+import { RefusedReasonJson } from "../loans/loan.types"
+
 export interface BoxJsonType {
   _id: Id
   members: MemberJson[]
@@ -6,7 +8,7 @@ export interface BoxJsonType {
   loans: LoanBoxJson[]
   bankAccount?: IBankAccount
   name?: string
-  performance?: PerforanceJson[]
+  performance?: PerformanceJson[]
 }
 
 export interface IBankAccount {
@@ -27,7 +29,7 @@ export interface CurrentBalance {
   value: number
 }
 
-export interface PerforanceJson {
+export interface PerformanceJson {
   value: { value: number }
   monthNumber: number
   yearNumber: number
@@ -53,6 +55,7 @@ export interface LoanBoxJson {
   uid: string
   isPaidOff?: boolean
   installments?: number
+  refusedReason?: RefusedReasonJson
 }
 
 export interface ValueRequested {

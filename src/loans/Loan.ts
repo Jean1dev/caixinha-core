@@ -5,6 +5,7 @@ import { Payment } from "../payment/Payment"
 import { stringToDate } from "../utils"
 import { BankReceipt } from "../valueObjects/BankReceipt"
 import { DecimalValue } from "../valueObjects/DecimalValue"
+import { RefusedReason } from "./RefusedReason"
 import { CreateLoanInput, FromBoxInput } from "./loan.types"
 import crypto from 'crypto'
 
@@ -36,6 +37,7 @@ export class Loan {
     private bankReceipt: BankReceipt
     private isPaidOff: boolean
     private installments: number
+    private refusedReason: RefusedReason
 
     constructor(input: CreateLoanInput) {
         this.approved = false
@@ -84,7 +86,22 @@ export class Loan {
         l.billingDates = input.billingDates.map(billDate => (new Date(billDate)))
         l.totalValue = DecimalValue.from(input?.totalValue?.value || 0)
         l.remainingAmount = DecimalValue.from(input?.remainingAmount?.value || 0)
+
+        if (input.refusedReason) {
+            l.refusedReason = RefusedReason.fromJson(input.refusedReason)
+        }
         return l
+    }
+
+    public refuse(reason: string, member: Member): boolean {
+        if (this._isPaidOff || this.approved == true)
+            return false
+
+        if (!this.box.memberIsOnThisBox(member)) 
+            return false
+
+        this.refusedReason = new RefusedReason(member, reason)
+        return true
     }
 
     public thisMemberCanCanceledThisLoan(): boolean {
@@ -113,6 +130,10 @@ export class Loan {
     public addApprove(hosApprove: Member) {
         if (!this.box.memberIsOnThisBox(hosApprove)) {
             throw new DomainError('This member cannot approve this loan because he is no member of this box')
+        }
+
+        if (this.refusedReason) {
+            throw new DomainError('This loan is refused')
         }
 
         this.addMemberWhoApproved(hosApprove)

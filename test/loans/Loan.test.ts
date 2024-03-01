@@ -306,4 +306,62 @@ describe('Loan class test', () => {
         expect(loan._remainingAmount).toBe(25)
     })
 
+    it('should be abble to refuse loan', () => {
+        const member = new Member('juca')
+
+        const box = new Box()
+        const deposit = new Deposit({
+            member,
+            value: 1000
+        })
+
+        box.joinMember(member)
+
+        const carlos = new Member('carlos')
+        box.joinMember(carlos)
+        box.deposit(deposit)
+
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 1000,
+            interest: 5,
+            box,
+            description: 'teste'
+        }
+
+        const loan = new Loan(input)      
+        const mustBeTrue = loan.refuse('nao acho justo', member)
+        expect(mustBeTrue).toBe(true)
+        
+        expect(() => loan.addApprove(member)).toThrow('This loan is refused')
+    })
+
+    it('should not be abble refuse loan with member outside the box', () => {
+        const member = new Member('juca')
+
+        const box = new Box()
+        const deposit = new Deposit({
+            member,
+            value: 1000
+        })
+
+        box.joinMember(member)
+
+        const carlos = new Member('carlos')
+        box.joinMember(carlos)
+        box.deposit(deposit)
+
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 1000,
+            interest: 5,
+            box,
+            description: 'teste'
+        }
+
+        const loan = new Loan(input)   
+        const mustBeFalse = loan.refuse('nao acho justo', new Member('joao'))
+        expect(mustBeFalse).toBe(false)
+    })
+
 })

@@ -1,4 +1,4 @@
-import { PerforanceJson } from "../boxes/box.types";
+import { PerformanceJson } from "../boxes/box.types";
 import DomainError from "../error/DomainError";
 import { DecimalValue } from "./DecimalValue";
 
@@ -18,7 +18,7 @@ export class PerformanceValue {
         return p
     }
 
-    public static fromJson(json: PerforanceJson): PerformanceValue {
+    public static fromJson(json: PerformanceJson): PerformanceValue {
         const p = new PerformanceValue()
         p.value = DecimalValue.from(json.value)
         p.monthNumber = json.monthNumber
