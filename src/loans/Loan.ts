@@ -94,7 +94,7 @@ export class Loan {
     }
 
     public refuse(reason: string, member: Member): boolean {
-        if (this._isPaidOff || this.approved == true)
+        if (this._isPaidOff || this.approved)
             return false
 
         if (!this.box.memberIsOnThisBox(member)) 
