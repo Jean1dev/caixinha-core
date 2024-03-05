@@ -1,4 +1,5 @@
 import { Box } from "../boxes/Box"
+import { MemberJson } from "../boxes/box.types"
 import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
 
@@ -22,6 +23,13 @@ export interface FromBoxInput {
   listOfMembersWhoHaveAlreadyApproved: Member[]
   isPaidOff?: boolean
   installments?: number
+  refusedReason?: RefusedReasonJson
+}
+
+export interface RefusedReasonJson {
+  reason: string
+  member: MemberJson
+  createdAt: string
 }
 
 export interface CreateLoanInput {
