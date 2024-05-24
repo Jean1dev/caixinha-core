@@ -3,11 +3,15 @@ import CalculateInstallmentsValue from "./loans/useCase/CalculateInstallmentsVal
 import ReportPendingLoan from './boxes/useCase/ReportPendingLoans';
 import CalculatePercentDevlopment from "./boxes/useCase/CalculatePercentDevlopment";
 import GenerateCreditRisk from './loans/useCase/GenerateCreditRisk';
+import SuggestRenegotiationSimpleInterest from "./renegotiations/useCase/SuggestRenegotiation";
+import AcceptRenegotiation from "./renegotiations/useCase/AcceptRenegotiation";
 
 export {
     CalculateInstallmentsValue,
     CalculateAssetDevlopment,
     ReportPendingLoan,
     CalculatePercentDevlopment,
-    GenerateCreditRisk
+    GenerateCreditRisk,
+    SuggestRenegotiationSimpleInterest,
+    AcceptRenegotiation
 }

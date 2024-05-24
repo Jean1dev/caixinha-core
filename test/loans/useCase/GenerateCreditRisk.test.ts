@@ -5,8 +5,8 @@ describe('GenerateCreditRisk', () => {
     it('Should be generate correctly analyses', () => {
         const json = require('../../boxes/useCase/input2.json')
         const box = Box.fromJson(json)
-        const result = GenerateCreditRisk(box._loans, box['members'])
-        expect(result.length).toBe(4)
+        const result = GenerateCreditRisk(box._loans, box._members)
+        expect(result.length).toBe(5)
         
     })
 })

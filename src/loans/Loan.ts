@@ -2,19 +2,11 @@ import { Box } from "../boxes/Box"
 import DomainError from "../error/DomainError"
 import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
-import { stringToDate } from "../utils"
+import { generateUUID, stringToDate } from "../utils"
 import { BankReceipt } from "../valueObjects/BankReceipt"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 import { RefusedReason } from "./RefusedReason"
 import { CreateLoanInput, FromBoxInput } from "./loan.types"
-import crypto from 'crypto'
-
-function generateUUID() {
-    const uuid = crypto.randomBytes(16);
-    uuid[6] = (uuid[6] & 0x0f) | 0x40;  // versão 4
-    uuid[8] = (uuid[8] & 0x3f) | 0x80;  // variant RFC 4122
-    return uuid.toString('hex').match(/(.{8})(.{4})(.{4})(.{4})(.{12})/).slice(1).join('-');
-}
 
 export class Loan {
     private member: Member

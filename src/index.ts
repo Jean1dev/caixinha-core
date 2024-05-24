@@ -4,6 +4,7 @@ import { Deposit } from "./deposits/Deposit"
 import { Loan } from "./loans/Loan"
 import { Payment } from "./payment/Payment"
 import { FullDataMember } from "./members/FullDataMember"
+import { Renegotiation } from "./renegotiations/Renegotiation"
 
 export {
     Member,
@@ -11,5 +12,6 @@ export {
     Deposit,
     Loan,
     Payment,
-    FullDataMember
+    FullDataMember,
+    Renegotiation
 }
