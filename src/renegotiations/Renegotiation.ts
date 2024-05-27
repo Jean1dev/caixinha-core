@@ -3,6 +3,7 @@ import { Loan } from "../loans/Loan"
 import { Member } from "../members/Member"
 import { getDifferenceBetweenDates } from "../utils"
 import { DecimalValue } from "../valueObjects/DecimalValue"
+import { RenegotiationJsonType } from "./Renegotiation.types"
 
 export class Renegotiation {
     private createdAt: Date
@@ -26,6 +27,17 @@ export class Renegotiation {
         return reneg
     }
 
+    public static fromJson(json: RenegotiationJsonType): Renegotiation {
+        const reneg = new Renegotiation()
+        reneg.oldLoan = Loan.fromBox(json.oldLoan)
+        reneg.newLoan = json.newLoan ? Loan.fromBox(json.newLoan) : null
+        reneg.status = json.status
+        reneg.delayedDays = json.delayedDays
+        reneg.createdAt = new Date(json.createdAt)
+        reneg.finishedAt = json.finishedAt ? new Date(json.finishedAt) : null
+        return reneg
+    }
+
     public complete(newLoan: Loan) {
         this.finishedAt = new Date()
         this.status = 'FINISHED'
@@ -41,6 +53,10 @@ export class Renegotiation {
 
     public validate(throwIFException = false): String[] {
         const errors = []
+        if (this.finishedAt) {
+            errors.push("renegotiation is already finished")
+        }
+
         if (this.oldLoan._isPaidOff) {
             errors.push("loan has already been paid")
         }

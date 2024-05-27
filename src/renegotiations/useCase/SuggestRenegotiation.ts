@@ -28,7 +28,7 @@ export default function SuggestRenegotiationSimpleInterest(entity: Renegotiation
         ${member.memberName} you have a credit risk of ${risk.risk}
         suggested proposal 
         outstanding amount -> R$ ${loan._totalValue}
-        increase value -> R$ ${increaseValue}
+        increase value -> R$ ${newTax.toFixed(2)}
         new total -> R$ ${newTotalValue.toFixed(2)}
         in up to ${installmentOptions.length} installments
     `

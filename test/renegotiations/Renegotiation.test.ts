@@ -7,6 +7,7 @@ import {
     Renegotiation
 } from "../../src"
 import { FromBoxInput } from "../../src/loans/loan.types";
+import { RenegotiationJsonType } from "../../src/renegotiations/Renegotiation.types";
 import { getDataMenos30Dias } from "../testUtils";
 
 function validLoanForRenegotiation() {
@@ -151,5 +152,15 @@ describe('Renegotiation Test', () => {
         expect(o['status']).toBe('FINISHED')
         expect(o['finishedAt']).not.toBeNull()
         expect(o['newLoan']['UUID']).toBe(newLoan.UUID)
+    })
+
+    it('should be create correctly by json', () => {
+        const json = require('./reneg.json')
+        const o = Renegotiation.fromJson(json as unknown as RenegotiationJsonType)
+        expect(o['status']).toBe('PENDING')
+        expect(o['createdAt']).not.toBeNull()
+        expect(o['oldLoan']['UUID']).toBe(json['oldLoan']['uid'])
+        expect(o['finishedAt']).toBe(null)
+        expect(o['newLoan']).toBe(null)
     })
 })

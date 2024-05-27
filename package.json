@@ -9,7 +9,7 @@
     "coverage": "jest --coverage",
     "debug-box-script": "npx jest test/boxes/useCase/CalculateAssetDevlopment.test.ts",
     "debug-loan-script": "npx jest test/loans/useCase/GenerateCreditRisk.test.ts",
-    "debug-renegotiation-script": "npx jest test/renegotiations/useCase/AcceptRenegotiation.test.ts"
+    "debug-renegotiation-script": "npx jest test/renegotiations/Renegotiation.test.ts"
   },
   "repository": {
     "type": "git",
