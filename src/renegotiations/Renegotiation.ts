@@ -51,7 +51,7 @@ export class Renegotiation {
         return diffInDays
     }
 
-    public validate(throwIFException = false): String[] {
+    public validate(throwIFException = false): string[] {
         const errors = []
         if (this.finishedAt) {
             errors.push("renegotiation is already finished")
