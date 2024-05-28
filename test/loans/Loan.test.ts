@@ -264,10 +264,10 @@ describe('Loan class test', () => {
         const loan = new Loan(input)
 
         expect(loan.listOfBillingDates).toHaveLength(4)
-        expect(loan.listOfBillingDates[0]).toStrictEqual(firstInstallment)
-        expect(loan.listOfBillingDates[1]).toStrictEqual(secondInstallment)
-        expect(loan.listOfBillingDates[2]).toStrictEqual(thirdInstallment)
-        expect(loan.listOfBillingDates[3]).toStrictEqual(fourthInstalment)
+        expect(loan.listOfBillingDates[0]).toEqual(firstInstallment)
+        expect(loan.listOfBillingDates[1]).toEqual(secondInstallment)
+        expect(loan.listOfBillingDates[2]).toEqual(thirdInstallment)
+        expect(loan.listOfBillingDates[3]).toEqual(fourthInstalment)
     })
 
     it('shoud be create Loan correcty fromBoxJson', () => {

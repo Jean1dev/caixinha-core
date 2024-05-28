@@ -8,7 +8,7 @@ import {
 } from "../../src"
 import { FromBoxInput } from "../../src/loans/loan.types";
 import { RenegotiationJsonType } from "../../src/renegotiations/Renegotiation.types";
-import { getDataMenos30Dias } from "../testUtils";
+import { getDataMenos30Dias, getDataMenosDias } from "../testUtils";
 
 function validLoanForRenegotiation() {
     const member = new Member('fake')
@@ -88,7 +88,7 @@ describe('Renegotiation Test', () => {
             valueRequested: 950,
             interest: 5,
             box,
-            description: 'teste'
+            description: 'teste',
         }
 
         const loan = new Loan(input)
@@ -113,7 +113,8 @@ describe('Renegotiation Test', () => {
             valueRequested: 950,
             interest: 5,
             box,
-            description: 'teste'
+            description: 'teste',
+            date: getDataMenosDias(1)
         }
 
         const loan = new Loan(input)
