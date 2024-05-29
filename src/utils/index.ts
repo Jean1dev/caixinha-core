@@ -1,3 +1,12 @@
+import crypto from 'crypto'
+
+export function generateUUID() {
+    const uuid = crypto.randomBytes(16);
+    uuid[6] = (uuid[6] & 0x0f) | 0x40;  // versão 4
+    uuid[8] = (uuid[8] & 0x3f) | 0x80;  // variant RFC 4122
+    return uuid.toString('hex').match(/(.{8})(.{4})(.{4})(.{4})(.{12})/).slice(1).join('-');
+}
+
 export function stringToDate(value: string | Date | undefined): Date {
   if (value instanceof Date) {
     return value

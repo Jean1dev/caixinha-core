@@ -1,0 +1,113 @@
+{
+    "oldLoan": {
+        "approved": true,
+        "member": {
+            "name": "name",
+            "email": "email"
+        },
+        "date": "2024-03-27T13:37:59.325Z",
+        "valueRequested": {
+            "value": 15
+        },
+        "fees": {
+            "value": 0
+        },
+        "interest": {
+            "value": 1
+        },
+        "box": {
+            "members": [
+                {
+                    "name": "name",
+                    "email": "email"
+                }
+            ],
+            "currentBalance": {
+                "value": 135
+            },
+            "deposits": [
+                {
+                    "date": "2024-05-27T13:37:54.592Z",
+                    "member": {
+                        "name": "name",
+                        "email": "email"
+                    },
+                    "value": {
+                        "value": 150
+                    },
+                    "memberName": "name"
+                }
+            ],
+            "loans": [
+                {
+                    "approved": true,
+                    "member": {
+                        "name": "name",
+                        "email": "email"
+                    },
+                    "date": "2024-03-27T13:37:59.325Z",
+                    "valueRequested": {
+                        "value": 15
+                    },
+                    "fees": {
+                        "value": 0
+                    },
+                    "interest": {
+                        "value": 1
+                    },
+                    "box": null,
+                    "approvals": 1,
+                    "description": "motivo",
+                    "payments": [],
+                    "uid": "6ae37e1f-63dc-41b1-bb99-3b2a455f2909",
+                    "installments": 1,
+                    "memberName": "name",
+                    "requiredNumberOfApprovals": 1,
+                    "listOfMembersWhoHaveAlreadyApproved": [
+                        {
+                            "name": "name",
+                            "email": "email"
+                        }
+                    ],
+                    "billingDates": [
+                        "2024-04-26T13:37:59.325Z"
+                    ],
+                    "totalValue": {
+                        "value": 15.15
+                    },
+                    "isPaidOff": null,
+                    "remainingAmount": {
+                        "value": 0
+                    }
+                }
+            ],
+            "name": "primeira caixinhaId"
+        },
+        "approvals": 1,
+        "description": "motivo",
+        "payments": [],
+        "uid": "6ae37e1f-63dc-41b1-bb99-3b2a455f2909",
+        "installments": 1,
+        "memberName": "name",
+        "requiredNumberOfApprovals": 1,
+        "listOfMembersWhoHaveAlreadyApproved": [
+            {
+                "name": "name",
+                "email": "email"
+            }
+        ],
+        "billingDates": [
+            "2024-04-26T13:37:59.325Z"
+        ],
+        "totalValue": {
+            "value": 15.15
+        },
+        "isPaidOff": null,
+        "remainingAmount": {
+            "value": 0
+        }
+    },
+    "createdAt": "2024-05-27T13:43:24.476Z",
+    "status": "PENDING",
+    "delayedDays": 31
+}

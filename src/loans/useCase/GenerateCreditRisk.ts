@@ -2,7 +2,7 @@ import { Member } from "../../members/Member";
 import { getDifferenceBetweenDates } from "../../utils";
 import { Loan } from "../Loan";
 
-interface CreditRiskOutput {
+export interface CreditRiskOutput {
     message: string
     risk: number
     member: Member

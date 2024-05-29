@@ -109,6 +109,12 @@ export class Box {
         this.members = this.members.filter(m => m._email !== member._email)
     }
 
+    public removeLoan(uuid: string) {
+        const loan = this.getLoanByUUID(uuid)
+        this.loans = this.loans.filter(l => l.UUID !== uuid)
+        this.sumInCurrentBalance(loan.value)
+    }
+
     public getLoanByUUID(loanUUID: string): Loan {
         const loan = this.loans.find(l => l.UUID === loanUUID)
         if (!loan)
@@ -196,5 +202,9 @@ export class Box {
 
     public get _performance() {
         return this.performance
+    }
+
+    public get _members() {
+        return this.members
     }
 }
