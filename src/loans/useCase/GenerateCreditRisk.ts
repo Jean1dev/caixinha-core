@@ -73,6 +73,10 @@ function filterLateLoans(collection: Loan[], members: Member[]): { memberName: s
         })
 }
 
+function calculateRisk(totalCompletedLoanMinusDueLoans: number, totalDaysLate: number) {
+    return (totalCompletedLoanMinusDueLoans / totalDaysLate) * 100
+}
+
 export default function GenerateCreditRisk(collection: Loan[], members: Member[]): CreditRiskOutput[] {
     const output = []
     const memberRisksLoan = filterLateLoans(collection, members)
@@ -80,24 +84,29 @@ export default function GenerateCreditRisk(collection: Loan[], members: Member[]
     memberRisksLoan.forEach(memberWithLoan => {
         let messages = []
         const lateLoans = getLateLoans(memberWithLoan.memberLoans)
+        let totalDaysLate = 0
         lateLoans.forEach(loan => {
             const lastDateForPay = loan.lastDayForPay
+            let diff = 0
 
             if (loan._isPaidOff) {
-                const diff = getDifferenceBetweenDates(getLastDayofPayment(loan), lastDateForPay)
+                diff = getDifferenceBetweenDates(getLastDayofPayment(loan), lastDateForPay)
                 messages.push(`Loan ${loan['description']} was payed outside a due date - ${diff} days`)
             } else {
-                const diff = getDifferenceBetweenDates(new Date(), lastDateForPay)
+                diff = getDifferenceBetweenDates(new Date(), lastDateForPay)
                 messages.push(`Loan ${loan.UUID} is late by ${diff} days`)
             }
+
+            totalDaysLate += diff
         })
 
-        const diff = getDiffOfDueLoansAndCompletedLoans(collection, memberWithLoan.memberName)
+        const totalCompletedLoanMinusDueLoans = getDiffOfDueLoansAndCompletedLoans(collection, memberWithLoan.memberName)
+        const risk = calculateRisk(totalCompletedLoanMinusDueLoans, totalDaysLate)
 
         output.push({
             quantity: lateLoans.length,
             message: messages.join('\n'),
-            risk: (diff * 10) / 100,
+            risk,
             member: new Member(memberWithLoan.memberName)
         })
     })

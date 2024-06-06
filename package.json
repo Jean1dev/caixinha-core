@@ -1,6 +1,6 @@
 {
   "name": "caixinha-core",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "core busnisess rules of caixinha app",
   "main": "index.ts",
   "scripts": {
@@ -9,7 +9,7 @@
     "coverage": "jest --coverage",
     "debug-box-script": "npx jest test/boxes/useCase/CalculateAssetDevlopment.test.ts",
     "debug-loan-script": "npx jest test/loans/useCase/GenerateCreditRisk.test.ts",
-    "debug-renegotiation-script": "npx jest test/renegotiations/Renegotiation.test.ts"
+    "debug-renegotiation-script": "npx jest test/renegotiations/useCase/SuggestRenegotiationSimpleInterest.test.ts"
   },
   "repository": {
     "type": "git",

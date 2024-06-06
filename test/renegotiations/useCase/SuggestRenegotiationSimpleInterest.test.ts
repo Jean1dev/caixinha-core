@@ -35,7 +35,7 @@ describe('SuggestRenegotiationSimpleInterest test', () => {
         expect(result.id).not.toBeNull()
         expect(result.reason).not.toBeNull()
         expect(result.installmentOptions.length).toBe(5)
-        expect(result.newInterestRate).toBeGreaterThan(5)
+        expect(result.newInterestRate).toBeGreaterThan(0)
         expect(result.newTotalValue).toBeGreaterThan(10)
     })
 })

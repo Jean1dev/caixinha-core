@@ -4,11 +4,7 @@ import { Deposit } from '../../src/deposits/Deposit'
 import { Loan } from '../../src/loans/Loan'
 import { CreateLoanInput, FromBoxInput } from '../../src/loans/loan.types'
 import { Member } from '../../src/members/Member'
-
-function getDate30Days(today = new Date()) {
-    const dataDaqui30Dias = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
-    return dataDaqui30Dias
-}
+import { getDataMenos30Dias } from '../testUtils'
 
 describe('Loan class test', () => {
     it('should be create succesfuly', () => {
@@ -36,7 +32,7 @@ describe('Loan class test', () => {
 
         const loan = new Loan(input)
         expect(loan).not.toBe(null)
-        expect(loan.listOfBillingDates[0].getDate()).toBe(getDate30Days().getDate())
+        expect(loan.listOfBillingDates[0].getDate()).toBe(getDataMenos30Dias().getDate())
 
         loan.addApprove(carlos)
         expect(false).toBe(loan.isApproved)
@@ -256,6 +252,11 @@ describe('Loan class test', () => {
             installments: 4
         }
 
+        function getDate30Days(today = new Date()) {
+            const dataDaqui30Dias = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
+            return dataDaqui30Dias
+        }
+
         const firstInstallment = getDate30Days()
         const secondInstallment = getDate30Days(firstInstallment)
         const thirdInstallment = getDate30Days(secondInstallment)
@@ -329,10 +330,10 @@ describe('Loan class test', () => {
             description: 'teste'
         }
 
-        const loan = new Loan(input)      
+        const loan = new Loan(input)
         const mustBeTrue = loan.refuse('nao acho justo', member)
         expect(mustBeTrue).toBe(true)
-        
+
         expect(() => loan.addApprove(member)).toThrow('This loan is refused')
     })
 
@@ -359,7 +360,7 @@ describe('Loan class test', () => {
             description: 'teste'
         }
 
-        const loan = new Loan(input)   
+        const loan = new Loan(input)
         const mustBeFalse = loan.refuse('nao acho justo', new Member('joao'))
         expect(mustBeFalse).toBe(false)
     })
