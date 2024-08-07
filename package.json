@@ -7,9 +7,7 @@
     "build": "npx tsc",
     "test": "jest",
     "coverage": "jest --coverage",
-    "debug-box-script": "npx jest test/boxes/Box.test.ts",
-    "debug-loan-script": "npx jest test/loans/useCase/GenerateCreditRisk.test.ts",
-    "debug-renegotiation-script": "npx jest test/renegotiations/useCase/SuggestRenegotiationSimpleInterest.test.ts"
+    "debug-test-script": "npx jest test/loans/Loan.test.ts"
   },
   "repository": {
     "type": "git",
