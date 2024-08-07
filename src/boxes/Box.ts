@@ -85,6 +85,24 @@ export class Box {
         return box
     }
 
+    public recalculateBalance() {
+        const deposits = this.deposits.reduce((acc, deposit) => acc + deposit._value, 0)
+        const loansPayed = this.loans
+            .filter(loan => loan._isPaidOff)
+            .reduce((acc, loan) => {
+                const totalPayments = loan._payments.reduce((acc, payment) => acc + payment._value, 0)
+                return acc + totalPayments
+            }, 0)
+
+        const loans = this.loans
+            .filter(loan => loan.isApproved)
+            .reduce((acc, loan) => acc + loan.value, 0)
+
+        const performance = this.performance ? this.performance.reduce((acc, performance) => acc + performance._value.val, 0) : 0
+        const newTotal = (deposits - loans) + loansPayed + performance
+        this.currentBalance = DecimalValue.from(newTotal)
+    }
+
     public addPerformance(value: number) {
         const result = PerformanceValue.build(DecimalValue.from(value), new Date())
         if (!this.performance) {

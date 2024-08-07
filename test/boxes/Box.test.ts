@@ -128,4 +128,13 @@ describe('Box class test', () => {
 
         expect(box.totalMembers).toBe(1)
     })
+
+    it('should be recalculate box balance', () => {
+        const json = require('./box.json')
+        const box = Box.fromJson(json)
+
+        box.recalculateBalance()
+
+        expect(25).toBe(box.balance)
+    })
 })
