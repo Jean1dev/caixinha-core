@@ -225,4 +225,8 @@ export class Box {
     public get _members() {
         return this.members
     }
+
+    public get _name() {
+        return this.name
+    }
 }
