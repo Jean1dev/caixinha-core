@@ -137,4 +137,15 @@ describe('Box class test', () => {
 
         expect(25).toBe(box.balance)
     })
+
+    it('cannot be able join member if box is locked', () => {
+        const box = new Box()
+        box.flipLock()
+        expect(() => box.joinMember(new Member('juca'))).toThrow('This box is locked for new members')
+
+        box.flipLock()
+        box.joinMember(new Member('juca'))
+
+        expect(box.totalMembers).toBe(1)
+    })
 })

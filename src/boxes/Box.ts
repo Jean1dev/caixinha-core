@@ -16,6 +16,7 @@ export class Box {
     private performance: PerformanceValue[]
     private loans: Loan[]
     private bankAccount: BankAccount
+    private loockedForNewMembers: boolean = false
 
     constructor() {
         this.members = []
@@ -30,6 +31,7 @@ export class Box {
         box.name = jsonBox.name
         box.members = jsonBox.members.map(member => Member.build({ name: member.name, email: member.email }))
         box.currentBalance = DecimalValue.from(jsonBox.currentBalance)
+        box.loockedForNewMembers = jsonBox.loockedForNewMembers || false
 
         box.deposits = jsonBox.deposits.map(deposit => {
             return new Deposit({
@@ -83,6 +85,10 @@ export class Box {
 
         box.validate(true)
         return box
+    }
+
+    public flipLock() {
+        this.loockedForNewMembers = !this.loockedForNewMembers
     }
 
     public recalculateBalance() {
@@ -153,6 +159,9 @@ export class Box {
         const alreadyExists = this.members.map(m => m.memberName).includes(member.memberName)
         if (alreadyExists)
             throw new DomainError('This member already join in that box')
+
+        if (this.loockedForNewMembers)
+            throw new DomainError('This box is locked for new members')
 
         this.members.push(member)
     }

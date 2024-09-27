@@ -238,6 +238,10 @@ export class Loan {
         return this.approved
     }
 
+    public get _value() {
+        return this.valueRequested.val
+    }
+
     public get value() {
         return this.valueRequested.val
     }
