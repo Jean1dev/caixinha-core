@@ -16,6 +16,7 @@ export class Box {
     private performance: PerformanceValue[]
     private loans: Loan[]
     private bankAccount: BankAccount
+    private loockedForNewMembers: boolean = false
 
     constructor() {
         this.members = []
@@ -30,6 +31,7 @@ export class Box {
         box.name = jsonBox.name
         box.members = jsonBox.members.map(member => Member.build({ name: member.name, email: member.email }))
         box.currentBalance = DecimalValue.from(jsonBox.currentBalance)
+        box.loockedForNewMembers = jsonBox.loockedForNewMembers || false
 
         box.deposits = jsonBox.deposits.map(deposit => {
             return new Deposit({
@@ -85,6 +87,28 @@ export class Box {
         return box
     }
 
+    public flipLock() {
+        this.loockedForNewMembers = !this.loockedForNewMembers
+    }
+
+    public recalculateBalance() {
+        const deposits = this.deposits.reduce((acc, deposit) => acc + deposit._value, 0)
+        const loansPayed = this.loans
+            .filter(loan => loan._isPaidOff)
+            .reduce((acc, loan) => {
+                const totalPayments = loan._payments.reduce((acc, payment) => acc + payment._value, 0)
+                return acc + totalPayments
+            }, 0)
+
+        const loans = this.loans
+            .filter(loan => loan.isApproved)
+            .reduce((acc, loan) => acc + loan.value, 0)
+
+        const performance = this.performance ? this.performance.reduce((acc, performance) => acc + performance._value.val, 0) : 0
+        const newTotal = (deposits - loans) + loansPayed + performance
+        this.currentBalance = DecimalValue.from(newTotal)
+    }
+
     public addPerformance(value: number) {
         const result = PerformanceValue.build(DecimalValue.from(value), new Date())
         if (!this.performance) {
@@ -135,6 +159,9 @@ export class Box {
         const alreadyExists = this.members.map(m => m.memberName).includes(member.memberName)
         if (alreadyExists)
             throw new DomainError('This member already join in that box')
+
+        if (this.loockedForNewMembers)
+            throw new DomainError('This box is locked for new members')
 
         this.members.push(member)
     }
@@ -206,5 +233,9 @@ export class Box {
 
     public get _members() {
         return this.members
+    }
+
+    public get _name() {
+        return this.name
     }
 }

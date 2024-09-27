@@ -2,6 +2,7 @@ import { RefusedReasonJson } from "../loans/loan.types"
 
 export interface BoxJsonType {
   _id: Id
+  loockedForNewMembers?: boolean
   members: MemberJson[]
   currentBalance: CurrentBalance
   deposits: any[]

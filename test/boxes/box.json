@@ -9,7 +9,7 @@
         },
         {
             "name": "jean",
-            "email": "jean@jean"
+            "email": "jean_fp@jean"
         }
     ],
     "currentBalance": {
@@ -24,7 +24,7 @@
             },
             "member": {
                 "name": "jean",
-                "email": "jean@jean"
+                "email": "jean_fp@jean"
             },
             "value": {
                 "value": 25

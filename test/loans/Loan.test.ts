@@ -4,7 +4,7 @@ import { Deposit } from '../../src/deposits/Deposit'
 import { Loan } from '../../src/loans/Loan'
 import { CreateLoanInput, FromBoxInput } from '../../src/loans/loan.types'
 import { Member } from '../../src/members/Member'
-import { getDataMenos30Dias } from '../testUtils'
+import { getDataMais30Dias } from '../testUtils'
 
 describe('Loan class test', () => {
     it('should be create succesfuly', () => {
@@ -27,12 +27,12 @@ describe('Loan class test', () => {
             valueRequested: 1000,
             interest: 5,
             box,
-            description: 'teste'
+            description: 'teste',
         }
 
         const loan = new Loan(input)
         expect(loan).not.toBe(null)
-        expect(loan.listOfBillingDates[0].getDate()).toBe(getDataMenos30Dias().getDate())
+        expect(loan.listOfBillingDates[0].getDate()).toBe(getDataMais30Dias().getDate())
 
         loan.addApprove(carlos)
         expect(false).toBe(loan.isApproved)
