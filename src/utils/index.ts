@@ -16,7 +16,7 @@ export function stringToDate(value: string | Date | undefined): Date {
     return new Date(value)
   }
 
-  return new Date(0)
+  return new Date()
 }
 
 export function getDifferenceBetweenDates(date1, date2, unit = 'days') {

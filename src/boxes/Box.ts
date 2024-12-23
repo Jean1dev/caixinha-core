@@ -57,7 +57,7 @@ export class Box {
                         member: Member.build({ name: loan.memberName, email: loan.member.email }),
                         value: p.value,
                         description: p.description,
-                        date: p.date
+                        date: new Date(p.date)
                     })
                 }),
                 memberName: loan.memberName,
