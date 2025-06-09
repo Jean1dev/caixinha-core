@@ -5,6 +5,7 @@ import CalculatePercentDevlopment from "./boxes/useCase/CalculatePercentDevlopme
 import GenerateCreditRisk from './loans/useCase/GenerateCreditRisk';
 import SuggestRenegotiationSimpleInterest from "./renegotiations/useCase/SuggestRenegotiation";
 import AcceptRenegotiation from "./renegotiations/useCase/AcceptRenegotiation";
+import GetInactiveMembers from "./boxes/useCase/GetInactiveMembers";
 
 export {
     CalculateInstallmentsValue,
@@ -13,5 +14,6 @@ export {
     CalculatePercentDevlopment,
     GenerateCreditRisk,
     SuggestRenegotiationSimpleInterest,
-    AcceptRenegotiation
+    AcceptRenegotiation,
+    GetInactiveMembers
 }
