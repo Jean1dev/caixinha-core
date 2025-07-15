@@ -148,4 +148,35 @@ describe('Box class test', () => {
 
         expect(box.totalMembers).toBe(1)
     })
+
+    it('should allow the owner to remove their loan and prevent others from removing it', () => {
+        const box = new Box()
+        const owner = Member.build({ name: 'owner', email: 'owner@email.com' })
+        const notOwner = Member.build({ name: 'notOwner', email: 'notowner@email.com' })
+        box.joinMember(owner)
+        box.joinMember(notOwner)
+        box.deposit(new Deposit({ member: owner, value: 100 }))
+
+        const input: CreateLoanInput = {
+            member: owner,
+            valueRequested: 50,
+            interest: 0,
+            box,
+            description: 'test loan',
+            installments: 1
+        }
+        const loan = new Loan(input)
+        loan.addApprove(owner)
+        box.makeLoan(loan)
+        expect(box._loans.length).toBe(1)
+
+        // Dono remove o empréstimo
+        box.memberTryRemoveLoan(owner, loan.UUID)
+        expect(box._loans.length).toBe(0)
+
+        // Adiciona novamente para testar não-dono
+        box.makeLoan(loan)
+        expect(() => box.memberTryRemoveLoan(notOwner, loan.UUID)).toThrow('You are not the owner of this loan')
+        expect(box._loans.length).toBe(1)
+    })
 })

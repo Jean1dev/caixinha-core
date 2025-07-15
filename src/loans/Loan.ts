@@ -96,6 +96,16 @@ export class Loan {
         return true
     }
 
+    public memberCanCanceledThisLoan(member: Member): boolean {
+        if (this._member._email !== member._email)
+            return false
+
+        if (this._isPaidOff || this.approved == false)
+            return true
+
+        return false
+    }
+
     public thisMemberCanCanceledThisLoan(): boolean {
         if (this._isPaidOff || this.approved == false)
             return true

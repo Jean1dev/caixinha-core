@@ -365,4 +365,38 @@ describe('Loan class test', () => {
         expect(mustBeFalse).toBe(false)
     })
 
+    it('should validate memberCanCanceledThisLoan logic', () => {
+        const box = new Box()
+        const owner = Member.build({ name: 'owner', email: 'owner@email.com' })
+        const notOwner = Member.build({ name: 'notOwner', email: 'notowner@email.com' })
+        box.joinMember(owner)
+        box.joinMember(notOwner)
+        box.deposit(new Deposit({ member: owner, value: 100 }))
+
+        const input: CreateLoanInput = {
+            member: owner,
+            valueRequested: 50,
+            interest: 0,
+            box,
+            description: 'test loan',
+            installments: 1
+        }
+        const loan = new Loan(input)
+
+        // Não aprovado, não quitado: dono pode cancelar
+        expect(loan.memberCanCanceledThisLoan(owner)).toBe(true)
+        // Não aprovado, não quitado: não-dono não pode cancelar
+        expect(loan.memberCanCanceledThisLoan(notOwner)).toBe(false)
+
+        // Aprova o empréstimo com ambos os membros
+        loan.addApprove(owner)
+        loan.addApprove(notOwner)
+        // Agora está aprovado, não quitado: dono não pode cancelar
+        expect(loan.memberCanCanceledThisLoan(owner)).toBe(false)
+
+        // Quitando o empréstimo via pagamento
+        loan.addPayment(new Payment({ member: owner, value: loan._totalValue }))
+        // Quitado: dono pode cancelar
+        expect(loan.memberCanCanceledThisLoan(owner)).toBe(true)
+    })
 })
