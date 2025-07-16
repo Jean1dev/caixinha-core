@@ -133,6 +133,15 @@ export class Box {
         this.members = this.members.filter(m => m._email !== member._email)
     }
 
+    public memberTryRemoveLoan(member: Member, uuid: string) {
+        const loan = this.getLoanByUUID(uuid)
+        if (!loan.memberCanCanceledThisLoan(member)) {
+            throw new DomainError('You are not the owner of this loan')
+        }
+
+        this.loans = this.loans.filter(l => l.UUID !== uuid)
+    }
+
     public removeLoan(uuid: string) {
         const loan = this.getLoanByUUID(uuid)
         this.loans = this.loans.filter(l => l.UUID !== uuid)
