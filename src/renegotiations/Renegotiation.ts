@@ -51,8 +51,25 @@ export class Renegotiation {
         return diffInDays
     }
 
+    private validateDelayedDays(errors: string[]) {
+        const lastDayForPay = this.oldLoan.lastDayForPay
+        const today = new Date()
+        
+        // Se a data de pagamento é no futuro, não é possível renegociar
+        if (today < lastDayForPay) {
+            errors.push("Loan is not late, it is not possible to renegotiate")
+            return
+        }
+        
+        // Se não é no futuro, verificar se os dias de atraso são maiores que 1
+        if (this.delayedDays < 1) {
+            errors.push("Loan is not late enough, it is not possible to renegotiate")
+        }
+    }
+
     public validate(throwIFException = false): string[] {
         const errors = []
+
         if (this.finishedAt) {
             errors.push("renegotiation is already finished")
         }
@@ -65,9 +82,7 @@ export class Renegotiation {
             errors.push("loan is not approved")
         }
 
-        if (this.delayedDays < 30) {
-            errors.push("Loan is not late, it is not possible to renegotiate")
-        }
+        this.validateDelayedDays(errors)
 
         if (throwIFException && errors.length > 0) {
             const errorMessage = errors.join(', ')

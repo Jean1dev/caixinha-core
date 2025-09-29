@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "test": "jest",
     "coverage": "jest --coverage",
-    "debug-test-script": "npx jest test/operations/GenerateBankStatement.test.ts"
+    "debug-test-script": "npx jest test/renegotiations/Renegotiation.test.ts"
   },
   "repository": {
     "type": "git",
