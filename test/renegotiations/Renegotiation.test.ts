@@ -125,6 +125,38 @@ describe('Renegotiation Test', () => {
             .toThrow('Loan is not late, it is not possible to renegotiate')
     })
 
+    it('cannot create renegotiation because loan payment date is in the future', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        box.joinMember(member)
+        const deposit = new Deposit({
+            member,
+            value: 1000
+        })
+
+        box.deposit(deposit)
+        
+        // Cria empréstimo com data futura (daqui a 5 dias)
+        const futureDate = new Date()
+        futureDate.setDate(futureDate.getDate() + 5)
+        
+        const input = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste',
+            date: futureDate
+        }
+
+        const loan = new Loan(input)
+        loan.addApprove(member)
+
+        expect(() =>
+            Renegotiation.create(loan))
+            .toThrow('Loan is not late, it is not possible to renegotiate')
+    })
+
     it('Should be create with success', () => {
         const { loan } = validLoanForRenegotiation()
         const o = Renegotiation.create(loan)
