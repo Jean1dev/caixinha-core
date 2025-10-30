@@ -293,4 +293,8 @@ export class Loan {
     public get lastDayForPay(): Date {
         return this.billingDates[this.billingDates.length - 1]
     }
+
+    public get totalPayments() {
+        return this.payments.reduce((acumulator, payment) => acumulator + payment._value, 0)
+    }
 }

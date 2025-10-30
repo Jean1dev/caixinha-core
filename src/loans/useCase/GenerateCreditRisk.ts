@@ -19,26 +19,25 @@ function getLastDayofPayment(loan: Loan): Date {
 }
 
 function getLateLoans(loans: Loan[]): Loan[] {
+    const today = new Date()
     return loans.filter(loan => {
-        const today = new Date()
         const lastDateForPay = loan.lastDayForPay
+        const hasPayments = loan._payments.length > 0
+        const totalPayments = loan.totalPayments
+        const fullyPaid = totalPayments >= loan._totalValue
 
-        if (loan._payments.length > 0) {
-            const dateLastPayment = getLastDayofPayment(loan)
-            if (dateLastPayment > lastDateForPay) {
-                return true
+        if (hasPayments) {
+            if (fullyPaid) {
+                const dateLastPayment = getLastDayofPayment(loan)
+                return dateLastPayment > lastDateForPay
             }
-
-            return false
+            return today > lastDateForPay
         }
-
-        if (today > lastDateForPay) {
-            return true
-        } else {
-            return false
-        }
+        return today > lastDateForPay
     })
 }
+
+export { getLateLoans };
 
 function getDiffOfDueLoansAndCompletedLoans(loans: Loan[], member: string): number {
     const completedLoans = loans
