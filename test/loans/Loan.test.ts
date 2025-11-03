@@ -399,4 +399,57 @@ describe('Loan class test', () => {
         // Quitado: dono pode cancelar
         expect(loan.memberCanCanceledThisLoan(owner)).toBe(true)
     })
+
+    it('should not allow payment on overdue loan', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        box.joinMember(member)
+        box.deposit(new Deposit({
+            member,
+            value: 1000
+        }))
+
+        const pastDate = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000)
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste',
+            date: pastDate
+        }
+
+        const loan = new Loan(input)
+        loan.addApprove(member)
+
+        expect(() => {
+            loan.addPayment(new Payment({ member, value: 950 }))
+        }).toThrow('Cannot make payment on overdue loan')
+    })
+
+    it('should allow payment on loan that is not overdue', () => {
+        const member = new Member('juca')
+        const box = new Box()
+        box.joinMember(member)
+        box.deposit(new Deposit({
+            member,
+            value: 1000
+        }))
+
+        const futureDate = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000)
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 950,
+            interest: 5,
+            box,
+            description: 'teste',
+            date: futureDate
+        }
+
+        const loan = new Loan(input)
+        loan.addApprove(member)
+        loan.addPayment(new Payment({ member, value: 950 }))
+
+        expect(loan._remainingAmount).toBeLessThan(950)
+    })
 })

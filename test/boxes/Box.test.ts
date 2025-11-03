@@ -69,16 +69,30 @@ describe('Box class test', () => {
     })
 
     it('should be abble to make payment from box json', () => {
-        const json = require('./efetuar-pagamento-box.json')
-        const box = Box.fromJson(json)
-
-        const loanUid = '930367ef-1363-44b3-99bb-1da0d8a0ca4b'
-        const currentBalance = box.balance
-
-        const loan = box.getLoanByUUID(loanUid)
-
-        const valuePayed = 4
+        const box = new Box()
         const member = Member.build({ name: 'jeanluca jeanlucajea', email: 'jeanlucafp@gmail.com' })
+        const member2 = new Member('teste')
+        box.joinMember(member)
+        box.joinMember(member2)
+        box.deposit(new Deposit({ member, value: 10 }))
+
+        const futureDate = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000)
+        const input: CreateLoanInput = {
+            member,
+            valueRequested: 4,
+            interest: 2,
+            box,
+            description: 'primeiro emprestimo',
+            date: futureDate
+        }
+
+        const loan = new Loan(input)
+        loan.addApprove(member)
+        loan.addApprove(member2)
+        box.makeLoan(loan)
+
+        const currentBalance = box.balance
+        const valuePayed = 4
         const payment = new Payment({ member, value: valuePayed, description: 'Pago via Caixinha web' })
         loan.addPayment(payment)
 
