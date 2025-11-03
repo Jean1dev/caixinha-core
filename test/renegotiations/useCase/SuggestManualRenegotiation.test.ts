@@ -38,7 +38,7 @@ describe('SuggestManualRenegotiation test', () => {
         expect(result.installmentOptions).toEqual([1, 2, 3, 4])
         expect(result.installmentOptions.length).toBe(4)
         expect(result.newInterestRate).toBe(0.05)
-        expect(result.newTotalValue).toBe(110)
+        expect(result.newTotalValue).toBe(105)
         expect(result.reason).toContain('manual renegotiation proposal')
         expect(result.reason).toContain('interest rate -> 5%')
     })
@@ -78,7 +78,7 @@ describe('SuggestManualRenegotiation test', () => {
         expect(result.installmentOptions).toEqual([1, 2, 3, 4])
         expect(result.installmentOptions.length).toBe(4)
         expect(result.newInterestRate).toBe(0.10)
-        expect(result.newTotalValue).toBe(225)
+        expect(result.newTotalValue).toBe(220)
         expect(result.reason).toContain('manual renegotiation proposal')
         expect(result.reason).toContain('interest rate -> 10%')
     })
@@ -118,8 +118,51 @@ describe('SuggestManualRenegotiation test', () => {
         expect(result.installmentOptions).toEqual([1, 2, 3, 4])
         expect(result.installmentOptions.length).toBe(4)
         expect(result.newInterestRate).toBe(0.025)
-        expect(result.newTotalValue).toBe(56.25)
+        expect(result.newTotalValue).toBe(51.25)
         expect(result.reason).toContain('manual renegotiation proposal')
         expect(result.reason).toContain('interest rate -> 2.5%')
+    })
+
+    it('should suggest manual renegotiation correctly with 2000 reais and 4.3% interest rate', () => {
+        const member = new Member('teste2000')
+        const box = new Box()
+        box.joinMember(member)
+    
+        const input = {
+            approved: true,
+            member,
+            date: getDataMenos30Dias().toString(),
+            totalValue: { value: 2000 },
+            valueRequested: { value: 2000 },
+            remainingAmount: { value: 2000 },
+            fees: { value: 0 },
+            interest: { value: 0 },
+            box,
+            description: 'teste2000',
+            approvals: 1,
+            memberName: member.memberName,
+            requiredNumberOfApprovals: 0,
+            billingDates: [ getDataMenos30Dias().toString() ],
+            uid: 'uid2000',
+            listOfMembersWhoHaveAlreadyApproved: [ member],
+            payments: []
+        }
+    
+        const loan = Loan.fromBox(input)
+        const reneg = Renegotiation.create(loan)
+
+        const result = SuggestManualRenegotiation(reneg, 4.3)
+        
+        expect(result.id).not.toBeNull()
+        expect(result.reason).not.toBeNull()
+        expect(result.installmentOptions).toEqual([1, 2, 3, 4])
+        expect(result.installmentOptions.length).toBe(4)
+        expect(result.newInterestRate).toBe(0.043)
+        expect(result.newTotalValue).toBe(2086)
+        expect(result.reason).toContain('manual renegotiation proposal')
+        expect(result.reason).toContain('interest rate -> 4.3%')
+        expect(result.reason).toContain('R$ 2000')
+        expect(result.reason).toContain('R$ 86.00')
+        expect(result.reason).toContain('R$ 2086.00')
     })
 })

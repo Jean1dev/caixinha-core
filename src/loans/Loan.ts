@@ -124,6 +124,10 @@ export class Loan {
         if (payment._value <= 0)
             throw new DomainError('Payment cannot be 0 or lower')
 
+        const today = new Date()
+        if (today > this.lastDayForPay)
+            throw new DomainError('Cannot make payment on overdue loan')
+
         this.payments.push(payment)
         this.box.sumInCurrentBalance(payment._value)
         this.calculateRemainingAmount()

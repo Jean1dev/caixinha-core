@@ -16,18 +16,18 @@ function calculateNewInterestRate(interestRate: number): number {
 export default function SuggestManualRenegotiation(entity: Renegotiation, interestRate: number): RenegotiationSuggestOutput {
     const member = entity.owner
     const loan = entity.originLoan
+    const updatedLoanValue = loan._remainingAmount
     const installmentOptions = [1, 2, 3, 4]
 
     const newInterestRate = calculateNewInterestRate(interestRate)
-    const increaseValue = 5 + (loan._totalValue * newInterestRate)
-    const newTax = newInterestRate * 100
-    const newTotalValue = loan._totalValue + increaseValue
+    const increaseValue = updatedLoanValue * newInterestRate
+    const newTotalValue = updatedLoanValue + increaseValue
 
     const reason = `
         ${member.memberName} manual renegotiation proposal
-        outstanding amount -> R$ ${loan._totalValue}
+        outstanding amount -> R$ ${updatedLoanValue}
         interest rate -> ${interestRate}%
-        increase value -> R$ ${newTax.toFixed(2)}
+        increase value -> R$ ${increaseValue.toFixed(2)}
         new total -> R$ ${newTotalValue.toFixed(2)}
         in up to ${installmentOptions.length} installments
     `
