@@ -17,19 +17,19 @@ function calculateNewInterestRate(risk: number): number {
 export default function SuggestRenegotiationSimpleInterest(entity: Renegotiation): RenegotiationSuggestOutput {
     const member = entity.owner
     const loan = entity.originLoan
+    const updatedLoanValue = loan._remainingAmount
     const risk = GenerateCreditRisk([loan], [member])[0]
     const installmentOptions = [1, 2, 3, 4, 5]
 
     const newInterestRate = calculateNewInterestRate(risk.risk)
-    const increaseValue = 5 + (loan._totalValue * newInterestRate)
-    const newTax = newInterestRate * 100
-    const newTotalValue = loan._totalValue + increaseValue
+    const increaseValue = updatedLoanValue * newInterestRate
+    const newTotalValue = updatedLoanValue + increaseValue
 
     const reason = `
         ${member.memberName} you have a credit risk of ${risk.risk}
         suggested proposal 
-        outstanding amount -> R$ ${loan._totalValue}
-        increase value -> R$ ${newTax.toFixed(2)}
+        outstanding amount -> R$ ${updatedLoanValue}
+        increase value -> R$ ${increaseValue.toFixed(2)}
         new total -> R$ ${newTotalValue.toFixed(2)}
         in up to ${installmentOptions.length} installments
     `
