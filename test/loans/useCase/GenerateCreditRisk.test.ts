@@ -97,6 +97,30 @@ describe('GenerateCreditRisk', () => {
         expect(getLateLoans([loan]).length).toBe(0)
     })
 
+    it('Should return risk 0 when loan is late but overdue by less than 24 hours', () => {
+        const member = Member.build({ name: 'C' })
+        const box = new DummyBox()
+        box.joinMember(member)
+        const justOverdue = new Date(Date.now() - 1000) // 1 second ago
+        const loan = new Loan({
+            member,
+            valueRequested: 100,
+            interest: 0,
+            box,
+            description: '',
+            date: new Date('2023-01-01'),
+            fees: 0,
+            skipValidate: true,
+            installments: 1
+        })
+        loan["payments"] = []
+        loan["totalValue"] = DecimalValue.from(100)
+        loan["billingDates"] = [justOverdue]
+        const result = GenerateCreditRisk([loan], [member])
+        expect(result.length).toBe(1)
+        expect(result[0].risk).toBe(0)
+    })
+
     it('Should not detect partially paid loan before due date', () => {
         const member = Member.build({ name: 'B' })
         const box = new DummyBox()
