@@ -73,6 +73,7 @@ function filterLateLoans(collection: Loan[], members: Member[]): { memberName: s
 }
 
 function calculateRisk(totalCompletedLoanMinusDueLoans: number, totalDaysLate: number) {
+    if (totalDaysLate === 0) return 0
     return (totalCompletedLoanMinusDueLoans / totalDaysLate) * 100
 }
 

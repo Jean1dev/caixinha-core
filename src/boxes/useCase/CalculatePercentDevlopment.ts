@@ -54,7 +54,12 @@ function calculateTotalLoanOnThisMonth(loans: Loan[]): number {
 }
 
 function calculateTotalInterestPercent(box: Box): number {
-    const total = box.balance
+    const total = box._deposits
+        .map(d => d._value)
+        .reduce((sum, value) => sum + value, 0)
+
+    if (total === 0) return 0
+
     const totalInterest = box._loans
         .filter(loa => loa._isPaidOff)
         .map(loan => {

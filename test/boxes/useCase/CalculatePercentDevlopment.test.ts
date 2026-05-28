@@ -45,7 +45,28 @@ describe('CalculatePercentDevlopment test', () => {
     it('should be calculate correctly', () => {
         const result = CalculatePercentDevlopment(box())
         expect(result.totalDepositsPercent).toBe(-20)
-        expect(result.totalInterestPercent.toFixed(2)).toBe("18.18")
+        expect(result.totalInterestPercent.toFixed(2)).toBe("22.22")
         expect(result.totalLoanCompletedPercent.toFixed(2)).toBe("66.67")
+    })
+
+    it('should calculate interest percent correctly when available balance is zero', () => {
+        const now = new Date()
+        const b = new Box()
+        const member = new Member('test member')
+        b.joinMember(member)
+
+        b.deposit(new Deposit({ member, value: 100, date: now }))
+
+        const loanA = new Loan({ box: b, interest: 10, member, valueRequested: 50 })
+        loanA.addApprove(member)
+        loanA.addPayment(new Payment({ member, value: 55 }))
+
+        const loanB = new Loan({ box: b, interest: 0, member, valueRequested: 105 })
+        loanB.addApprove(member)
+
+        expect(b.balance).toBe(0)
+
+        const result = CalculatePercentDevlopment(b)
+        expect(result.totalInterestPercent.toFixed(2)).toBe("5.00")
     })
 })
