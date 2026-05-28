@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/auto-version.sh",
+            "timeout": 30,
+            "statusMessage": "Bumping npm patch version..."
+          }
+        ]
+      }
+    ]
+  }
+}
