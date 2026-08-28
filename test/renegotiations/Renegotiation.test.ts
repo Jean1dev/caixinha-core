@@ -44,6 +44,48 @@ function validLoanForRenegotiation() {
     }
 }
 
+function installmentLoan({
+    billingDates,
+    paid = 0
+}: {
+    billingDates: Date[]
+    paid?: number
+}) {
+    const member = new Member('parcelado')
+    const box = new Box()
+    box.joinMember(member)
+
+    const input: FromBoxInput = {
+        approved: true,
+        member,
+        date: getDataMenos30Dias().toString(),
+        totalValue: { value: 300 },
+        valueRequested: { value: 300 },
+        remainingAmount: { value: 300 - paid },
+        fees: { value: 0 },
+        interest: { value: 0 },
+        box,
+        description: 'parcelado',
+        approvals: 1,
+        memberName: member.memberName,
+        requiredNumberOfApprovals: 0,
+        billingDates: billingDates.map(date => date.toISOString()),
+        uid: 'uid-installments',
+        listOfMembersWhoHaveAlreadyApproved: [member],
+        payments: paid > 0 ? [new Payment({ member, value: paid })] : [],
+        installments: billingDates.length
+    }
+
+    return Loan.fromBox(input)
+}
+
+function daysFromToday(days: number): Date {
+    const date = new Date()
+    date.setHours(12, 0, 0, 0)
+    date.setDate(date.getDate() + days)
+    return date
+}
+
 describe('Renegotiation Test', () => {
 
     it('cannot create renegotiation because loan already paid', () => {
@@ -154,6 +196,49 @@ describe('Renegotiation Test', () => {
 
         expect(() =>
             Renegotiation.create(loan))
+            .toThrow('Loan is not late, it is not possible to renegotiate')
+    })
+
+    it('allows renegotiation when the first unpaid installment is overdue and the last one is future', () => {
+        const loan = installmentLoan({
+            billingDates: [daysFromToday(-2), daysFromToday(28)]
+        })
+
+        expect(Renegotiation.create(loan)).toBeInstanceOf(Renegotiation)
+        expect(loan.isOverdue).toBe(true)
+        expect(loan.nextUnpaidBillingDate).toEqual(daysFromToday(-2))
+    })
+
+    it('does not allow renegotiation when payments cover the overdue installment', () => {
+        const loan = installmentLoan({
+            billingDates: [daysFromToday(-2), daysFromToday(28)],
+            paid: 150
+        })
+
+        expect(loan.isOverdue).toBe(false)
+        expect(loan.nextUnpaidBillingDate).toEqual(daysFromToday(28))
+        expect(() => Renegotiation.create(loan))
+            .toThrow('Loan is not late, it is not possible to renegotiate')
+    })
+
+    it('keeps a partially paid installment overdue', () => {
+        const loan = installmentLoan({
+            billingDates: [daysFromToday(-2), daysFromToday(28)],
+            paid: 100
+        })
+
+        expect(loan.isOverdue).toBe(true)
+        expect(loan.nextUnpaidBillingDate).toEqual(daysFromToday(-2))
+        expect(Renegotiation.create(loan)).toBeInstanceOf(Renegotiation)
+    })
+
+    it('does not consider an installment due today overdue', () => {
+        const loan = installmentLoan({
+            billingDates: [daysFromToday(0), daysFromToday(30)]
+        })
+
+        expect(loan.calculateOverdueDays()).toBe(0)
+        expect(() => Renegotiation.create(loan))
             .toThrow('Loan is not late, it is not possible to renegotiate')
     })
 

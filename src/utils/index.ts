@@ -38,3 +38,18 @@ export function getDifferenceBetweenDates(date1, date2, unit = 'days') {
         return null; // Unrecognized unit
     }
 }
+
+export function getCalendarDayNumber(date: Date, timeZone = 'America/Sao_Paulo'): number {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    }).formatToParts(date)
+
+    const year = Number(parts.find(part => part.type === 'year').value)
+    const month = Number(parts.find(part => part.type === 'month').value)
+    const day = Number(parts.find(part => part.type === 'day').value)
+
+    return Math.floor(Date.UTC(year, month - 1, day) / (24 * 60 * 60 * 1000))
+}

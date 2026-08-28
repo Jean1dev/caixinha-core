@@ -2,7 +2,7 @@ import { Box } from "../boxes/Box"
 import DomainError from "../error/DomainError"
 import { Member } from "../members/Member"
 import { Payment } from "../payment/Payment"
-import { generateUUID, stringToDate } from "../utils"
+import { generateUUID, getCalendarDayNumber, stringToDate } from "../utils"
 import { BankReceipt } from "../valueObjects/BankReceipt"
 import { DecimalValue } from "../valueObjects/DecimalValue"
 import { RefusedReason } from "./RefusedReason"
@@ -296,6 +296,51 @@ export class Loan {
 
     public get lastDayForPay(): Date {
         return this.billingDates[this.billingDates.length - 1]
+    }
+
+    public get nextUnpaidBillingDate(): Date | null {
+        if (!this.billingDates.length || this._isPaidOff) {
+            return null
+        }
+
+        const totalValueInCents = Math.round(this._totalValue * 100)
+        const totalPaidInCents = Math.round(this.totalPayments * 100)
+        if (totalPaidInCents >= totalValueInCents) {
+            return null
+        }
+
+        const regularInstallmentInCents = Math.round(totalValueInCents / this.billingDates.length)
+        let availablePaymentInCents = totalPaidInCents
+
+        for (let index = 0; index < this.billingDates.length; index++) {
+            const isLastInstallment = index === this.billingDates.length - 1
+            const installmentValueInCents = isLastInstallment
+                ? Math.max(totalValueInCents - regularInstallmentInCents * (this.billingDates.length - 1), 0)
+                : regularInstallmentInCents
+
+            if (availablePaymentInCents < installmentValueInCents) {
+                return this.billingDates[index]
+            }
+            availablePaymentInCents -= installmentValueInCents
+        }
+
+        return null
+    }
+
+    public calculateOverdueDays(today = new Date(), timeZone = 'America/Sao_Paulo'): number {
+        const nextUnpaidBillingDate = this.nextUnpaidBillingDate
+        if (!nextUnpaidBillingDate) {
+            return 0
+        }
+
+        return Math.max(
+            getCalendarDayNumber(today, timeZone) - getCalendarDayNumber(nextUnpaidBillingDate, timeZone),
+            0
+        )
+    }
+
+    public get isOverdue(): boolean {
+        return this.calculateOverdueDays() > 0
     }
 
     public get totalPayments() {
