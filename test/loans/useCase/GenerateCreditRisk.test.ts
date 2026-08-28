@@ -97,7 +97,7 @@ describe('GenerateCreditRisk', () => {
         expect(getLateLoans([loan]).length).toBe(0)
     })
 
-    it('Should return risk 0 when loan is late but overdue by less than 24 hours', () => {
+    it('Should not consider a loan overdue during its due calendar day', () => {
         const member = Member.build({ name: 'C' })
         const box = new DummyBox()
         box.joinMember(member)
@@ -117,8 +117,7 @@ describe('GenerateCreditRisk', () => {
         loan["totalValue"] = DecimalValue.from(100)
         loan["billingDates"] = [justOverdue]
         const result = GenerateCreditRisk([loan], [member])
-        expect(result.length).toBe(1)
-        expect(result[0].risk).toBe(0)
+        expect(result).toHaveLength(0)
     })
 
     it('Should not detect partially paid loan before due date', () => {
@@ -142,5 +141,35 @@ describe('GenerateCreditRisk', () => {
         futureDue.setFullYear(futureDue.getFullYear() + 1)
         loan["billingDates"] = [futureDue]
         expect(getLateLoans([loan]).length).toBe(0)
+    })
+
+    it('Should detect an active loan when an earlier installment is overdue', () => {
+        const member = Member.build({ name: 'installment-member' })
+        const box = new DummyBox()
+        const loan = new Loan({
+            member,
+            valueRequested: 100,
+            interest: 0,
+            box,
+            description: '',
+            date: new Date('2024-01-01'),
+            fees: 0,
+            skipValidate: true,
+            installments: 2
+        })
+        const overdueInstallment = new Date()
+        overdueInstallment.setDate(overdueInstallment.getDate() - 2)
+        const futureFinalInstallment = new Date()
+        futureFinalInstallment.setDate(futureFinalInstallment.getDate() + 30)
+        loan["payments"] = []
+        loan["totalValue"] = DecimalValue.from(100)
+        loan["billingDates"] = [overdueInstallment, futureFinalInstallment]
+
+        const result = GenerateCreditRisk([loan], [member])
+
+        expect(getLateLoans([loan])).toEqual([loan])
+        expect(result).toHaveLength(1)
+        expect(result[0].quantity).toBe(1)
+        expect(result[0].risk).toBeGreaterThan(0)
     })
 })

@@ -19,21 +19,13 @@ function getLastDayofPayment(loan: Loan): Date {
 }
 
 function getLateLoans(loans: Loan[]): Loan[] {
-    const today = new Date()
     return loans.filter(loan => {
         const lastDateForPay = loan.lastDayForPay
-        const hasPayments = loan._payments.length > 0
-        const totalPayments = loan.totalPayments
-        const fullyPaid = totalPayments >= loan._totalValue
-
-        if (hasPayments) {
-            if (fullyPaid) {
-                const dateLastPayment = getLastDayofPayment(loan)
-                return dateLastPayment > lastDateForPay
-            }
-            return today > lastDateForPay
+        if (loan._isPaidOff) {
+            return getLastDayofPayment(loan) > lastDateForPay
         }
-        return today > lastDateForPay
+
+        return loan.isOverdue
     })
 }
 
@@ -86,14 +78,14 @@ export default function GenerateCreditRisk(collection: Loan[], members: Member[]
         const lateLoans = getLateLoans(memberWithLoan.memberLoans)
         let totalDaysLate = 0
         lateLoans.forEach(loan => {
-            const lastDateForPay = loan.lastDayForPay
             let diff = 0
 
             if (loan._isPaidOff) {
+                const lastDateForPay = loan.lastDayForPay
                 diff = getDifferenceBetweenDates(getLastDayofPayment(loan), lastDateForPay)
                 messages.push(`Loan ${loan['description']} was payed outside a due date - ${diff} days`)
             } else {
-                diff = getDifferenceBetweenDates(new Date(), lastDateForPay)
+                diff = loan.calculateOverdueDays()
                 messages.push(`Loan ${loan.UUID} is late by ${diff} days`)
             }
 
