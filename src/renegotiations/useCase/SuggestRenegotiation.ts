@@ -1,4 +1,5 @@
 import { GenerateCreditRisk } from "../../useCase";
+import DomainError from "../../error/DomainError";
 import { generateUUID } from "../../utils";
 import { Renegotiation } from "../Renegotiation";
 
@@ -19,6 +20,9 @@ export default function SuggestRenegotiationSimpleInterest(entity: Renegotiation
     const loan = entity.originLoan
     const updatedLoanValue = loan._remainingAmount
     const risk = GenerateCreditRisk([loan], [member])[0]
+    if (!risk) {
+        throw new DomainError('Unable to calculate credit risk for overdue loan')
+    }
     const installmentOptions = [1, 2, 3, 4, 5]
 
     const newInterestRate = calculateNewInterestRate(risk.risk)
