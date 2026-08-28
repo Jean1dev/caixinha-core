@@ -1,15 +1,11 @@
 import DomainError from "../error/DomainError"
 import { Loan } from "../loans/Loan"
 import { Member } from "../members/Member"
-import { getDifferenceBetweenDates } from "../utils"
-import { DecimalValue } from "../valueObjects/DecimalValue"
 import { RenegotiationJsonType } from "./Renegotiation.types"
 
 export class Renegotiation {
     private createdAt: Date
     private finishedAt: Date
-    private newFees: DecimalValue
-    private installments: number
     private oldLoan: Loan
     private newLoan: Loan
     private status: 'PENDING' | 'FINISHED'
@@ -45,25 +41,12 @@ export class Renegotiation {
     }
 
     public calculateDelayedDays(): number {
-        const lastDayForPay = this.oldLoan.lastDayForPay
-        const today = new Date()
-        const diffInDays = getDifferenceBetweenDates(today, lastDayForPay)
-        return diffInDays
+        return this.oldLoan.calculateOverdueDays()
     }
 
     private validateDelayedDays(errors: string[]) {
-        const lastDayForPay = this.oldLoan.lastDayForPay
-        const today = new Date()
-        
-        // Se a data de pagamento é no futuro, não é possível renegociar
-        if (today < lastDayForPay) {
-            errors.push("Loan is not late, it is not possible to renegotiate")
-            return
-        }
-        
-        // Se não é no futuro, verificar se os dias de atraso são maiores que 1
         if (this.delayedDays < 1) {
-            errors.push("Loan is not late enough, it is not possible to renegotiate")
+            errors.push("Loan is not late, it is not possible to renegotiate")
         }
     }
 
