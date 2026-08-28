@@ -9,24 +9,24 @@ import { RefusedReason } from "./RefusedReason"
 import { CreateLoanInput, FromBoxInput } from "./loan.types"
 
 export class Loan {
-    private member: Member
-    private memberName: string
-    private date: Date
+    private readonly member: Member
+    private readonly memberName: string
+    private readonly date: Date
     private listOfMembersWhoHaveAlreadyApproved: Member[]
     private billingDates: Date[]
     private payments: Payment[]
-    private valueRequested: DecimalValue
+    private readonly valueRequested: DecimalValue
     private totalValue: DecimalValue
     private remainingAmount: DecimalValue
-    private box: Box
-    private interest: DecimalValue
-    private fees: DecimalValue
-    private requiredNumberOfApprovals: number
+    private readonly box: Box
+    private readonly interest: DecimalValue
+    private readonly fees: DecimalValue
+    private readonly requiredNumberOfApprovals: number
     private approvals: number
     private approved: boolean
-    private description: string
+    private readonly description: string
     private uid: string
-    private bankReceipt: BankReceipt
+    private readonly bankReceipt: BankReceipt
     private isPaidOff: boolean
     private installments: number
     private refusedReason: RefusedReason
