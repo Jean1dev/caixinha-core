@@ -57,6 +57,8 @@ export interface LoanBoxJson {
   isPaidOff?: boolean
   installments?: number
   refusedReason?: RefusedReasonJson
+  disbursed?: boolean
+  originLoanUid?: string
 }
 
 export interface ValueRequested {

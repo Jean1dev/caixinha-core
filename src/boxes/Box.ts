@@ -71,7 +71,9 @@ export class Box {
                     : [],
                 isPaidOff: loan.isPaidOff,
                 installments: loan.installments,
-                refusedReason: loan.refusedReason
+                refusedReason: loan.refusedReason,
+                disbursed: loan.disbursed,
+                originLoanUid: loan.originLoanUid
             })
         })
 
@@ -148,6 +150,21 @@ export class Box {
         this.sumInCurrentBalance(loan.value)
     }
 
+    public replaceLoanForRenegotiation(oldLoanUid: string, newLoan: Loan) {
+        const oldLoanIndex = this.loans.findIndex(loan => loan.UUID === oldLoanUid)
+        if (oldLoanIndex < 0) {
+            throw new DomainError('Loan not found')
+        }
+        if (!newLoan.isApproved) {
+            throw new DomainError('Renegotiated loan must be approved')
+        }
+        if (this.loans.some(loan => loan.UUID === newLoan.UUID)) {
+            throw new DomainError('Loan already exists')
+        }
+
+        this.loans.splice(oldLoanIndex, 1, newLoan)
+    }
+
     public getLoanByUUID(loanUUID: string): Loan {
         const loan = this.loans.find(l => l.UUID === loanUUID)
         if (!loan)
@@ -202,8 +219,20 @@ export class Box {
 
     public makeLoan(loan: Loan) {
         this.verifyIfMemberIsOnThisBox(loan._member)
-        this.loans.push(loan)
+        if (loan._isDisbursed) {
+            if (!this.loans.some(item => item.UUID === loan.UUID)) {
+                this.loans.push(loan)
+            }
+            return
+        }
+        if (loan.value > this.balance) {
+            throw new DomainError('box does not have enough funds')
+        }
+        if (!this.loans.some(item => item.UUID === loan.UUID)) {
+            this.loans.push(loan)
+        }
         this.currentBalance = DecimalValue.from(this.currentBalance.val - loan.value)
+        loan.markAsDisbursed()
     }
 
     public memberIsOnThisBox(member: Member): boolean {

@@ -30,6 +30,8 @@ export class Loan {
     private isPaidOff: boolean
     private installments: number
     private refusedReason: RefusedReason
+    private disbursed: boolean
+    private readonly originLoanUid?: string
 
     constructor(input: CreateLoanInput) {
         this.approved = false
@@ -44,6 +46,8 @@ export class Loan {
         this.payments = []
         this.uid = generateUUID()
         this.installments = input.installments
+        this.disbursed = false
+        this.originLoanUid = input.originLoanUid
 
         if (!input.skipValidate)
             this.validate(true)
@@ -54,6 +58,16 @@ export class Loan {
 
         this.generateBillingDates()
         this.calculateTotalValue()
+        this.calculateRemainingAmount()
+    }
+
+    public static createRenegotiated(input: CreateLoanInput, approvers: Member[]): Loan {
+        const loan = new Loan({ ...input, skipValidate: true })
+        loan.approved = true
+        loan.approvals = approvers.length
+        loan.listOfMembersWhoHaveAlreadyApproved = [...approvers]
+        loan.disbursed = false
+        return loan
     }
 
     public static fromBox(input: FromBoxInput): Loan {
@@ -65,7 +79,8 @@ export class Loan {
             box: input.box,
             description: input.description,
             skipValidate: true,
-            date: stringToDate(input.date)
+            date: stringToDate(input.date),
+            originLoanUid: input.originLoanUid
         })
 
         l.payments = input.payments
@@ -78,6 +93,7 @@ export class Loan {
         l.billingDates = input.billingDates.map(billDate => (new Date(billDate)))
         l.totalValue = DecimalValue.from(input?.totalValue?.value || 0)
         l.remainingAmount = DecimalValue.from(input?.remainingAmount?.value || 0)
+        l.disbursed = input.disbursed ?? input.approved
 
         if (input.refusedReason) {
             l.refusedReason = RefusedReason.fromJson(input.refusedReason)
@@ -345,5 +361,13 @@ export class Loan {
 
     public get totalPayments() {
         return this.payments.reduce((acumulator, payment) => acumulator + payment._value, 0)
+    }
+
+    public get _isDisbursed() {
+        return this.disbursed
+    }
+
+    public markAsDisbursed() {
+        this.disbursed = true
     }
 }

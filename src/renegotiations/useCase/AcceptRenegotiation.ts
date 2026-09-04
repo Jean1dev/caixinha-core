@@ -32,12 +32,12 @@ export default function AcceptRenegotiation(
         box,
         description: `Renegotiation ${today.getDate()}/${today.getMonth()}/${today.getFullYear()}`,
         installments: input.installmentOptions,
-        skipValidate: true
+        skipValidate: true,
+        originLoanUid: renegotiation.originLoan.UUID
     }
     
-    const newLoanEntity = createLoanAndAprove(newLoan)
-
-    removeOldLoanFromBox(renegotiation, box)
+    const newLoanEntity = Loan.createRenegotiated(newLoan, box._members)
+    box.replaceLoanForRenegotiation(renegotiation.originLoan.UUID, newLoanEntity)
 
     renegotiation.complete(newLoanEntity)
 
@@ -45,15 +45,6 @@ export default function AcceptRenegotiation(
         reneg: renegotiation,
         newLoan: newLoanEntity
     }
-}
-
-function createLoanAndAprove(input: CreateLoanInput): Loan {
-    const loan = new Loan(input)
-    input.box._members.forEach(m => {
-        loan.addApprove(m)
-    })
-
-    return loan
 }
 
 function applyValidations(renegotiation: Renegotiation, member: Member, input: RenegotiationSuggestInput) {
@@ -64,9 +55,5 @@ function applyValidations(renegotiation: Renegotiation, member: Member, input: R
     if (renegotiation.owner.memberName !== member.memberName) {
         throw new DomainError("You are not the owner of this loan")
     }
-}
-function removeOldLoanFromBox(renegotiation: Renegotiation, box: Box) {
-    const uuid = renegotiation.originLoan.UUID
-    box.removeLoan(uuid)
 }
 
