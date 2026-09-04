@@ -24,6 +24,8 @@ export interface FromBoxInput {
   isPaidOff?: boolean
   installments?: number
   refusedReason?: RefusedReasonJson
+  disbursed?: boolean
+  originLoanUid?: string
 }
 
 export interface RefusedReasonJson {
@@ -42,4 +44,5 @@ export interface CreateLoanInput {
   fees?: number
   skipValidate?: boolean
   installments?: number
+  originLoanUid?: string
 }

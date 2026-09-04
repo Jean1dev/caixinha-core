@@ -100,6 +100,24 @@ describe('Box class test', () => {
         expect(0.08000000000000007).toBe(loan._remainingAmount)
     })
 
+    it('revalidates funds and never disburses the same loan twice', () => {
+        const box = new Box()
+        const member = new Member('member')
+        box.joinMember(member)
+        box.deposit(new Deposit({ member, value: 100 }))
+        const loan = new Loan({ member, valueRequested: 80, interest: 0, box })
+        const anotherLoan = new Loan({ member, valueRequested: 30, interest: 0, box })
+
+        loan.addApprove(member)
+        expect(box.balance).toBe(20)
+        box.makeLoan(loan)
+        expect(box.balance).toBe(20)
+        expect(box._loans).toHaveLength(1)
+
+        expect(() => anotherLoan.addApprove(member)).toThrow('box does not have enough funds')
+        expect(box.balance).toBe(20)
+    })
+
     it('should be abble to add performance on box', () => {
         const box = new Box()
         box.addPerformance(7.5)

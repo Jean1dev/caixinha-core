@@ -1,4 +1,4 @@
-import { Box, Loan, Member, Renegotiation } from "../../../src"
+import { Box, Deposit, Loan, Member, Renegotiation } from "../../../src"
 import { AcceptRenegotiation } from "../../../src/useCase"
 import { getDataMenos30Dias } from "../../testUtils"
 
@@ -88,5 +88,26 @@ describe('AcceptRenegotiation Test', () => {
 
         expect(newLoan['installments']).toBe(3)
         expect(newLoan._totalValue).toBe(15)
+        expect(newLoan._remainingAmount).toBe(15)
+        expect(box.balance).toBe(0)
+    })
+
+    it.each([5, 10, 15])('does not move cash when replacing debt with %s', (newTotalValue) => {
+        const { loan, box, member } = validLoanForRenegotiation()
+        box['loans'] = [loan]
+        box.deposit(new Deposit({ member, value: 37.5 }))
+        const balanceBefore = box.balance
+
+        const { newLoan } = AcceptRenegotiation(
+            box,
+            Renegotiation.create(loan),
+            member,
+            { installmentOptions: 3, newTotalValue }
+        )
+
+        expect(box.balance).toBe(balanceBefore)
+        expect(box._loans).toEqual([newLoan])
+        expect(newLoan._remainingAmount).toBe(newTotalValue)
+        expect(newLoan._isDisbursed).toBe(false)
     })
 })
