@@ -53,3 +53,7 @@ export function getCalendarDayNumber(date: Date, timeZone = 'America/Sao_Paulo')
 
     return Math.floor(Date.UTC(year, month - 1, day) / (24 * 60 * 60 * 1000))
 }
+
+export function roundToCents(value: number): number {
+    return Math.round((value + Number.EPSILON) * 100) / 100
+}

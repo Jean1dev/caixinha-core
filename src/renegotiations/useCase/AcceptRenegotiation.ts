@@ -4,6 +4,7 @@ import { Loan } from "../../loans/Loan";
 import { CreateLoanInput } from "../../loans/loan.types";
 import { Member } from "../../members/Member";
 import { Renegotiation } from "../Renegotiation";
+import { roundToCents } from "../../utils";
 
 interface RenegotiationSuggestInput {
     newTotalValue: number
@@ -27,7 +28,7 @@ export default function AcceptRenegotiation(
     const today = new Date()
     const newLoan: CreateLoanInput = {
         member,
-        valueRequested: input.newTotalValue,
+        valueRequested: roundToCents(input.newTotalValue),
         interest: 0,
         box,
         description: `Renegotiation ${today.getDate()}/${today.getMonth()}/${today.getFullYear()}`,

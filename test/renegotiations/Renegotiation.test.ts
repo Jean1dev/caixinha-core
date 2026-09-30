@@ -232,6 +232,49 @@ describe('Renegotiation Test', () => {
         expect(Renegotiation.create(loan)).toBeInstanceOf(Renegotiation)
     })
 
+    it('treats an installment paid within the cent tolerance as paid', () => {
+        const loan = installmentLoan({
+            billingDates: [daysFromToday(-2), daysFromToday(28)],
+            paid: 149.22
+        })
+
+        expect(loan.isOverdue).toBe(false)
+        expect(loan.nextUnpaidBillingDate).toEqual(daysFromToday(28))
+        expect(loan._remainingAmount).toBeCloseTo(150.78)
+        expect(() => Renegotiation.create(loan))
+            .toThrow('Loan is not late, it is not possible to renegotiate')
+    })
+
+    it('keeps an installment overdue when the shortfall exceeds the tolerance', () => {
+        const loan = installmentLoan({
+            billingDates: [daysFromToday(-2), daysFromToday(28)],
+            paid: 148.99
+        })
+
+        expect(loan.isOverdue).toBe(true)
+        expect(loan.nextUnpaidBillingDate).toEqual(daysFromToday(-2))
+    })
+
+    it('applies the tolerance to each non-final installment independently', () => {
+        const loan = installmentLoan({
+            billingDates: [daysFromToday(-40), daysFromToday(-2), daysFromToday(28)],
+            paid: 199.5
+        })
+
+        expect(loan.isOverdue).toBe(false)
+        expect(loan.nextUnpaidBillingDate).toEqual(daysFromToday(28))
+    })
+
+    it('requires the full remaining amount on the last installment', () => {
+        const loan = installmentLoan({
+            billingDates: [daysFromToday(-40), daysFromToday(-2)],
+            paid: 299.22
+        })
+
+        expect(loan.isOverdue).toBe(true)
+        expect(loan.nextUnpaidBillingDate).toEqual(daysFromToday(-2))
+    })
+
     it('does not consider an installment due today overdue', () => {
         const loan = installmentLoan({
             billingDates: [daysFromToday(0), daysFromToday(30)]
