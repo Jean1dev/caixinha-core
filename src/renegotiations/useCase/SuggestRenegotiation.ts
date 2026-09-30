@@ -1,6 +1,6 @@
 import { GenerateCreditRisk } from "../../useCase";
 import DomainError from "../../error/DomainError";
-import { generateUUID } from "../../utils";
+import { generateUUID, roundToCents } from "../../utils";
 import { Renegotiation } from "../Renegotiation";
 
 interface RenegotiationSuggestOutput {
@@ -26,8 +26,8 @@ export default function SuggestRenegotiationSimpleInterest(entity: Renegotiation
     const installmentOptions = [1, 2, 3, 4, 5]
 
     const newInterestRate = calculateNewInterestRate(risk.risk)
-    const increaseValue = updatedLoanValue * newInterestRate
-    const newTotalValue = updatedLoanValue + increaseValue
+    const increaseValue = roundToCents(updatedLoanValue * newInterestRate)
+    const newTotalValue = roundToCents(updatedLoanValue + increaseValue)
 
     const reason = `
         ${member.memberName} you have a credit risk of ${risk.risk}

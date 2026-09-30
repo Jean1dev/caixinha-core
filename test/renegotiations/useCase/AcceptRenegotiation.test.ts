@@ -110,4 +110,20 @@ describe('AcceptRenegotiation Test', () => {
         expect(newLoan._remainingAmount).toBe(newTotalValue)
         expect(newLoan._isDisbursed).toBe(false)
     })
+
+    it('should round the renegotiated total to cents', () => {
+        const { loan, box, member } = validLoanForRenegotiation()
+        box['loans'] = [loan]
+        const { newLoan } = AcceptRenegotiation(
+            box,
+            Renegotiation.create(loan),
+            member,
+            {
+                installmentOptions: 5,
+                newTotalValue: 1478.87808
+            }
+        )
+
+        expect(newLoan._totalValue).toBe(1478.88)
+    })
 })

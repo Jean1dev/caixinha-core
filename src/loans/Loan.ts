@@ -8,6 +8,10 @@ import { DecimalValue } from "../valueObjects/DecimalValue"
 import { RefusedReason } from "./RefusedReason"
 import { CreateLoanInput, FromBoxInput } from "./loan.types"
 
+// Shortfall accepted on a non-final installment before it is treated as unpaid.
+// The difference stays in the remaining amount and is due with the last installment.
+export const INSTALLMENT_SHORTFALL_TOLERANCE_IN_CENTS = 100
+
 export class Loan {
     private readonly member: Member
     private readonly memberName: string
@@ -328,19 +332,15 @@ export class Loan {
         const regularInstallmentInCents = Math.round(totalValueInCents / this.billingDates.length)
         let availablePaymentInCents = totalPaidInCents
 
-        for (let index = 0; index < this.billingDates.length; index++) {
-            const isLastInstallment = index === this.billingDates.length - 1
-            const installmentValueInCents = isLastInstallment
-                ? Math.max(totalValueInCents - regularInstallmentInCents * (this.billingDates.length - 1), 0)
-                : regularInstallmentInCents
-
-            if (availablePaymentInCents < installmentValueInCents) {
+        const lastIndex = this.billingDates.length - 1
+        for (let index = 0; index < lastIndex; index++) {
+            if (availablePaymentInCents < regularInstallmentInCents - INSTALLMENT_SHORTFALL_TOLERANCE_IN_CENTS) {
                 return this.billingDates[index]
             }
-            availablePaymentInCents -= installmentValueInCents
+            availablePaymentInCents -= Math.min(availablePaymentInCents, regularInstallmentInCents)
         }
 
-        return null
+        return this.billingDates[lastIndex]
     }
 
     public calculateOverdueDays(today = new Date(), timeZone = 'America/Sao_Paulo'): number {

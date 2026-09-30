@@ -1,4 +1,4 @@
-import { generateUUID } from "../../utils";
+import { generateUUID, roundToCents } from "../../utils";
 import { Renegotiation } from "../Renegotiation";
 
 interface RenegotiationSuggestOutput {
@@ -20,8 +20,8 @@ export default function SuggestManualRenegotiation(entity: Renegotiation, intere
     const installmentOptions = [1, 2, 3, 4]
 
     const newInterestRate = calculateNewInterestRate(interestRate)
-    const increaseValue = updatedLoanValue * newInterestRate
-    const newTotalValue = updatedLoanValue + increaseValue
+    const increaseValue = roundToCents(updatedLoanValue * newInterestRate)
+    const newTotalValue = roundToCents(updatedLoanValue + increaseValue)
 
     const reason = `
         ${member.memberName} manual renegotiation proposal

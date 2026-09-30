@@ -70,4 +70,34 @@ describe('SuggestRenegotiationSimpleInterest test', () => {
         expect(result.newInterestRate).toBeGreaterThan(0)
         expect(result.newTotalValue).toBeGreaterThan(100)
     })
+
+    it('should round the suggested total to cents', () => {
+        const member = new Member('cents-member')
+        const box = new Box()
+        box.joinMember(member)
+
+        const loan = Loan.fromBox({
+            approved: true,
+            member,
+            date: getDataMenos30Dias().toString(),
+            totalValue: { value: 1234.57 },
+            valueRequested: { value: 1234.57 },
+            remainingAmount: { value: 1234.57 },
+            fees: { value: 0 },
+            interest: { value: 0 },
+            box,
+            description: 'cents loan',
+            approvals: 1,
+            memberName: member.memberName,
+            requiredNumberOfApprovals: 0,
+            billingDates: [getDataMenos30Dias().toString()],
+            uid: 'cents-loan',
+            listOfMembersWhoHaveAlreadyApproved: [member],
+            payments: []
+        })
+
+        const result = SuggestRenegotiationSimpleInterest(Renegotiation.create(loan))
+
+        expect(Math.round(result.newTotalValue * 100) / 100).toBe(result.newTotalValue)
+    })
 })
